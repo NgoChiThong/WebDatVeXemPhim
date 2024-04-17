@@ -1,10 +1,12 @@
 import './App.css';
-import Home from "./view/Home";
+import Booking from "./view/Booking";
+
+
 
 
 function App() {
   return (
-    <Home/>
+    <Booking/>
   );
 }
 
