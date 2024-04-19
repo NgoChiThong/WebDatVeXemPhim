@@ -1,12 +1,9 @@
 import './App.css';
-import Booking from "./view/Booking";
-
-
-
+import {Outlet, Route, Router, Routes} from "react-router-dom";
 
 function App() {
   return (
-    <Booking/>
+      <Outlet></Outlet>
   );
 }
 

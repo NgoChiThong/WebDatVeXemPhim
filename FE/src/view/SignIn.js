@@ -2,16 +2,17 @@ import React, {useEffect, useState} from "react";
 import Header from "./common/Header";
 import {loadScript} from "./utils";
 
+
 export function SignIn(){
     const [successMessage, setSuccessMessage] = useState('');
     useEffect(() => {
 
         const links = [
-            { rel: "stylesheet", type: "text/css", href: "assets/css/as-alert-message.min.css" },
+            // { rel: "stylesheet", type: "text/css", href: "assets/css/as-alert-message.min.css" },
             { rel: "stylesheet", type: "text/css", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" },
             { rel: "stylesheet", type: "text/css", href: "assets/css/style-starter.css" },
-            { rel: "stylesheet", type: "text/css", href: "assets/css/sign-in.css" },
-            { rel: "script", type: "text/javascript", href: "assets/js/as-alert-message.min.js" }, // Thêm dòng này
+            // { rel: "stylesheet", type: "text/css", href: "assets/css/sign-inn.css" },
+            // { rel: "script", type: "text/javascript", href: "assets/js/as-alert-message.min.js" }, // Thêm dòng này
         ];
         links.forEach((link) => {
             const element = document.createElement(link.rel === "script" ? "script" : "link");
@@ -123,7 +124,277 @@ export function SignIn(){
         margin-bottom: 8px;
     }
 }
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+* {
+\tbox-sizing: border-box;
+}
+
+body {
+\tbackground: var(--theme-bg);
+\t/* #f6f5f7; */
+\tdisplay: flex;
+\tjustify-content: center;
+\talign-items: center;
+\tflex-direction: column;
+\tfont-family: 'Montserrat', sans-serif;
+\theight: 100vh;
+\tmargin: -20px 0 50px;
+}
+
+h1 {
+\tfont-weight: bold;
+\tmargin: 0;
+}
+
+h2 {
+\ttext-align: center;
+}
+
+p {
+\tfont-size: 14px;
+\tfont-weight: 100;
+\tline-height: 20px;
+\tletter-spacing: 0.5px;
+\tmargin: 20px 0 30px;
+}
+
+span {
+\tfont-size: 12px;
+}
+
+a {
+\tcolor: #333;
+\tfont-size: 14px;
+\ttext-decoration: none;
+\tmargin: 15px 0;
+}
+
+button {
+\tborder-radius: 20px;
+\tborder: 1px solid #FF4B2B;
+\tbackground-color: #FF4B2B;
+\tcolor: #FFFFFF;
+\tfont-size: 12px;
+\tfont-weight: bold;
+\tpadding: 12px 45px;
+\tletter-spacing: 1px;
+\ttext-transform: uppercase;
+\ttransition: transform 80ms ease-in;
+}
+
+button:active {
+\ttransform: scale(0.95);
+}
+
+button:focus {
+\toutline: none;
+}
+
+button.ghost {
+\tbackground-color: transparent;
+\tborder-color: #FFFFFF;
+}
+
+form {
+\tbackground-color: var(--theme-bg);
+\t/* #FFFFFF; */
+\tdisplay: flex;
+\talign-items: center;
+\tjustify-content: center;
+\tflex-direction: column;
+\tpadding: 0 50px;
+\theight: 100%;
+\ttext-align: center;
+}
+
+input {
+\tbackground-color: var(--theme-bg);
+\tcolor: var(--theme-text);
+\t/* #eee; */
+\tborder: none;
+\tpadding: 12px 15px;
+\tmargin: 8px 0;
+\twidth: 100%;
+}
+
+.container_signup_signin {
+\tbackground: var(--theme-bg);
+\tcolor: var(--theme-text);
+\tborder-radius: 10px;
+\tbox-shadow: 0 14px 28px var(--theme-border),
+\t\t0 10px 10px var(--theme-border);
+\tposition: relative;
+\toverflow: hidden;
+\twidth: 768px;
+\tmax-width: 100%;
+\tmin-height: 480px;
+\tmargin-top: 45px;
+}
+
+.form-container {
+\tposition: absolute;
+\ttop: 0;
+\theight: 100%;
+\ttransition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+\tleft: 0;
+\twidth: 50%;
+\tz-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+\ttransform: translateX(100%);
+}
+
+.sign-up-container {
+\tleft: 0;
+\twidth: 50%;
+\topacity: 0;
+\tz-index: 1;
+}
+
+.container_signup_signin.right-panel-active .sign-up-container {
+\ttransform: translateX(100%);
+\topacity: 1;
+\tz-index: 5;
+\tanimation: show 0.6s;
+}
+
+@keyframes show {
+
+\t0%,
+\t49.99% {
+\t\topacity: 0;
+\t\tz-index: 1;
+\t}
+
+\t50%,
+\t100% {
+\t\topacity: 1;
+\t\tz-index: 5;
+\t}
+}
+
+.overlay-container {
+\tposition: absolute;
+\ttop: 0;
+\tleft: 50%;
+\twidth: 50%;
+\theight: 100%;
+\toverflow: hidden;
+\ttransition: transform 0.6s ease-in-out;
+\tz-index: 100;
+}
+
+.container_signup_signin.right-panel-active .overlay-container {
+\ttransform: translateX(-100%);
+}
+
+.overlay {
+\tbackground: #FF416C;
+\tbackground: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+\tbackground: linear-gradient(to right, #FF4B2B, #FF416C);
+\tbackground-repeat: no-repeat;
+\tbackground-size: cover;
+\tbackground-position: 0 0;
+\tcolor: #FFFFFF;
+\tposition: relative;
+\tleft: -100%;
+\theight: 100%;
+\twidth: 200%;
+\ttransform: translateX(0);
+\ttransition: transform 0.6s ease-in-out;
+}
+
+.container_signup_signin.right-panel-active .overlay {
+\ttransform: translateX(50%);
+}
+
+.overlay-panel {
+\tposition: absolute;
+\tdisplay: flex;
+\talign-items: center;
+\tjustify-content: center;
+\tflex-direction: column;
+\tpadding: 0 40px;
+\ttext-align: center;
+\ttop: 0;
+\theight: 100%;
+\twidth: 50%;
+\ttransform: translateX(0);
+\ttransition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+\ttransform: translateX(-20%);
+}
+
+.container_signup_signin.right-panel-active .overlay-left {
+\ttransform: translateX(0);
+}
+
+.overlay-right {
+\tright: 0;
+\ttransform: translateX(0);
+}
+
+.container_signup_signin.right-panel-active .overlay-right {
+\ttransform: translateX(20%);
+}
+
+.social-container {
+\tmargin: 20px 0;
+}
+
+.social-container a {
+\tborder: 1px solid #DDDDDD;
+\tborder-radius: 50%;
+\tdisplay: inline-flex;
+\tjustify-content: center;
+\talign-items: center;
+\tmargin: 0 5px;
+\theight: 40px;
+\twidth: 40px;
+}
+
+footer {
+\tbackground-color: #222;
+\tcolor: #fff;
+\tfont-size: 14px;
+\tbottom: 0;
+\tposition: fixed;
+\tleft: 0;
+\tright: 0;
+\ttext-align: center;
+\tz-index: 999;
+}
+
+footer p {
+\tmargin: 10px 0;
+}
+
+footer i {
+\tcolor: red;
+}
+
+footer a {
+\tcolor: #3c97bf;
+\ttext-decoration: none;
+}
+
+.fa-user-circle-o {
+\tfont-size: 2rem;
+\tdisplay: inline-block;
+\tposition: relative;
+\tcolor: var(--theme-nav);
+}
+
+/* .fa-user-circle-o:hover{
+\tcolor: var(--theme-rose);
+} */
 
     `;
 
