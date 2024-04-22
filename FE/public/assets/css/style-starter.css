@@ -19687,3 +19687,47 @@ button.closebtn {
   }
 }
 /* Loading ends */
+/* Định dạng chung cho nút */
+.theater-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f3ebeb;
+  color: #000;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Định dạng cho nút khi hover */
+.theater-btn:hover {
+  background-color: #f3ebeb;
+}
+
+/* Định dạng cho nút được chọn */
+.theater-btn.selected {
+  background-color: #df0e62;
+}
+
+/* Định dạng cho container chứa các nút */
+.theater-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Điều chỉnh khoảng cách giữa các nút */
+.theater-btn-container .theater-btn {
+  margin-right: 10px;
+}
+
+/* Định dạng cho danh sách các rạp chiếu */
+.theater-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Định dạng cho từng mục trong danh sách rạp chiếu */
+.theater-list li {
+  margin-bottom: 5px;
+}

@@ -20,22 +20,22 @@ function SeatBooking (){
                 const $ = window.$;
                 const price = 110; // Giá vé
 
-                const links = [
-                    { rel: "script", type: "text/javascript", href: "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" },
-                    { rel: "stylesheet", type: "text/css", href: "seat_selection/css/style.css" },
-                ];
+                // const links = [
+                //     { rel: "script", type: "text/javascript", href: "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" },
+                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/style.css" },
+                // ];
 
-                links.forEach((link) => {
-                    const element = document.createElement(link.rel === "script" ? "script" : "link");
-                    if (link.rel === "script") {
-                        element.src = link.href;
-                    } else {
-                        element.rel = link.rel;
-                        element.type = link.type;
-                        element.href = link.href;
-                    }
-                    document.head.appendChild(element);
-                });
+                // links.forEach((link) => {
+                //     const element = document.createElement(link.rel === "script" ? "script" : "link");
+                //     if (link.rel === "script") {
+                //         element.src = link.href;
+                //     } else {
+                //         element.rel = link.rel;
+                //         element.type = link.type;
+                //         element.href = link.href;
+                //     }
+                //     document.head.appendChild(element);
+                // });
 
                 $(document).ready(function () {
                     var $cart = $('#selected-seats'); // Vùng chỗ ngồi đã chọn
@@ -70,7 +70,7 @@ function SeatBooking (){
                             ]
                         },
                         click: function () { // Sự kiện khi click vào chỗ ngồi
-                            if (this.status() == 'available') { // Chỗ ngồi có thể chọn
+                            if (this.status() === 'available') { // Chỗ ngồi có thể chọn
                                 $('<li>R-' + (this.settings.row + 1) + ' S-' + this.settings.label + '</li>')
                                     .attr('id', 'cart-item-' + this.settings.id)
                                     .data('seatId', this.settings.id)
@@ -80,7 +80,7 @@ function SeatBooking (){
                                 $total.text(recalculateTotal(sc) + price);
 
                                 return 'selected';
-                            } else if (this.status() == 'selected') { // Đã chọn
+                            } else if (this.status() === 'selected') { // Đã chọn
                                 // Cập nhật số lượng vé
                                 $counter.text(sc.find('selected').length - 1);
                                 // Cập nhật tổng tiền
@@ -90,7 +90,7 @@ function SeatBooking (){
                                 $('#cart-item-' + this.settings.id).remove();
 
                                 return 'available';
-                            } else if (this.status() == 'unavailable') { // Đã bán
+                            } else if (this.status() === 'unavailable') { // Đã bán
                                 return 'unavailable';
                             } else {
                                 return this.style();

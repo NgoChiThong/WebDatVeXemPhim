@@ -62,10 +62,12 @@ export function MovieDetail(){
                                                                 className="ion-play"></i></a></div>
                                                         </div>
                                                         <div className="btn-transform transform-vertical">
+                                                            <Link to={'/booking'}>
                                                             <div><a href="#" className="item item-1 yellowbtn"> <i
                                                                 className="ion-card"></i> Buy ticket</a></div>
                                                             <div><a href="#" className="item item-2 yellowbtn"><i
                                                                 className="ion-card"></i></a></div>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>

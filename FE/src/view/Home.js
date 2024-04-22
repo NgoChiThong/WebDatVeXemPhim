@@ -28,7 +28,7 @@ export function Home(props){
                                         <h3 className="hny-title">Popular Movies</h3>
                                     </div>
                                     <div className="headerhny-right text-lg-right">
-                                        <h4><a className="show-title" href="movies.html">Show all</a></h4>
+                                        <h4><a className="show-title" href="#">Show all</a></h4>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@ export function Home(props){
                                 </div>
                                 <div className="item vhny-grid">
                                     <div className="box16">
-                                        <a href="movies.html">
+                                        <a href="#">
                                             <figure>
                                                 <img className="img-fluid" src="../assets/images/n2.jpg" alt=""></img>
                                             </figure>
@@ -75,7 +75,7 @@ export function Home(props){
                                 </div>
                                 <div className="item vhny-grid">
                                     <div className="box16">
-                                        <a href="movies.html">
+                                        <a href="#">
                                             <figure>
                                                 <img className="img-fluid" src="../assets/images/n3.jpg" alt=""></img>
                                             </figure>
@@ -85,7 +85,7 @@ export function Home(props){
 
 										</span>
 
-                                                    <span classNameName="post fa fa-heart text-right"></span>
+                                                    <span className="post fa fa-heart text-right"></span>
                                                 </h4>
                                             </div>
                                             <span className="fa fa-play video-icon" aria-hidden="true"></span>
@@ -94,7 +94,7 @@ export function Home(props){
                                 </div>
                                 <div className="item vhny-grid">
                                     <div className="box16">
-                                        <a href="movies.html">
+                                        <a href="#">
                                             <figure>
                                                 <img className="img-fluid" src="../assets/images/n4.jpg" alt=""></img>
                                             </figure>
