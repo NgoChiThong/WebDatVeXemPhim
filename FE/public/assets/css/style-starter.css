@@ -14494,8 +14494,8 @@ p.title-para {
 .dropdown-menu {
   border-radius: 6px;
   min-width: 13rem;
-  padding: 1rem 0;
-  margin-top: .7em;
+  /*padding: 1rem 0;*/
+  /*margin-top: .7em;*/
 }
 
 .w3l-header .navbar-nav .nav-link {
@@ -19730,4 +19730,38 @@ button.closebtn {
 /* Định dạng cho từng mục trong danh sách rạp chiếu */
 .theater-list li {
   margin-bottom: 5px;
+}
+
+.Login_SignUp {
+  position: relative;
+  display: inline-block;
+}
+
+.user-icon {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 170px;
+  padding: 8px 0;
+  z-index: 1;
+  border: 1px solid #ddd;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.login-signup:hover .dropdown-menu {
+  display: block;
 }

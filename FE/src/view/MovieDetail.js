@@ -30,6 +30,7 @@ export function MovieDetail(){
     }, []);
     return(
         <div>
+            <title>Chi tiết phim</title>
             <Helmet></Helmet>
             <Header></Header>
 

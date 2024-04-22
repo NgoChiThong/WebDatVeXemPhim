@@ -83,6 +83,7 @@ export function SignIn(){
         if (isValid) {
             setSuccessMessage(`Sign-in successful! Email: ${email}, Password: ${password}`);
             console.log(successMessage);
+            window.location.href = '/user';
 
             // Thêm logic xử lý đăng nhập ở đây, ví dụ: gọi API đăng nhập
 

@@ -3,7 +3,6 @@ import Header from './common/Header';
 import './utils.js';
 import {Helmet} from "react-helmet";
 import {useNavigate} from 'react-router-dom';
-import SeatSelector from "./common/Booking/SeatSelector";
 import {loadScript} from "./utils";
 
 export function Booking() {
@@ -239,6 +238,7 @@ export function Booking() {
 
 
     return (<div>
+        <title>Đặt vé</title>
         <Helmet></Helmet>
         <Header></Header>
         <div className="container" id="progress-container-id">
@@ -394,7 +394,7 @@ export function Booking() {
                                     <div className="main">
                                         <div className="demo">
                                             <div id="seat-map">
-                                            <div className="front">SCREEN</div>
+                                                <div className="front">SCREEN</div>
                                             </div>
                                             <div className="booking-details">
                                                 <ul className="book-left">

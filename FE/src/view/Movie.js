@@ -8,7 +8,7 @@ import HorizontalTab from "./common/Movie/HorizontalTab";
 export function Movie(props){
     return(
         <div>
-            <title>Movie</title>
+            <title>Danh sách phim</title>
             <Header></Header>
             {/*Popular Movies*/}
             <div className="w3l-breadcrumbs">

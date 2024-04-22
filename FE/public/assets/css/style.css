@@ -4778,13 +4778,13 @@ ul {
 }
 .user-hero {
   height: 385px;
-  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
+  background: url('../images/bga1.jpg') no-repeat;
 }
 .user-hero .hero-ct {
   padding-top: 225px;
 }
 .user-hero .hero-ct h1 {
-  margin-left: -120px;
+  /*margin-left: -120px;*/
 }
 .user-hero ul.breadcumb {
   text-align: left;
@@ -4921,7 +4921,8 @@ ul {
   margin-bottom: 30px;
 }
 .user-information ul {
-  padding: 0 25px;
+  /*padding: 0 25px;*/
+  margin-left: 12px;
 }
 .user-information ul li {
   margin-bottom: 15px;
@@ -5613,7 +5614,7 @@ ul {
 .user-pro h4 {
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
-  color: #ffffff;
+  /*color: #ffffff;*/
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 30px;
@@ -6904,4 +6905,21 @@ p.ceb-single {
     color: black;
   }
 }
+.form-input {
+  display: block; /* Để các input xuống dòng */
+  width: 100%; /* Đặt kích thước chiều rộng của input bằng 100% để kích thước bằng nhau */
+  margin-bottom: 10px; /* Thêm khoảng cách giữa các input */
+  padding: 8px; /* Đệm một chút để input dễ nhìn hơn */
+  box-sizing: border-box; /* Để kích thước của input bao gồm cả padding và border */
+}
+.form-it {
+  display: flex;
+  flex-direction: column;
+}
 
+.form-it input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+}

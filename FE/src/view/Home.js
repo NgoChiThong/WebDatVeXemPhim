@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 export function Home(props){
     return(
         <div>
-            <title>Home</title>
+            <title>Trang chủ</title>
             <Header></Header>
             <div>
                 <section className="w3l-main-slider position-relative" id="home">

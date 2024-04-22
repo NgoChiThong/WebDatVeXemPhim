@@ -7,6 +7,7 @@ import About from "../view/About";
 import Booking from "../view/Booking";
 import MovieDetail from "../view/MovieDetail";
 import Contact from "../view/Contact";
+import User from "../view/User";
 
 
 export const webRouter=createBrowserRouter([{
@@ -47,6 +48,10 @@ export const webRouter=createBrowserRouter([{
         {
             path: '/contact',
             element: <Contact/>
+        },
+        {
+            path: '/user',
+            element: <User/>
         },
 
     ]

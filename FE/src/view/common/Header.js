@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 export function Header() {
@@ -63,18 +63,15 @@ export function Header() {
                 <nav className="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
                     <div className="container">
                         <h1><Link to={'/'}><a className="navbar-brand"><span className="fa fa-play icon-log"
-                                                                                aria-hidden="true"></span>
+                                                                             aria-hidden="true"></span>
                             MyShowz</a></Link></h1>
-
                         <button className="navbar-toggler collapsed" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false"
                                 aria-label="Toggle navigation">
-
                             <span className="fa icon-expand fa-bars"></span>
                             <span className="fa icon-close fa-times"></span>
                         </button>
-
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
@@ -98,13 +95,10 @@ export function Header() {
                                     </NavLink>
                                 </li>
                             </ul>
-
-
                             <div className="search-right">
                                 <a href="#search" className="btn search-hny mr-lg-3 mt-lg-0 mt-4"
                                    title="search">Search <span
                                     className="fa fa-search ml-3" aria-hidden="true"></span></a>
-
                                 <div id="search" className="pop-overlay">
                                     <div className="popup">
                                         <form action="#" method="post" className="search-box">
@@ -138,19 +132,14 @@ export function Header() {
                                     </div>
                                     <a className="close" href="#close">×</a>
                                 </div>
-
-
                             </div>
                             <div className="Login_SignUp" id="login"
                                  style={loginStyle}>
                                 <Link to={'/signin'}>
                                     <a className="nav-link"><i className="fa fa-user-circle-o"></i></a>
                                 </Link>
-
-
                             </div>
                         </div>
-
                         <div className="mobile-position">
                             <nav className="navigation">
                                 <div className="theme-switch-wrapper">
@@ -168,7 +157,6 @@ export function Header() {
                 </nav>
             </header>
         </div>
-
     )
 }
 

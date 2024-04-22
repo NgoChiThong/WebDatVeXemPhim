@@ -22,6 +22,7 @@ export function Contact() {
     }, []);
     return(
         <div>
+            <title>Liên hệ</title>
             <Helmet></Helmet>
             <Header></Header>
             <div className="container">
