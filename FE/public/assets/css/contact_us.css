@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-    width: 70%;
+    /*width: 70%;*/
     margin: 0 auto;
     background: var(--theme-bg);
 }

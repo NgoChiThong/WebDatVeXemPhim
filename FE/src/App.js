@@ -1,10 +1,9 @@
 import './App.css';
-import Home from "./view/Home";
-
+import {Outlet, Route, Router, Routes} from "react-router-dom";
 
 function App() {
   return (
-    <Home/>
+      <Outlet></Outlet>
   );
 }
 

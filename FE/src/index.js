@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Route, RouterProvider, Routes} from "react-router-dom";
+import {webRouter} from "./Router/web";
+import Home from "./view/Home";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+      <RouterProvider router={webRouter}>
+          <switch>
+              <Routes>
+                  <Route path="/home">
+                      <Home></Home>
+                  </Route>
+              </Routes>
+          </switch>
+      </RouterProvider>
   </React.StrictMode>
 );
 
