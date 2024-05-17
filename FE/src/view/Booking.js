@@ -266,8 +266,9 @@ export function Booking() {
                                 <div id="screen-select-div">
                                     <h2>Show time Selection</h2>
                                     <div className="carousel carousel-nav"
-                                         data-flickity='{"contain": true, "pageDots": false }'>
-                                        <div className="carousel-cell" id="1" onClick={() => myFunction(1)}>
+
+                                    >
+                                        <div className="carousel-cell selected" id="1" onClick={() => myFunction(1)}>
                                             <div className="date-numeric">13</div>
                                             <div className="date-day">Today</div>
                                         </div>
