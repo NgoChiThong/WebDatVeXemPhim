@@ -91,8 +91,7 @@ const BannerSlider = () => {
     const movie2 = movies[1] || {};
     const movie3 = movies[2] || {};
 
-    // const descriptionWords = movie1.movieDescription.split(' ');
-    // const truncatedDescription = descriptionWords.slice(0, 50).join(' ');
+
     return <div>
         <div className="owl-one owl-carousel owl-theme">
             <div className="item">
