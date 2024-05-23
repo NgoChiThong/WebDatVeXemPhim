@@ -22,7 +22,7 @@ function SeatBooking (){
 
                 // const links = [
                 //     { rel: "script", type: "text/javascript", href: "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" },
-                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/style.css" },
+                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/stylet.css" },
                 // ];
 
                 // links.forEach((link) => {

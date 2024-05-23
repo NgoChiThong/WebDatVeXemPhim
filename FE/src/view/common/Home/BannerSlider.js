@@ -59,6 +59,7 @@ const BannerSlider = () => {
                     }
                 });
             });
+
             $(document).ready(function () {
                 $('.popup-with-zoom-anim').magnificPopup({
                     type: 'inline',
@@ -85,98 +86,45 @@ const BannerSlider = () => {
                 });
             });
         }
-    }, [loading]);
+    }, [loading, movies]);
 
-    const movie1 = movies[0] || {};
-    const movie2 = movies[1] || {};
-    const movie3 = movies[2] || {};
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-
-    return <div>
-        <div className="owl-one owl-carousel owl-theme">
-            <div className="item">
-                <li>
-                    <div className="slider-info banner-view bg bg2"
-                         style={{backgroundImage: `url(${movie1.moviePoster})`}}>
-                        <div className="banner-info">
-                            <h3>{movie1.movieName}</h3>
-                            <p>  {movie1.movieDescription ? movie1.movieDescription.substring(0, 70) : ''}<span
-                                className="over-para">
-										.</span></p>
-                            <a href="#small-dialog1" className="popup-with-zoom-anim play-view1">
-									<span className="video-play-icon">
-										<span className="fa fa-play"></span>
-									</span>
-                                <h6>Watch Trailer</h6>
-                            </a>
-                            <div id="small-dialog1" className="zoom-anim-dialog mfp-hide">
-                                <iframe width="560" height="315"
-                                        src={movie1.movieTrailer}
-                                        title="YouTube video player" frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+    return (
+        <div>
+            <div className="owl-one owl-carousel owl-theme">
+                {movies.map((movie, index) => (
+                    <div className="item" key={index}>
+                        <li>
+                            <div className="slider-info banner-view bg bg2"
+                                 style={{ backgroundImage: `url(${movie.moviePoster})` }}>
+                                <div className="banner-info">
+                                    <h3>{movie.movieName}</h3>
+                                    <p>{movie.movieDescription ? movie.movieDescription.substring(0, 70) : ''}<span
+                                        className="over-para">.</span></p>
+                                    <a href={`#small-dialog${index}`} className="popup-with-zoom-anim play-view1">
+                                        <span className="video-play-icon">
+                                            <span className="fa fa-play"></span>
+                                        </span>
+                                        <h6>Watch Trailer</h6>
+                                    </a>
+                                    <div id={`#small-dialog${index}`} className="zoom-anim-dialog mfp-hide">
+                                        <iframe width="560" height="315"
+                                                src={movie.movieTrailer}
+                                                title="YouTube video player" frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
+                        </li>
                     </div>
-                </li>
-            </div>
-            <div className="item">
-                <li>
-                    <div className="slider-info banner-view bg bg2"
-                         style={{backgroundImage: `url(${movie2.moviePoster})`}}>
-                        <div className="banner-info">
-                            <h3>{movie2.movieName}</h3>
-                            <p>  {movie2.movieDescription ? movie2.movieDescription.substring(0, 70) : ''}<span
-                                className="over-para">
-										.</span></p>
-                            <a href="#small-dialog1" className="popup-with-zoom-anim play-view1">
-									<span className="video-play-icon">
-										<span className="fa fa-play"></span>
-									</span>
-                                <h6>Watch Trailer</h6>
-                            </a>
-                            <div id="small-dialog1" className="zoom-anim-dialog mfp-hide">
-                                <iframe width="560" height="315"
-                                        src={movie2.movieTrailer}
-                                        title="YouTube video player" frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div className="item">
-                <li>
-                    <div className="slider-info banner-view bg bg2"
-                         style={{backgroundImage: `url(${movie3.moviePoster})`}}>
-                        <div className="banner-info">
-                            <h3>{movie3.movieName}</h3>
-                            <p>  {movie3.movieDescription ? movie3.movieDescription.substring(0, 70) : ''}<span
-                                className="over-para">
-										.</span></p>
-                            <a href="#small-dialog1" className="popup-with-zoom-anim play-view1">
-									<span className="video-play-icon">
-										<span className="fa fa-play"></span>
-									</span>
-                                <h6>Watch Trailer</h6>
-                            </a>
-                            <div id="small-dialog1" className="zoom-anim-dialog mfp-hide">
-                                <iframe width="560" height="315"
-                                        src={movie3.movieTrailer}
-                                        title="YouTube video player" frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
+                ))}
             </div>
         </div>
-    </div>;
+    );
 };
 
 export default BannerSlider;

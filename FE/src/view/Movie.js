@@ -1,9 +1,7 @@
 import React from "react";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
-import PopularMoive from "./common/Movie/PopularMoive";
 import LatestMovie from "./common/Movie/LatestMovie";
-import HorizontalTab from "./common/Movie/HorizontalTab";
 
 export function Movie(props){
     return(
@@ -19,9 +17,9 @@ export function Movie(props){
                     </div>
                 </nav>
             </div>
-            <PopularMoive></PopularMoive>
+            {/*<PopularMoive></PopularMoive>*/}
             <LatestMovie></LatestMovie>
-            <HorizontalTab></HorizontalTab>
+            {/*<HorizontalTab></HorizontalTab>*/}
             <Footer></Footer>
         </div>
     );

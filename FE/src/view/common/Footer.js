@@ -34,71 +34,48 @@ export function Footer(){
                         <div className="container py-lg-4">
                             <div className="text-txt">
                                 <div className="right-side">
-                                    <div className="row footer-about">
-                                        <div className="col-md-3 col-6 footer-img mb-lg-0 mb-4">
-                                            <a href="movies.html"><img className="img-fluid"
-                                                                       src="assets/images/banner1.jpg"
-                                                                       alt=""/></a>
-                                        </div>
-                                        <div className="col-md-3 col-6 footer-img mb-lg-0 mb-4">
-                                            <a href="movies.html"><img className="img-fluid"
-                                                                       src="assets/images/banner2.jpg"
-                                                                       alt=""/></a>
-                                        </div>
-                                        <div className="col-md-3 col-6 footer-img mb-lg-0 mb-4">
-                                            <a href="movies.html"><img className="img-fluid"
-                                                                       src="assets/images/banner3.jpg"
-                                                                       alt=""/></a>
-                                        </div>
-                                        <div className="col-md-3 col-6 footer-img mb-lg-0 mb-4">
-                                            <a href="movies.html"><img className="img-fluid"
-                                                                       src="assets/images/banner4.jpg"
-                                                                       alt=""/></a>
-                                        </div>
-                                    </div>
+
                                     <div className="row footer-links">
                                         <div className="col-md-3 col-sm-6 sub-two-right mt-5">
-                                            <h6>Movies</h6>
+                                            <h6>Phim</h6>
                                             <ul>
-                                                <li><a href="Contact_Us.html">Movies</a></li>
-                                                <li><a href="Contact_Us.html">Videos</a></li>
-                                                <li><a href="Contact_Us.html">English Movies</a></li>
-                                                <li><a href="Contact_Us.html">Tailor</a></li>
-                                                <li><a href="Contact_Us.html">Upcoming Movies</a></li>
-                                                <li><a href="Contact_Us.html">Contact Us</a></li>
+                                                <li><a style={{color: "white"}} href="#">Phim đang chiếu</a></li>
+                                                <li><a style={{color: "white"}} href="#">Phim sắp chiếu</a></li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6 sub-two-right mt-5">
-                                            <h6>Information</h6>
+                                            <h6>Thông tin</h6>
                                             <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about.html">About</a></li>
-                                                <li><a href="Contact_Us.html">Tv Series</a></li>
-                                                <li><a href="Contact_Us.html">Blogs</a></li>
-                                                <li><a href="sign_in.html">Login</a></li>
-                                                <li><a href="Contact_Us.html">Contact</a></li>
+                                                <li><a style={{color: "white"}} href="#">Trang chủ</a></li>
+                                                <li><a style={{color: "white"}} href="#"a>Giới thiệu</a></li>
+                                                <li><a style={{color: "white"}} href="#">Liên hệ</a></li>
+                                                <li><a style={{color: "white"}} href="#">Chính sách</a></li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6 sub-two-right mt-5">
-                                            <h6>Locations</h6>
+                                            <h6>Chăm sóc khách hàng</h6>
                                             <ul>
-                                                <li><a href="movies.html">Asia</a></li>
-                                                <li><a href="movies.html">France</a></li>
-                                                <li><a href="movies.html">Taiwan</a></li>
-                                                <li><a href="movies.html">United States</a></li>
-                                                <li><a href="movies.html">Korea</a></li>
-                                                <li><a href="movies.html">United Kingdom</a></li>
+                                                <li>
+                                                    <h7 style={{color: "white"}}>Hotline: 1900 6017.</h7>
+                                                </li>
+                                                <li>
+                                                    <h7 style={{color: "white"}}>Giờ làm việc: 8:00 - 22:00 (Tất cả các
+                                                        ngày bao gồm cả Lễ Tết).
+                                                    </h7>
+                                                </li>
+                                                <li>
+                                                    <h7 style={{color: "white"}}>Email hỗ trợ: hoidap@myshowz.vn</h7>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6 sub-two-right mt-5">
-                                            <h6>Newsletter</h6>
+                                            <h6>Đăng ký nhận thông tin</h6>
                                             <form action="#" className="subscribe mb-3" method="post">
-                                                <input type="email" name="email" placeholder="Your Email Address"
+                                                <input type="email" name="email" placeholder="Email của bạn"
                                                        required=""/>
                                                 <button><span className="fa fa-envelope-o"></span></button>
                                             </form>
-                                            <p>Enter your email and receive the latest news, updates and special offers
-                                                from us.
+                                            <p style={{color: "white"}}>Đăng ký để nhận thông tin mới nhất từ chúng tôi!!!
                                             </p>
                                         </div>
                                     </div>
@@ -111,31 +88,31 @@ export function Footer(){
                         <div className="container">
                             <div className="copyright-footer">
                                 <div className="columns text-lg-left">
-                                    <p>&copy; 2021 MyShowz. All rights reserved</p>
+                                    <p>&copy; 2024 MyShowz. All rights reserved.</p>
                                 </div>
 
                                 <ul className="social text-lg-right">
                                     <li>
-                                        <a href="google">
+                                        <a href="https://www.facebook.com">
                                             <span className="fa fa-facebook" aria-hidden="true"></span>
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="google">
+                                        <a href="https://www.linkedin.com/">
                                             <span className="fa fa-linkedin" aria-hidden="true"></span>
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="google">
+                                        <a href="https://x.com/">
                                             <span className="fa fa-twitter" aria-hidden="true"></span>
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="google">
-                                            <span className="fa fa-google-plus" aria-hidden="true"></span>
+                                        <a href="https://www.instagram.com/">
+                                            <span className="fa fa-instagram" aria-hidden="true"></span>
                                         </a>
                                     </li>
 

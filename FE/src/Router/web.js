@@ -53,6 +53,10 @@ export const webRouter=createBrowserRouter([{
             path: '/user',
             element: <User/>
         },
+        {
+            path: '/detail/:id',
+            element: <MovieDetail/>
+        }
 
     ]
 }]);

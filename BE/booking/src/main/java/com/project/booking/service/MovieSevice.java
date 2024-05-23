@@ -20,7 +20,12 @@ public class MovieSevice {
     MovieRepository movieRepository;
 
     public ResponseData<Movie> getAllMovie(){
-        return new ResponseData(HttpStatus.OK, "success", movieRepository.findAll());
+        List<Movie> rs = movieRepository.getAllMovies();
+        if(CollectionUtils.isEmpty(rs)){
+            return new ResponseData(HttpStatus.NOT_FOUND, "failed", null);
+        }else{
+            return new ResponseData(HttpStatus.OK, "success",rs);
+        }
     }
 
     public ResponseData<Movie> getMoviesNow(){
@@ -39,5 +44,13 @@ public class MovieSevice {
         }else{
             return new ResponseData(HttpStatus.OK, "success", rs);
         }
+    }
+    public ResponseData<Movie> getMovieById(Integer movieId) {
+//       Movie movie = new Movie(null, null, null, null, null, null, null, null, null);
+    	 Movie movie = movieRepository.findMovieById(movieId);
+        if (movie == null) {
+            return new ResponseData<>(HttpStatus.NOT_FOUND, "Movie not found", null);
+        }
+        return new ResponseData<>(HttpStatus.OK, "success", movie);
     }
 }

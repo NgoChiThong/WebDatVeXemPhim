@@ -44,7 +44,7 @@ export function Booking() {
         const link7 = document.createElement("link");
         link7.rel = "stylesheet";
         link7.type = "text/css";
-        link7.href = "seat_selection/css/style.css";
+        link7.href = "seat_selection/css/stylet.css";
 
         const script1 = document.createElement("script");
         script1.src = "https://npmcdn.com/flickity@2/dist/flickity.pkgd.js";
@@ -91,7 +91,7 @@ export function Booking() {
 
                 // const links = [
                 //     { rel: "script", type: "text/javascript", href: "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" },
-                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/style.css" },
+                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/stylet.css" },
                 // ];
 
                 // links.forEach((link) => {

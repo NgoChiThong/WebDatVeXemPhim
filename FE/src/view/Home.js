@@ -71,7 +71,7 @@ export function Home(props){
                                 {movies.map((movie) => (
                                 <div className="item vhny-grid" key={movie.movieId}>
                                     <div className="box16">
-                                        <Link to={'/detail'}>
+                                        <Link to={`/detail/${movie.movieId}`}>
                                         <a>
                                             <figure>
                                                 <img className="img-fluid" src={movie.moviePoster} alt={movie.movieName}></img>

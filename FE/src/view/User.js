@@ -14,13 +14,13 @@ export function User(){
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.type = "text/css";
-        link.href = "assets/css/style.css";
+        link.href = "assets/css/stylet.css";
         document.head.appendChild(link);
 
         const link2 = document.createElement("link");
         link2.rel = "stylesheet";
         link2.type = "text/css";
-        link2.href = "assets/css/plugins.css";
+        link2.href = "assets/css/pluginst.css";
         document.head.appendChild(link2);
 
         return () => {
