@@ -12,8 +12,8 @@ export function Movie(props){
             <div className="w3l-breadcrumbs">
                 <nav id="breadcrumbs" className="breadcrumbs">
                     <div className="container page-wrapper">
-                        <a href="index.html">Home</a> » <span className="breadcrumb_last"
-                                                              aria-current="page">movies</span>
+                        <a href="#">Trang chủ</a> » <span className="breadcrumb_last"
+                                                              aria-current="page">Phim</span>
                     </div>
                 </nav>
             </div>

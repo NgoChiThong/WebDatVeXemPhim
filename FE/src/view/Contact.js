@@ -12,7 +12,7 @@ export function Contact() {
         document.head.appendChild(link);
 
         const script = document.createElement("script");
-        script.src = "assets/js/contact-us.js";
+        script.src = "/assets/js/contact-us.js";
         document.head.appendChild(script);
 
         return () => {
@@ -26,10 +26,9 @@ export function Contact() {
             <Helmet></Helmet>
             <Header></Header>
             <div className="container">
-                <h4>Contact Us</h4>
-                <h3>Leave a Message</h3>
-                <p>If you have a question regarding our services,
-                    feel free to contact us using the form below.</p>
+                <h4>Liên hệ với chúng tôi</h4>
+                <h3>Hãy để lại lời nhắn và câu hỏi</h3>
+                <p>Những ý kiến đóng góp và câu hỏi của bạn là động lực để chúng tôi phát triển và hoàn thiện hơn</p>
 
                 <form name="contact-us-form" action="#" onSubmit="return validateForm()">
                     <div className="row100" id="fname-row100">

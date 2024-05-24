@@ -101,7 +101,7 @@ const LatestMovie = () => {
                                 </a>
                                  {/* Modal */}
                                 <div  className={`modal fade Commando3-${movie.movieId}`} id={`modal-${movie.movieId}`} tabIndex="-1" role="dialog"
-                                     aria-hidden="true" style={{paddingTop: "300px"}}>
+                                     aria-hidden="true" style={{paddingTop: "100px"}}>
                                     <div className="modal-dialog" role="document">
                                         <div className="modal-content" id={movie.movieId}>
                                             <div className="modal-header">

@@ -2,34 +2,37 @@ import React, {useEffect, useState} from 'react';
 import Header from './common/Header';
 import './utils.js';
 import {Helmet} from "react-helmet";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {loadScript} from "./utils";
 
 export function Booking() {
+    const { id } = useParams();
+
     const $ = window.$;
     const price = 110; // Giá vé
     const [prevId, setPrevId] = useState("1");
     const [isScreenNextBtnDisabled, setScreenNextBtnDisabled] = useState(true);
+
     useEffect(() => {
         const link1 = document.createElement("link");
         link1.rel = "stylesheet";
         link1.type = "text/css";
-        link1.href = "assets/css/progress.css";
+        link1.href = "/assets/css/progress.css";
 
         const link2 = document.createElement("link");
         link2.rel = "stylesheet";
         link2.type = "text/css";
-        link2.href = "assets/css/ticket-booking.css";
+        link2.href = "/assets/css/ticket-booking.css";
 
         const link3 = document.createElement("link");
         link3.rel = "stylesheet";
         link3.type = "text/css";
-        link3.href = "assets/css/e-ticket.css";
+        link3.href = "/assets/css/e-ticket.css";
 
         const link4 = document.createElement("link");
         link4.rel = "stylesheet";
         link4.type = "text/css";
-        link4.href = "assets/css/payment.css";
+        link4.href = "/assets/css/payment.css";
 
         const link5 = document.createElement("link");
         link5.rel = "stylesheet";
@@ -44,20 +47,20 @@ export function Booking() {
         const link7 = document.createElement("link");
         link7.rel = "stylesheet";
         link7.type = "text/css";
-        link7.href = "seat_selection/css/stylet.css";
+        link7.href = "/assets/seat_selection/css/style.css";
 
         const script1 = document.createElement("script");
         script1.src = "https://npmcdn.com/flickity@2/dist/flickity.pkgd.js";
 
         const script2 = document.createElement("script");
-        script2.src = "assets/js/ticket-booking.js";
+        script2.src = "/assets/js/ticket-booking.js";
 
         const script3 = document.createElement("script");
-        script3.src = "assets/js/jquery.seat-charts.js";
+        script3.src = "/assets/js/jquery.seat-charts.js";
 
 
         const script4 = document.createElement("script");
-        script4.src = "assets/js/jquery.seat-charts.js";
+        script4.src = "/assets/js/jquery.seat-charts.js";
 
 
         document.head.appendChild(link1);
@@ -72,10 +75,21 @@ export function Booking() {
         document.body.appendChild(script3);
         document.body.appendChild(script4);
 
+        console.log("Id cua movie can dat la:" + id);
+
+        return () => {
+            document.head.removeChild(link3);
+            document.head.removeChild(link1);
+
+        };
+    }, []);
+
+
+    useEffect(() => {
 
         const loadAssets = () => {
             return new Promise((resolve, reject) => {
-                loadScript('../assets/js/jquery.seat-charts.js')
+                loadScript('/assets/js/jquery.seat-charts.js')
                     .then(() => {
                         resolve();
                     })
@@ -89,22 +103,6 @@ export function Booking() {
                 const $ = window.$;
                 const price = 110; // Giá vé
 
-                // const links = [
-                //     { rel: "script", type: "text/javascript", href: "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" },
-                //     { rel: "stylesheet", type: "text/css", href: "seat_selection/css/stylet.css" },
-                // ];
-
-                // links.forEach((link) => {
-                //     const element = document.createElement(link.rel === "script" ? "script" : "link");
-                //     if (link.rel === "script") {
-                //         element.src = link.href;
-                //     } else {
-                //         element.rel = link.rel;
-                //         element.type = link.type;
-                //         element.href = link.href;
-                //     }
-                //     document.head.appendChild(element);
-                // });
 
                 $(document).ready(function () {
                     var $cart = $('#selected-seats'); // Vùng chỗ ngồi đã chọn
@@ -174,13 +172,6 @@ export function Booking() {
             .catch(error => {
                 console.error('Error loading assets:', error);
             });
-
-
-
-
-
-
-
     }, []);
     // Chạy khi trang được load
     window.onload = () => {
@@ -512,6 +503,7 @@ export function Booking() {
                                 <input type="button" name="previous-step" className="cancel-pay-btn"
                                        value="Cancel Payment"
                                        onClick={handleCancelPayment}/>
+                                <input type="button" name="previous-step" className="previous-step" value="Back"/>
                             </fieldset>
                             <fieldset>
                                 <h2>E-Ticket</h2>

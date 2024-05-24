@@ -108,7 +108,7 @@ const NewReleases = () => {
                         {movies.map((movie, index) => (
                             <div className="item vhny-grid" key={index}>
                                 <div className="box16 mb-0">
-                                    <a href="movies.html">
+                                    <a href={movie.movieTrailer}>
                                         <figure>
                                             <img className="img-fluid" src={movie.moviePoster} alt={movie.title}></img>
                                         </figure>

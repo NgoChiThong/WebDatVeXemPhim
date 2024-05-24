@@ -38,27 +38,24 @@ export function MovieDetail() {
 
     console.log(movie)
     useEffect(() => {
-
-        const links = [
-            // { rel: "stylesheet", type: "text/css", href: "assets/css/as-alert-message.min.css" },
-            { rel: "stylesheet", type: "text/css", href: "assets/css/style-starter.css" },
-            { rel: "stylesheet", type: "text/css", href: "assets/css/stylet.css" },
-            // { rel: "script", type: "text/javascript", href: "assets/js/as-alert-message.min.js" }, // Thêm dòng này
-        ];
-        links.forEach((link) => {
-            const element = document.createElement(link.rel === "script" ? "script" : "link");
-            if (link.rel === "script") {
-                element.src = link.href;
-            } else {
-                element.rel = link.rel;
-                element.type = link.type;
-                element.href = link.href;
-            }
-            document.head.appendChild(element);
-        });
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = "/assets/css/style.css";
+        document.head.appendChild(link);
 
 
+        const link1 = document.createElement("link");
+        link1.rel = "stylesheet";
+        link1.type = "text/css";
+        link1.href = "/assets/css/plugins.css";
+        document.head.appendChild(link1);
 
+        return () => {
+            document.head.removeChild(link);
+            document.head.removeChild(link1);
+
+        };
     }, []);
     if (!movie) {
         return <div>
@@ -90,7 +87,7 @@ export function MovieDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="page-single movie-single movie_single">
+                                <div className="page-single movie-single movie_single" style={{paddingBottom: "0px"}}>
                                     <div className="container">
                                         <div className="row ipad-width2">
                                             <div className="col-md-4 col-sm-12 col-xs-12">
@@ -105,7 +102,7 @@ export function MovieDetail() {
                                                                 className="ion-play"></i></a></div>
                                                         </div>
                                                         <div className="btn-transform transform-vertical">
-                                                            <Link to={'/booking'}>
+                                                            <Link to={`/booking/${movie.movieId}`}>
                                                             <div><a href="#" className="item item-1 yellowbtn"> <i
                                                                 className="ion-card"></i>Đặt vé</a></div>
                                                             <div><a href="#" className="item item-2 yellowbtn"><i

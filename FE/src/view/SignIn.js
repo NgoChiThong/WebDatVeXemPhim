@@ -410,18 +410,18 @@ footer a {
             <div className="container_signup_signin" id="container_signup_signin">
                 <div className="form-container sign-up-container">
                     <form name="sign-up-form" action="#" onSubmit={signUpValidateForm}>
-                        <h1>Create Account</h1>
+                        <h1>Tạo tài khoản</h1>
                         <div className="social-container">
                             <a href="https://www.facebook.com/" className="social"><i className="fab fa-facebook-f"></i></a>
                             <a href="https://www.facebook.com/" className="social"><i
                                 className="fab fa-google-plus-g"></i></a>
                             <a href="https://www.google.com/" className="social"><i className="fab fa-linkedin-in"></i></a>
                         </div>
-                        <span>or use your email for registration</span>
-                        <input name="sign-up-name" type="text" placeholder="Name"/>
+                        <span>hoặc sử dụng email để đăng ký</span>
+                        <input name="sign-up-name" type="text" placeholder="Tên"/>
                         <input name="sign-up-email" type="email" placeholder="Email"/>
-                        <input name="sign-up-passwd" type="password" placeholder="Password"/>
-                        <button>Sign Up</button>
+                        <input name="sign-up-passwd" type="password" placeholder="Mật khẩu"/>
+                        <button>Đăng ký</button>
                     </form>
                 </div>
                 <div className="form-container sign-in-container">
@@ -443,24 +443,24 @@ footer a {
                                style={{color: 'var(--theme-title)'}}><i
                                 className="fab fa-linkedin-in"></i></a>
                         </div>
-                        <span>or use your account</span>
+                        <span>hoặc đăng nhập bằng</span>
                         <input name="sign-in-email" type="email" placeholder="Email"/>
-                        <input name="sign-in-passwd" type="password" placeholder="Password"/>
-                        <a href="https://www.google.com/">Forgot your password?</a>
-                        <button>Sign In</button>
+                        <input name="sign-in-passwd" type="password" placeholder="Mật khẩu"/>
+                        <a href="https://www.google.com/">Quên mật khẩu?</a>
+                        <button>Đăng nhập</button>
                     </form>
                 </div>
                 <div className="overlay-container">
                     <div className="overlay">
                         <div className="overlay-panel overlay-left">
-                            <h1>Welcome Back!</h1>
-                            <p>To keep connected with us please login with your login details</p>
-                            <button className="ghost" id="signIn">Sign In</button>
+                            <h1>Chào bạn!</h1>
+                            <p>Đã có tài khoản, hãy đăng nhập để tiếp tục!!!</p>
+                            <button className="ghost" id="signIn">Đăng nhập</button>
                         </div>
                         <div className="overlay-panel overlay-right">
-                            <h1>Hello, Friend!</h1>
-                            <p>Register and book your tickets now!!!</p>
-                            <button className="ghost" id="signUp">Sign Up</button>
+                            <h1>Chào bạn!</h1>
+                            <p>Chưa có tài khoản, hãy đăng ký!!!</p>
+                            <button className="ghost" id="signUp">Đăng ký</button>
                         </div>
                     </div>
                 </div>

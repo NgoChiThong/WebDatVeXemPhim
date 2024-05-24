@@ -37,10 +37,10 @@ export const webRouter=createBrowserRouter([{
             path: '/about',
             element: <About/>
         },
-        {
-            path: '/booking',
-            element: <Booking/>
-        },
+        // {
+        //     path: '/booking',
+        //     element: <Booking/>
+        // },
         {
             path: '/detail',
             element: <MovieDetail/>
@@ -56,6 +56,10 @@ export const webRouter=createBrowserRouter([{
         {
             path: '/detail/:id',
             element: <MovieDetail/>
+        },
+        {
+            path: '/booking/:id',
+            element: <Booking/>
         }
 
     ]

@@ -350,10 +350,9 @@ span.seatCharts-legendDescription {
 }
 
 #selected-seats {
-	max-height: 84px;
+	max-height: 150px;
 	overflow-y: auto;
-	overflow-x: none;
-	width: 200px;
+	width: 250px;
 }
 
 #selected-seats li {
@@ -366,7 +365,7 @@ span.seatCharts-legendDescription {
 	color: #000;
 	font-weight: 600;
 	padding: 6px 11px;
-	width: 35%;
+	/*width: 50%;*/
 	border-radius: 6px;
 }
 
