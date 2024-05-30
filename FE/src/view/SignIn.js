@@ -4,7 +4,12 @@ import {loadScript} from "./utils";
 
 
 export function SignIn(){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false    );
     const [successMessage, setSuccessMessage] = useState('');
+
     useEffect(() => {
 
         const links = [
@@ -62,36 +67,72 @@ export function SignIn(){
     function showErrorMessage(title, message) {
         alert(`${title}: ${message}`);
     }
-
-    function signInValidateForm(event) {
+    const handleSignIn = async (event) => {
         event.preventDefault();
-        const email = document.forms["sign-in-form"]["sign-in-email"].value;
-        const password = document.forms["sign-in-form"]["sign-in-passwd"].value;
-        let isValid = true;
+        setLoading(true);
+        setErrorMessage('');
+        setSuccessMessage('');
 
-        if (email === "") {
-            showErrorMessage("Empty Field", "E-mail không thể để trống!!");
-            isValid = false;
+        try {
+            const response = await fetch('http://localhost:80/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'OK') {
+                setSuccessMessage('Sign-in successful!');
+                window.location.href = '/user';  // Redirect to user page
+            } else {
+                setErrorMessage(data.msg);
+            }
+        } catch (error) {
+            console.error('Error during sign-in:', error);
+            setErrorMessage('An error occurred during sign-in. Please try again.');
+        } finally {
+            setLoading(false);
         }
+    };
 
-        if (isValid && password === "") {
-            // Kiểm tra chỉ khi email được nhập và password không được nhập
-            showErrorMessage("Empty Field", "Password không thể để trống!!");
-            isValid = false;
-        }
+    // function signInValidateForm(event) {
 
-        if (isValid) {
-            setSuccessMessage(`Sign-in successful! Email: ${email}, Password: ${password}`);
-            console.log(successMessage);
-            window.location.href = '/user';
 
-            // Thêm logic xử lý đăng nhập ở đây, ví dụ: gọi API đăng nhập
+        // event.preventDefault();
+        // const email = document.forms["sign-in-form"]["sign-in-email"].value;
+        // const password = document.forms["sign-in-form"]["sign-in-passwd"].value;
+        // let isValid = true;
+        //
+        // if (email === "") {
+        //     showErrorMessage("Empty Field", "E-mail không thể để trống!!");
+        //     isValid = false;
+        // }
+        //
+        // if (isValid && password === "") {
+        //     // Kiểm tra chỉ khi email được nhập và password không được nhập
+        //     showErrorMessage("Empty Field", "Password không thể để trống!!");
+        //     isValid = false;
+        // }
+        //
+        // if (isValid) {
+        //     setSuccessMessage(`Sign-in successful!`);
+        //     console.log(successMessage);
+        //     window.location.href = '/user';
+        //
+        //     // Thêm logic xử lý đăng nhập ở đây, ví dụ: gọi API đăng nhập
+        //
+        //     return true;
+        // }
+        //
+        // return false;
+    // }
 
-            return true;
-        }
-
-        return false;
-    }
     const css = `
 /* CSS cho các thiết bị di động */
 @media only screen and (max-width: 400px) {
@@ -429,7 +470,7 @@ footer a {
                         name="sign-in-form"
                         style={{color: 'var(--theme-title)'}}
                         action="#"
-                        onSubmit={signInValidateForm}
+                        onSubmit={handleSignIn}
                     >
                         <h1>Sign in</h1>
                         <div className="social-container">
@@ -444,10 +485,18 @@ footer a {
                                 className="fab fa-linkedin-in"></i></a>
                         </div>
                         <span>hoặc đăng nhập bằng</span>
-                        <input name="sign-in-email" type="email" placeholder="Email"/>
-                        <input name="sign-in-passwd" type="password" placeholder="Mật khẩu"/>
+                        <input name="sign-in-email" type="email" placeholder="Email" value={email}
+                               onChange={(e) => setEmail(e.target.value)}
+                               required/>
+                        <input name="sign-in-passwd" type="password" placeholder="Mật khẩu" value={password}
+                               onChange={(e) => setPassword(e.target.value)}
+                               required/>
                         <a href="https://www.google.com/">Quên mật khẩu?</a>
-                        <button>Đăng nhập</button>
+                        <button type="submit" disabled={loading}>
+                            {loading ? 'Loading...' : 'Đăng nhập'}
+                        </button>
+                        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                     </form>
                 </div>
                 <div className="overlay-container">
