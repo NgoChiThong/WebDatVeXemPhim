@@ -1,10 +1,21 @@
 import React, {useEffect, useState} from "react";
 import Header from "./common/Header";
 import {loadScript} from "./utils";
+import {useNavigate} from "react-router-dom";
 
 
 export function SignIn(){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [regName, setRegName] = useState('');
+    const [regEmail, setRegEmail] = useState('');
+    const [regPassword, setRegPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false    );
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
+
+
     useEffect(() => {
 
         const links = [
@@ -41,57 +52,137 @@ export function SignIn(){
 
 
     }, []);
-    function signUpValidateForm(event) {
-        event.preventDefault();
-        var x = document.forms["sign-up-form"]["sign-up-name"].value;
-        if (x === "") {
-            showErrorMessage("Empty Field", "'Name' can not be empty!!");
-            return false;
-        }
-        x = document.forms["sign-up-form"]["sign-up-email"].value;
-        if (x === "") {
-            showErrorMessage("Empty Field", "'E-mail' can not be empty!!");
-            return false;
-        }
-        x = document.forms["sign-up-form"]["sign-up-passwd"].value;
-        if (x === "") {
-            showErrorMessage("Empty Field", "'Password' can not be empty!!");
-            return false;
-        }
-    }
+
     function showErrorMessage(title, message) {
         alert(`${title}: ${message}`);
     }
-
-    function signInValidateForm(event) {
+    const handleSignIn = async (event) => {
         event.preventDefault();
-        const email = document.forms["sign-in-form"]["sign-in-email"].value;
-        const password = document.forms["sign-in-form"]["sign-in-passwd"].value;
-        let isValid = true;
+        setLoading(true);
+        setErrorMessage('');
+        setSuccessMessage('');
 
-        if (email === "") {
-            showErrorMessage("Empty Field", "E-mail không thể để trống!!");
-            isValid = false;
+        try {
+            const response = await fetch('http://localhost:80/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: email,  // Assuming email is used as the username
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+            console.log(data.data);
+            if (response.status === 200) {
+                const token = data.data;
+                //đưa token vào sessionStorage
+                sessionStorage.setItem('token', token);
+
+                // Call the function to get user info
+                const userInfo = await fetchUserInfo(token);
+
+                if (userInfo) {
+                    // Save user info to sessionStorage or set it in state
+                    sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+                    setSuccessMessage('Sign-in successful!');
+                    console.log(userInfo);
+                    window.location.href = '/user';  // Redirect to user page
+                } else {
+                    setErrorMessage('Failed to fetch user info.');
+                }
+            } else {
+                setErrorMessage(data.message);
+            }
+        } catch (error) {
+            console.error('Error during sign-in:', error);
+            setErrorMessage('An error occurred during sign-in. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+//lấy thông tin người dùng để lưu vào sessionStorage
+    const fetchUserInfo = async (token) => {
+        try {
+            const response = await fetch('http://localhost:80/user/info', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.status === 200) {
+                const data = await response.json();
+                return data;
+            } else {
+                console.error('Failed to fetch user info:', response.statusText);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+            return null;
+        }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        navigate('/signin');
+    };
+
+    const handleSignUp = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        if (!regName) {
+            setErrorMessage('Name cannot be empty');
+            setLoading(false);
+            return;
         }
 
-        if (isValid && password === "") {
-            // Kiểm tra chỉ khi email được nhập và password không được nhập
-            showErrorMessage("Empty Field", "Password không thể để trống!!");
-            isValid = false;
+        if (!regEmail) {
+            setErrorMessage('Email cannot be empty');
+            setLoading(false);
+            return;
         }
 
-        if (isValid) {
-            setSuccessMessage(`Sign-in successful! Email: ${email}, Password: ${password}`);
-            console.log(successMessage);
-            window.location.href = '/user';
-
-            // Thêm logic xử lý đăng nhập ở đây, ví dụ: gọi API đăng nhập
-
-            return true;
+        if (!regPassword) {
+            setErrorMessage('Password cannot be empty');
+            setLoading(false);
+            return;
         }
 
-        return false;
-    }
+        try {
+            const response = await fetch('http://localhost:80/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: regName, email: regEmail, password: regPassword }),
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'OK') {
+                setSuccessMessage('Registration successful! Please sign in.');
+                window.location.href = '/signin';
+            } else {
+                setErrorMessage(data.msg);
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            setErrorMessage('An error occurred during registration. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     const css = `
 /* CSS cho các thiết bị di động */
 @media only screen and (max-width: 400px) {
@@ -409,19 +500,23 @@ footer a {
             <Header></Header>
             <div className="container_signup_signin" id="container_signup_signin">
                 <div className="form-container sign-up-container">
-                    <form name="sign-up-form" action="#" onSubmit={signUpValidateForm}>
-                        <h1>Create Account</h1>
+                    <form name="sign-up-form" action="#" onSubmit={handleSignUp}>
+                        <h1>Tạo tài khoản</h1>
                         <div className="social-container">
-                            <a href="https://www.facebook.com/" className="social"><i className="fab fa-facebook-f"></i></a>
+                            <a href="https://www.facebook.com/" className="social"><i
+                                className="fab fa-facebook-f"></i></a>
                             <a href="https://www.facebook.com/" className="social"><i
                                 className="fab fa-google-plus-g"></i></a>
-                            <a href="https://www.google.com/" className="social"><i className="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.google.com/" className="social"><i
+                                className="fab fa-linkedin-in"></i></a>
                         </div>
-                        <span>or use your email for registration</span>
-                        <input name="sign-up-name" type="text" placeholder="Name"/>
-                        <input name="sign-up-email" type="email" placeholder="Email"/>
-                        <input name="sign-up-passwd" type="password" placeholder="Password"/>
-                        <button>Sign Up</button>
+                        <span>hoặc sử dụng email để đăng ký</span>
+                        <input name="sign-up-name" type="text" placeholder="Tên" value={regName} onChange={(e) => setRegName(e.target.value)} />
+                        <input name="sign-up-email" type="email" placeholder="Email" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} />
+                        <input name="sign-up-passwd" type="password" placeholder="Mật khẩu" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} />
+                        <button type="submit" disabled={loading}>{loading ? 'Registering...' : 'Đăng kí'}</button>
+                        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                     </form>
                 </div>
                 <div className="form-container sign-in-container">
@@ -429,7 +524,7 @@ footer a {
                         name="sign-in-form"
                         style={{color: 'var(--theme-title)'}}
                         action="#"
-                        onSubmit={signInValidateForm}
+                        onSubmit={handleSignIn}
                     >
                         <h1>Sign in</h1>
                         <div className="social-container">
@@ -443,24 +538,32 @@ footer a {
                                style={{color: 'var(--theme-title)'}}><i
                                 className="fab fa-linkedin-in"></i></a>
                         </div>
-                        <span>or use your account</span>
-                        <input name="sign-in-email" type="email" placeholder="Email"/>
-                        <input name="sign-in-passwd" type="password" placeholder="Password"/>
-                        <a href="https://www.google.com/">Forgot your password?</a>
-                        <button>Sign In</button>
+                        <span>hoặc đăng nhập bằng</span>
+                        <input name="sign-in-email" type="text" placeholder="Email" value={email}
+                               onChange={(e) => setEmail(e.target.value)}
+                               required/>
+                        <input name="sign-in-passwd" type="password" placeholder="Mật khẩu" value={password}
+                               onChange={(e) => setPassword(e.target.value)}
+                               required/>
+                        <a href="https://www.google.com/">Quên mật khẩu?</a>
+                        <button type="submit" disabled={loading}>
+                            {loading ? 'Loading...' : 'Đăng nhập'}
+                        </button>
+                        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                     </form>
                 </div>
                 <div className="overlay-container">
                     <div className="overlay">
                         <div className="overlay-panel overlay-left">
-                            <h1>Welcome Back!</h1>
-                            <p>To keep connected with us please login with your login details</p>
-                            <button className="ghost" id="signIn">Sign In</button>
+                            <h1>Chào bạn!</h1>
+                            <p>Đã có tài khoản, hãy đăng nhập để tiếp tục!!!</p>
+                            <button className="ghost" id="signIn">Đăng nhập</button>
                         </div>
                         <div className="overlay-panel overlay-right">
-                            <h1>Hello, Friend!</h1>
-                            <p>Register and book your tickets now!!!</p>
-                            <button className="ghost" id="signUp">Sign Up</button>
+                            <h1>Chào bạn!</h1>
+                            <p>Chưa có tài khoản, hãy đăng ký!!!</p>
+                            <button className="ghost" id="signUp">Đăng ký</button>
                         </div>
                     </div>
                 </div>

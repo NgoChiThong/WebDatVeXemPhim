@@ -24,7 +24,7 @@ import com.project.booking.model.UserNameProfile;
                 )
         )
 })
-@NamedNativeQuery(name = "getUserNameProfile", resultSetMapping = "UserNameProfile",
+@NamedNativeQuery(name = "User.getUserNameProfile", resultSetMapping = "UserNameProfile",
 query = "SELECT `user_id`,`username`,`user_avatar`,`user_fullname`,DATE_FORMAT(`user_birthday`, \"%d/%m/%Y\") as `user_birthday`,`user_gender`,`user_email`,`user_city`,`user_phone`,`user_point` FROM `users` WHERE `user_id` = ?1")
 
 
