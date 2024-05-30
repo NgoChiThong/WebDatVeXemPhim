@@ -222,12 +222,13 @@ p.copy_rights a:hover {
 
 /*-- movie ticket --*/
 .front {
-	margin: 5px 4px 45px 38px;
-	background-color: #df0e62;
-	color: #fff;
-	text-align: center;
-	padding: 9px 0;
-	border-radius: 3px;
+	/*margin: 5px 4px 45px 38px;*/
+	/*width: 300px;*/
+	/*background-color: #df0e62;*/
+	/*color: #fff;*/
+	/*text-align: center;*/
+	/*padding: 9px 0;*/
+	/*border-radius: 3px;*/
 }
 
 .booking-details {

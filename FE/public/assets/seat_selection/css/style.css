@@ -222,17 +222,19 @@ p.copy_rights a:hover {
 
 /*-- movie ticket --*/
 .front {
-	margin: 5px 4px 45px 38px;
+	margin: 5px 4px 30px 38px;
 	background-color: #df0e62;
 	color: #fff;
 	text-align: center;
 	padding: 9px 0;
 	border-radius: 3px;
+	width: 310px;
 }
 
 .booking-details {
 	float: right;
 	width: 38%;
+	margin-top: -152px;
 }
 
 .booking-details h3 {
@@ -353,6 +355,7 @@ span.seatCharts-legendDescription {
 	max-height: 150px;
 	overflow-y: auto;
 	width: 250px;
+	height: 150px;
 }
 
 #selected-seats li {
@@ -386,7 +389,7 @@ ul.book-left {
 }
 
 ul.book-right {
-    float: right;
+    float: left;
     width: 35%;
 }
 
@@ -693,4 +696,22 @@ ul.book-left li {
 		line-height: 0px;
 		font-size: 13px;
 	}
+}
+
+.book-left, .book-right {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.book-left li, .book-right li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px; /* Khoảng cách giữa các mục, bạn có thể điều chỉnh theo ý muốn */
+}
+.book-right li {
+	white-space: nowrap;
+	/*overflow: hidden;*/
+	text-overflow: ellipsis;
+	max-width: 200px; /* Điều chỉnh độ rộng tối đa theo nhu cầu của bạn */
 }
