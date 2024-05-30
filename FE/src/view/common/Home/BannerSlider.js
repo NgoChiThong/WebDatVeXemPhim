@@ -108,7 +108,7 @@ const BannerSlider = () => {
                                         <span className="video-play-icon">
                                             <span className="fa fa-play"></span>
                                         </span>
-                                        <h6>Watch Trailer</h6>
+                                        <h6>Xem Trailer</h6>
                                     </a>
                                     <div id={`#small-dialog${index}`} className="zoom-anim-dialog mfp-hide">
                                         <iframe width="560" height="315"

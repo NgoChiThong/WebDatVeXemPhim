@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 
 const LatestMovie = () => {
     const [movies, setMovies] = useState([]);
@@ -130,10 +131,12 @@ const LatestMovie = () => {
                                                 <h4 style={{fontSize: "medium"}}>Phân loại phim: </h4>
                                                 <p>{movie.movieCens}</p>
                                             </div>
-                                            {/*<div className="bookbtn">*/}
-                                            {/*    <button type="button" className="btn btn-success">Book*/}
-                                            {/*    </button>*/}
-                                            {/*</div>*/}
+                                            <Link to={`/detail/${movie.movieId}`}>
+                                            <div className="bookbtn">
+                                                <button type="button" className="btn btn-success">Đặt vé ngay
+                                                </button>
+                                            </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

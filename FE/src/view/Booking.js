@@ -7,17 +7,12 @@ import {loadScript} from "./utils";
 import PayPalButton from './PayPalButton';
 
 export function Booking() {
-    const { id } = useParams();
+    const {id} = useParams();
     //thanh toan
     const [checkout, setCheckOut] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
-
-
     const [orderDetails, setOrderDetails] = useState(null);
-
-
-
 
     //chua ngay chieu
     const [schedules, setSchedules] = useState([]);
@@ -60,9 +55,7 @@ export function Booking() {
     // console.log("Thong tin don hang la:", orderDetails);
     const paymentAmount = (price / 24000).toFixed(0); // Giá trị thanh toán
     const paymentCurrency = "USD"; // Loại tiền tệ
-    const paymentDescription = scheduleId +' '+ formatSelectedSeats; // Mô tả đơn hàng
-
-
+    const paymentDescription = scheduleId + ' ' + formatSelectedSeats; // Mô tả đơn hàng
 
 
     useEffect(() => {
@@ -84,7 +77,7 @@ export function Booking() {
             fetchMovie();
         }
     }, [id]);
-console.log("Thong tin phim la:", movie);
+    console.log("Thong tin phim la:", movie);
     // xư ly dat ve
     useEffect(() => {
         const fetchSchedules = async () => {
@@ -94,7 +87,7 @@ console.log("Thong tin phim la:", movie);
                 const data = await response.json();
                 if (data.status === 'OK') {
                     setSchedules(data.data);
-                    console.log(data.data);
+                    // console.log(data.data);
                 } else {
                     console.error('Error fetching schedules:', data.msg);
                 }
@@ -115,7 +108,7 @@ console.log("Thong tin phim la:", movie);
                 const data = await response.json();
                 if (data.status === 'OK') {
                     setAllSchedules(data.data);
-                    console.log(data.data);
+                    // console.log(data.data);
                 } else {
                     console.error('Error fetching schedules:', data.msg);
                 }
@@ -197,29 +190,7 @@ console.log("Thong tin phim la:", movie);
             document.head.removeChild(link1);
         };
     }, []);
-    // useEffect(() => {
-    //         const fetchSeats = async () => {
-    //             try {
-    //                 setLoading(true);
-    //                 const response = await fetch(`http://localhost:80/seat/s/${scheduleId}`);
-    //                 const data = await response.json();
-    //                 if (data.status === 'OK') {
-    //                     setSeats(data.data);
-    //                     console.log(data.data);
-    //                 } else {
-    //                     console.error('Error fetching seats:', data.msg);
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error fetching seats:', error);
-    //                 setError('Error fetching seats');
-    //             } finally {
-    //                 setLoading(false);
-    //             }
-    //         };
-    //
-    //         fetchSeats();
-    //
-    // }, [buttonClicked, scheduleId]);
+
 
     // Function để fetch dữ liệu ghế
     async function fetchSeats(scheduleId) {
@@ -230,7 +201,7 @@ console.log("Thong tin phim la:", movie);
             const data = await response.json();
             if (data.status === 'OK') {
                 setSeats(data.data);
-                console.log(data.data);
+                // console.log(data.data);
             } else {
                 console.error('Error fetching seats:', data.msg);
             }
@@ -243,27 +214,6 @@ console.log("Thong tin phim la:", movie);
             setLoading(false);
         }
     }
-    // async function fetchSeatsBooked(scheduleId) {
-    //     try {
-    //         setSeatsBooked([]);
-    //         setLoading(true);
-    //         const response1 = await fetch(`http://localhost:80/seat/sbooked/${scheduleId}`);
-    //         const data1 = await response1.json();
-    //         if (data1.status === 'OK') {
-    //             setSeatsBooked(data1.data);
-    //             console.log(data1.data);
-    //         } else {
-    //             console.error('Error fetching seats:', data1.msg);
-    //         }
-    //
-    //
-    //     } catch (error) {
-    //         console.error('Error fetching seats:', error);
-    //         setError('Error fetching seats');
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
 
     async function fetchSeatsBooked(scheduleId) {
         try {
@@ -276,7 +226,7 @@ console.log("Thong tin phim la:", movie);
             const data1 = await response1.json();
             if (data1.status === 'OK') {
                 setSeatsBooked(data1.data);
-                console.log(data1.data);
+                // console.log(data1.data);
             } else {
                 console.error('Error fetching seats:', data1.msg);
                 setError(`Error fetching seats: ${data1.msg}`);
@@ -289,181 +239,6 @@ console.log("Thong tin phim la:", movie);
         }
     }
 
-    // useEffect(() => {
-    //     if (!buttonClicked) return;
-    //     fetchSeats(scheduleId); // Gọi fetchSeats với scheduleId tương ứng
-    //     fetchSeatsBooked(scheduleId); // Gọi fetchSeats với scheduleId tương ứng
-    // }, [buttonClicked]); // Sử dụng buttonClicked làm dependency
-
-//     useEffect(() => {
-//         if (!buttonClicked) return;
-//         fetchSeats(scheduleId); // Gọi fetchSeats với scheduleId tương ứng
-//         fetchSeatsBooked(scheduleId); // Gọi fetchSeats với scheduleId tương ứng
-//
-//         // Cleanup effect khi scheduleId thay đổi
-//         return () => {
-//             // Làm trống state và DOM liên quan
-//             setSeats([]);
-//             setSeatsBooked([]);
-//             const $cart = $('#selected-seats');
-//             const $counter = $('#counter');
-//             const $total = $('#total');
-//             $cart.empty();
-//             $counter.text(0);
-//             $total.text(0);
-//             setSelectedSeats([]);
-//         };
-//     }, [buttonClicked, scheduleId]);
-// // Render bản đồ ghế khi seats thay đổi
-//     useEffect(() => {
-//         if(!buttonClicked) return;
-//         if (seats.length === 0) return; // Đảm bảo có dữ liệu ghế trước khi render bản đồ
-//         const loadAssets = () => {
-//             return new Promise((resolve, reject) => {
-//                 loadScript('/assets/js/jquery.seat-charts.js')
-//                     .then(() => {
-//                         resolve();
-//                     })
-//                     .catch(error => {
-//                         reject(error);
-//                     });
-//             });
-//         };
-//         loadAssets()
-//             .then(() => {
-//                 const $ = window.$;
-//                 const price = 110; // Giá vé
-//                 console.log("Gia ve la:" + price);
-//                 // Chuyển đổi dữ liệu ghế thành định dạng phù hợp
-//                 const dataSeats = seats.map(seat => ({
-//                     seat_row: seat.seatRow,
-//                     seat_number: seat.seatNumber
-//                 }));
-//                 // Chuyển đổi dữ liệu ghế thành định dạng phù hợp
-//                 const map = [];
-//                 for (let i = 0; i < 9; i++) {
-//                     const row = [];
-//                     for (let j = 0; j < 9; j++) {
-//                         const seat = dataSeats.find(seat => seat.seat_row === String.fromCharCode(65 + i) && seat.seat_number === j + 1);
-//                         if (seat) {
-//                             row.push('a'); // Ghế có sẵn
-//                         } else {
-//                             row.push('_'); // Ghế không có sẵn
-//                         }
-//                     }
-//                     map.push(row.join(''));
-//                 }
-//
-//                 $(document).ready(function () {
-//                     var $cart = $('#selected-seats'); // Vùng chỗ ngồi đã chọn
-//                     var $counter = $('#counter'); // Số lượng vé đã chọn
-//                     var $total = $('#total'); // Tổng tiền
-//
-//                     var sc = $('#seat-map').seatCharts({
-//                         map: map,
-//                         naming: {
-//                             top: false,
-//                             getLabel: function (character, row, column) {
-//                                 return column;
-//                             }
-//                         },
-//                         legend: { // Định nghĩa chú giải
-//                             node: $('#legend'),
-//                             items: [
-//                                 ['a', 'available', 'Available'],
-//                                 ['a', 'unavailable', 'Sold'],
-//                                 ['a', 'selected', 'Selected']
-//                             ]
-//                         },
-//                         click: function () { // Sự kiện khi click vào chỗ ngồi
-//                             if (this.status() == 'available') { // Chỗ ngồi có thể chọn
-//                                 $('<li>R-' + (this.settings.row + 1) + ' S-' + this.settings.label + '</li>')
-//                                     .attr('id', 'cart-item-' + this.settings.id)
-//                                     .data('seatId', this.settings.id)
-//                                     .appendTo($cart); // Thêm vào vùng chỗ ngồi đã chọn
-//
-//                                 $counter.text(sc.find('selected').length + 1); // Cập nhật số lượng vé
-//                                 $total.text(recalculateTotal(sc) + price); // Cập nhật tổng tiền
-//
-//                                 // Lấy danh sách các ghế đã chọn
-//                                 var selectedSeats = [];
-//                                 $cart.find('li').each(function() {
-//                                     selectedSeats.push($(this).data('seatId'));
-//                                 });
-//                                 // Cập nhật state selectedSeats với danh sách mới
-//                                 setSelectedSeats(selectedSeats);
-//
-//                                 return 'selected';
-//                             } else if (this.status() == 'selected') { // Đã chọn
-//                                 // Cập nhật số lượng vé
-//                                 $counter.text(sc.find('selected').length - 1);
-//                                 // Cập nhật tổng tiền
-//                                 $total.text(recalculateTotal(sc) - price);
-//
-//                                 // Xóa ghế đã chọn
-//                                 $('#cart-item-' + this.settings.id).remove();
-//
-//                                 // Lấy danh sách các ghế đã chọn
-//                                 var selectedSeats = [];
-//                                 $cart.find('li').each(function() {
-//                                     selectedSeats.push($(this).data('seatId'));
-//                                 });
-//                                 // Cập nhật state selectedSeats với danh sách mới
-//                                 setSelectedSeats(selectedSeats);
-//
-//                                 return 'available';
-//                             } else if (this.status() == 'unavailable') { // Đã bán
-//                                 return 'unavailable';
-//                             } else {
-//                                 return this.style();
-//                             }
-//                         }
-//                     });
-//                     // Thêm sự kiện click cho nút "Back"
-//                     $('input[name="previous-step"]').click(function() {
-//                         // Xóa tất cả các phần tử con của cart
-//                         $cart.empty();
-//
-//                         // Đặt lại trạng thái của các ghế đã chọn từ 'selected' về 'available'
-//                         sc.find('selected').status('available');
-//
-//                         // Cập nhật state selectedSeats với danh sách rỗng
-//                         setSelectedSeats([]);
-//                         // Cập nhật số lượng vé và tổng tiền
-//                         $counter.text(0);
-//                         $total.text(0);
-//                         setSeats([]);
-//                         setSeatsBooked([]);
-//                         setButtonClicked(false);
-//                     });
-//
-//                     // sc.get(['1_2']).status('unavailable');
-//                     // Tương tự, đánh dấu lại các ghế đã bán
-//                     const soldSeats = seatsBooked.map(seatsBooked => ({
-//                         seat_row: seatsBooked.seatRow,
-//                         seat_number: seatsBooked.seatNumber
-//                     }));
-//                     // const soldSeats = [
-//                     //     { seat_row: 'A', seat_number: 1 },
-//                     //     { seat_row: 'A', seat_number: 2 },
-//                     // ];
-//                     // Đánh dấu các ghế đã bán
-//                     soldSeats.forEach(seat => {
-//                         const row = seat.seat_row.charCodeAt(0) - 65 + 1; // Chuyển đổi từ ký tự hàng sang số và bắt đầu từ 1
-//                         const column = seat.seat_number; // Bắt đầu từ 1
-//                         const seatId = `${row}_${column}`;
-//                         sc.get([seatId]).status('unavailable');
-//                     });
-//
-//
-//                 });
-//             })
-//             .catch(error => {
-//                 console.error('Error loading assets:', error);
-//             });
-//
-//
-//     }, [seats, seatsBooked]);
     useEffect(() => {
         if (!buttonClicked) return;
         fetchSeats(scheduleId); // Gọi fetchSeats với scheduleId tương ứng
@@ -504,7 +279,7 @@ console.log("Thong tin phim la:", movie);
             .then(() => {
                 const $ = window.$;
                 const price = 45000; // Giá vé
-                console.log("Gia ve la:" + price);
+                // console.log("Gia ve la:" + price);
 
                 const dataSeats = seats.map(seat => ({
                     seat_row: seat.seatRow,
@@ -563,7 +338,7 @@ console.log("Thong tin phim la:", movie);
                                 //tien
                                 setPrice(prevPrice => prevPrice + price);
                                 var selectedSeats = [];
-                                $cart.find('li').each(function() {
+                                $cart.find('li').each(function () {
                                     selectedSeats.push($(this).data('seatId'));
                                 });
                                 setSelectedSeats(selectedSeats);
@@ -578,7 +353,7 @@ console.log("Thong tin phim la:", movie);
                                 $('#cart-item-' + this.settings.id).remove();
 
                                 var selectedSeats = [];
-                                $cart.find('li').each(function() {
+                                $cart.find('li').each(function () {
                                     selectedSeats.push($(this).data('seatId'));
                                 });
                                 setSelectedSeats(selectedSeats);
@@ -592,7 +367,7 @@ console.log("Thong tin phim la:", movie);
                         }
                     });
 
-                    $('#previous-step-btn').click(function() {
+                    $('#previous-step-btn').click(function () {
                         $cart.empty();
                         sc.find('selected').status('available');
                         setSelectedSeats([]);
@@ -634,11 +409,12 @@ console.log("Thong tin phim la:", movie);
             setPrice(0);
         };
     }, [seats, seatsBooked]);
-console.log("Gia ve la:", price);
-        // Chạy khi trang được load
+    // console.log("Gia ve la:", price);
+    // Chạy khi trang được load
     window.onload = () => {
         document.getElementById("screen-next-btn").disabled = true;
     };
+
     function convertSeatCodeToId(seatCode) {
         // Tách seatRow và seatNumber từ seatCode
         const [rowNumber, columnNumber] = seatCode.split('_');
@@ -652,6 +428,7 @@ console.log("Gia ve la:", price);
         // Trả về seatId của ghế được tìm thấy
         return foundSeat ? foundSeat.seatId : null;
     }
+
     useEffect(() => {
         // Tạo một mảng mới để lưu trữ danh sách các ID ghế đã chọn
         const selectedSeatIds = [];
@@ -713,18 +490,6 @@ console.log("Gia ve la:", price);
 
 
     };
-    // console.log("Ngay chieu la:" + selectedDate);
-    console.log("Thông tin rạp:", cinemas);
-    console.log("Selected schedule_id:", scheduleId);
-    // console.log("List Selected seats:", seats);
-    // console.log("List Selected seats:", seatsBooked);
-    // console.log("Button clicked:", buttonClicked);
-    // console.log("Selected seats:", selectedSeats);
-    // console.log("Format selected seats:", formatSelectedSeats);
-    console.log("Schedule fulll", allSchedules);
-
-    console.log("Selected schedule:", selectedSchedule);
-    console.log("ALll selected schedule:", allSchedules);
 
     const containerStyle = {
         boxShadow: "0 14px 12px 0 var(--theme-border), 0 10px 50px 0 var(--theme-border)",
@@ -749,12 +514,13 @@ console.log("Gia ve la:", price);
 
         return total;
     }
+
     // Lấy tất cả các nút rạp chiếu
     const theaterBtns = document.querySelectorAll('.theater-btn');
 
 //Thêm sự kiện click cho mỗi nút
     theaterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             // Xóa lớp CSS 'selected' khỏi tất cả các nút
             theaterBtns.forEach(btn => btn.classList.remove('selected'));
 
@@ -791,7 +557,7 @@ console.log("Gia ve la:", price);
                 return null; // Trả về null nếu giá trị không thể chuyển đổi thành số
             }
         }
-        return priceCopy.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        return priceCopy.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
     }
 
     // hien thi o trang thanh toan:
@@ -800,6 +566,7 @@ console.log("Gia ve la:", price);
         const seatRow = String.fromCharCode(64 + parseInt(row)); // Chuyển đổi từ số sang chữ cái (1 -> A, 2 -> B, ...)
         return ` ${seatRow}_${number}`;
     }
+
 // Chuyển đổi danh sách ghế
     const convertedSeats = selectedSeats.map(seat => convertSeat(seat));
 
@@ -856,7 +623,8 @@ console.log("Gia ve la:", price);
                                                         onClick={() => handleButtonClick(schedule.scheduleDate)}
                                                         value={selectedDate || ''}
                                                     >
-                                                        <div className="date-numeric">{formatDate(schedule.scheduleDate)}</div>
+                                                        <div
+                                                            className="date-numeric">{formatDate(schedule.scheduleDate)}</div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -915,7 +683,7 @@ console.log("Gia ve la:", price);
                                                 <div className="book-container">
                                                     <ul className="book-left">
                                                         <li>Phim :</li>
-                                                        <li>Thời gian : </li>
+                                                        <li>Thời gian :</li>
                                                         <li>Số vé :</li>
                                                         <li>Tổng tiền :</li>
                                                         <li>Danh sách ghế đã chọn :</li>
@@ -941,7 +709,8 @@ console.log("Gia ve la:", price);
                                        value="Thanh toán"
                                        disabled={loading || !selectedSeats.length}
                                 />
-                                <input id="previous-step-btn"  type="button" name="previous-step" className="previous-step" value="Trở lại"/>
+                                <input id="previous-step-btn" type="button" name="previous-step"
+                                       className="previous-step" value="Trở lại"/>
                             </fieldset>
                             <fieldset>
                                 <div id="payment_div">
@@ -967,7 +736,8 @@ console.log("Gia ve la:", price);
                                                                 <label htmlFor="expmonth">Thông tin rạp</label>
                                                                 <label>: {findCinemaName(scheduleId, cinemas)}</label>
                                                                 {selectedSchedule && (
-                                                                    <label>, Phòng chiếu: {selectedSchedule.roomId}</label>
+                                                                    <label>, Phòng
+                                                                        chiếu: {selectedSchedule.roomId}</label>
                                                                 )}
 
 
@@ -977,7 +747,8 @@ console.log("Gia ve la:", price);
                                                                     <div className="col-50">
                                                                         <label htmlFor="expyear">Ghế </label>
                                                                         <input type="text" id="expyear"
-                                                                               name="expyear" placeholder={convertedSeats}
+                                                                               name="expyear"
+                                                                               placeholder={convertedSeats}
                                                                                required/>
 
                                                                     </div>
@@ -985,9 +756,11 @@ console.log("Gia ve la:", price);
                                                             </div>
                                                         </div>
                                                         {paymentSuccessful ? (
-                                                            <h3 style={{ color: 'green' }}>Trạng thái thanh toán: đã thanh toán</h3>
+                                                            <h3 style={{color: 'green'}}>Trạng thái thanh toán: đã thanh
+                                                                toán</h3>
                                                         ) : (
-                                                            <h3 style={{ color: 'red' }}>Trạng thái thanh toán: chưa thanh toán</h3>
+                                                            <h3 style={{color: 'red'}}>Trạng thái thanh toán: chưa thanh
+                                                                toán</h3>
                                                         )}
                                                         <div className="payment-row payment">
                                                             <div className="col-50 payment">
@@ -1039,30 +812,18 @@ console.log("Gia ve la:", price);
                                         </div>
                                     </div>
                                 </div>
-                                {/*{checkout ? (*/}
-                                {/*    <PayPalButton />*/}
-                                {/*) : (*/}
-                                {/*    <button*/}
-                                {/*        onClick={() => {*/}
-                                {/*            setCheckOut(true);*/}
-                                {/*        }}*/}
-                                {/*    >*/}
-                                {/*        Checkout*/}
-                                {/*    </button>*/}
-                                {/*)}*/}
                                 <input type="button" name="next-step" className="next-step pay-btn"
-                                       value="Confirm Payment"
-                                       disabled={!paymentSuccessful && orderDetails== null}
+                                       value="Xác nhận thanh toán"
+                                       disabled={!paymentSuccessful && orderDetails == null}
                                 />
 
                                 <input type="button" name="previous-step" className="cancel-pay-btn"
-                                       value="Cancel Payment"
+                                       value="Huỷ thanh toán"
                                        onClick={handleCancelPayment}/>
-                                <input type="button" name="previous-step" className="previous-step" value="Back"/>
+                                <input type="button" name="previous-step" className="previous-step" value="Trở lại"/>
                             </fieldset>
                             <fieldset>
-                                <h2>Vé xem phim</h2>
-                               <h3>Chúc mừng bạn vé xem phim đã đuợc đặt thành công !!!</h3>
+                                <h2>Chúc mừng bạn vé xem phim đã đuợc đặt thành công !!!</h2>
                                 <input type="button" name="previous-step" className="home-page-btn"
                                        value="Trở về trang chủ"
                                        onClick={handleCancelPayment}/>
