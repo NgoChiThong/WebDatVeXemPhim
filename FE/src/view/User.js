@@ -5,6 +5,7 @@ import Header from "./common/Header";
 import Footer from "./common/Footer";
 
 export function User(){
+
     const [activeTab, setActiveTab] = useState('profile');
     const navigate = useNavigate();  // Using useNavigate hook for navigation
 
@@ -125,29 +126,29 @@ export function User(){
                                                             <h4>Thông tin tài khoản</h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
-                                                                    <label>Tên nguười dùng</label>
-                                                                    <input type="text" placeholder="edwardkennedy"/>
+                                                                    <label>Tên người dùng</label>
+                                                                    <input type="text" placeholder="" value={userInfo.data.username}/>
                                                                 </div>
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Địa chỉ email</label>
                                                                     <input type="text"
-                                                                           placeholder="edward@kennedy.com"/>
+                                                                           placeholder="" value={userInfo.data.userEmail}/>
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Tên</label>
-                                                                    <input type="text" placeholder="Edward "/>
+                                                                    <input type="text" placeholder=" " value={userInfo.data.userFullname}/>
                                                                 </div>
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Họ</label>
-                                                                    <input type="text" placeholder="Kennedy"/>
+                                                                    <input type="text" placeholder=""/>
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Số điện thoại</label>
-                                                                    <input type="text" placeholder="0899123456"/>
+                                                                    <input type="text" placeholder="" value={userInfo.data.userPhone}/>
                                                                 </div>
 
                                                             </div>

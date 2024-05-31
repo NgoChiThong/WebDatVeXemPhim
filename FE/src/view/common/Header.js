@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 export function Header() {
+    const userInfoString = sessionStorage.getItem('userInfo');
+    const destination = userInfoString === null ? '/signin' : '/user';
+
     const loginStyle = {
         fontSize: '2rem',
         display: 'inline-block',
@@ -133,9 +136,8 @@ export function Header() {
                                     <a className="close" href="#close">×</a>
                                 </div>
                             </div>
-                            <div className="Login_SignUp" id="login"
-                                 style={loginStyle}>
-                                <Link to={'/signin'}>
+                            <div className="Login_SignUp" id="login" style={loginStyle}>
+                                <Link to={destination}>
                                     <a className="nav-link"><i className="fa fa-user-circle-o"></i></a>
                                 </Link>
                             </div>

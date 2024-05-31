@@ -163,7 +163,7 @@ export function SignIn(){
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: regName, email: regEmail, password: regPassword }),
+                body: JSON.stringify({ username: regName, userEmail: regEmail, password: regPassword }),
             });
 
             const data = await response.json();
