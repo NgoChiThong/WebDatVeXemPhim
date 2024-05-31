@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/schedule/**",
                         "/user/register",
                         "/user/login",
+                        "/user/info",
                         "/movies/**",
                         "/movies",
                         "/cinema/{schedule_id}",

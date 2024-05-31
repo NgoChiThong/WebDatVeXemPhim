@@ -87,18 +87,18 @@ export function SignIn(){
                 if (userInfo) {
                     // Save user info to sessionStorage or set it in state
                     sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-                    setSuccessMessage('Sign-in successful!');
+                    setSuccessMessage('Đăng nhập thành công!');
                     console.log(userInfo);
                     window.location.href = '/user';  // Redirect to user page
                 } else {
-                    setErrorMessage('Failed to fetch user info.');
+                    setErrorMessage('Đăng nhập thất bại!');
                 }
             } else {
                 setErrorMessage(data.message);
             }
         } catch (error) {
-            console.error('Error during sign-in:', error);
-            setErrorMessage('An error occurred during sign-in. Please try again.');
+            console.error('Lỗi khi đăng nhập:', error);
+            setErrorMessage('Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.');
         } finally {
             setLoading(false);
         }
@@ -140,19 +140,19 @@ export function SignIn(){
         setSuccessMessage('');
 
         if (!regName) {
-            setErrorMessage('Name cannot be empty');
+            setErrorMessage('Tên không thể trống');
             setLoading(false);
             return;
         }
 
         if (!regEmail) {
-            setErrorMessage('Email cannot be empty');
+            setErrorMessage('Email không thể trống');
             setLoading(false);
             return;
         }
 
         if (!regPassword) {
-            setErrorMessage('Password cannot be empty');
+            setErrorMessage('Mật khẩu không thể trống');
             setLoading(false);
             return;
         }
@@ -169,14 +169,14 @@ export function SignIn(){
             const data = await response.json();
 
             if (data.status === 'OK') {
-                setSuccessMessage('Registration successful! Please sign in.');
+                setSuccessMessage('Đăng ký thành công!');
                 window.location.href = '/signin';
             } else {
                 setErrorMessage(data.msg);
             }
         } catch (error) {
-            console.error('Error during registration:', error);
-            setErrorMessage('An error occurred during registration. Please try again.');
+            console.error('Lỗi khi đăng ký:', error);
+            setErrorMessage('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.');
         } finally {
             setLoading(false);
         }
@@ -526,7 +526,7 @@ footer a {
                         action="#"
                         onSubmit={handleSignIn}
                     >
-                        <h1>Sign in</h1>
+                        <h1>Đăng nhập</h1>
                         <div className="social-container">
                             <a href="https://www.google.com/" className="social"
                                style={{color: 'var(--theme-title)'}}><i

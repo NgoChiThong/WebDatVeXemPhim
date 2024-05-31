@@ -44,8 +44,8 @@ public class UserService {
 	public ResponseData<Integer> registerUser(User user) {
 //	    if (user.getUsername() == null || user.getUserEmail() == null || user.getUserPhone() == null) {
 //	        return new ResponseData<>(HttpStatus.BAD_REQUEST, "Username, email, and phone must not be null", null);
-//	    }
-
+//    }
+//
 //	    if (userRepository.findByUsername(user.getUsername()) != null) {
 //	        return new ResponseData<>(HttpStatus.CONFLICT, "Username exists", 0);
 //	    }
@@ -53,8 +53,8 @@ public class UserService {
 //	        return new ResponseData<>(HttpStatus.CONFLICT, "Email exists", 0);
 //	    }
 //	    if (userRepository.findByPhone(user.getUserPhone()) != null) {
-//	        return new ResponseData<>(HttpStatus.CONFLICT, "Phone exists", 0);
-//	    }
+//        return new ResponseData<>(HttpStatus.CONFLICT, "Phone exists", 0);
+//    }
 
 	    String avatar = user.getUserGender() == 1 ? "http://lathanhhanh.tk/src/beta/img/trai.jpg"
 	            : "http://lathanhhanh.tk/src/beta/img/gai.jpg";
