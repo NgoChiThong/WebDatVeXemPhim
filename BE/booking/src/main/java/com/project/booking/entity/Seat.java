@@ -32,7 +32,7 @@ public class Seat {
     private int seatId;
 
     @Column(name = "seat_type")
-    private int seatType;
+    private String seatType;
 
     @Column(name = "room_id")
     private int roomId;
@@ -46,26 +46,35 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(int seatType, int roomId, String seatRow, int seatNumber) {
-        this.seatType = seatType;
-        this.roomId = roomId;
-        this.seatRow = seatRow;
-        this.seatNumber = seatNumber;
-    }
+//    public Seat(String seatType, int roomId, String seatRow, int seatNumber) {
+//        this.seatType = seatType;
+//        this.roomId = roomId;
+//        this.seatRow = seatRow;
+//        this.seatNumber = seatNumber;
+//    }
 
     public int getSeatId() {
         return seatId;
     }
 
-    public void setSeatId(int seatId) {
+    public Seat(int seatId, String seatType, int roomId, String seatRow, int seatNumber) {
+		super();
+		this.seatId = seatId;
+		this.seatType = seatType;
+		this.roomId = roomId;
+		this.seatRow = seatRow;
+		this.seatNumber = seatNumber;
+	}
+
+	public void setSeatId(int seatId) {
         this.seatId = seatId;
     }
 
-    public int getSeatType() {
+    public String getSeatType() {
         return seatType;
     }
 
-    public void setSeatType(int seatType) {
+    public void setSeatType(String seatType) {
         this.seatType = seatType;
     }
 

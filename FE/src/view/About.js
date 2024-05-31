@@ -40,8 +40,8 @@ export function About(props){
             <div className="w3l-breadcrumbs">
                 <nav id="breadcrumbs" className="breadcrumbs">
                     <div className="container page-wrapper">
-                        <a href="index.html">Home</a> » <span className="breadcrumb_last"
-                                                              aria-current="page">About</span>
+                        <a href="#">Trang chủ</a> » <span className="breadcrumb_last"
+                                                              aria-current="page">Giới thiệu</span>
                     </div>
                 </nav>
             </div>
@@ -52,21 +52,12 @@ export function About(props){
                         <div className="col-lg-6 ab-right">
                             {/*<img src="assets/images/banner1.jpg" alt="" className="img-fluid" />*/}
                             <img
-                                src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/tin-tuc/168364/Originals/meme-con-meo%20(1).jpg"
+                                src="https://issacoustics.com/wp-content/uploads/2023/05/CGV-Xuan-Dieu-3.jpg"
                                 alt="" className="img-fluid"/>
                         </div>
                         <div className="col-lg-6 ab-left pl-lg-4 mt-lg-0 mt-5">
                             <h3 className="hny-title">My Showz Entertainment</h3>
-                            <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam id
-                                quisquam ipsam
-                                molestiae ad eius accusantium? Nulla dolorem perferendis inventore! posuere cubilia
-                                Curae;
-                                Nunc non risus in justo convallis feugiat.</p>
-                            <div className="ready-more mt-4">
-                                <a href="www.google.com" className="btn read-button">Read More <span
-                                    className="fa fa-angle-double-right ml-2"
-                                    aria-hidden="true"></span></a>
-                            </div>
+                            <p className="mt-3">Cinestar là một trong những hệ thống rạp chiếu phim được yêu thích nhất tại Việt Nam, cung cấp nhiều mô hình giải trí hấp dẫn bao gồm Các Cụm Rạp Chiếu Phim hiện đại, Nhà hát, Khu vui chơi trẻ em Kidzone, Bowling, Billiards, Games, Phòng Gym, Nhà Hàng, và Phố Bia C'Beer. Với mục tiêu trở thành điểm đến giải trí cho mọi gia đình Việt Nam, Cinestar đang được biết đến là cụm rạp ủng hộ phim Việt, góp phần phát triển điện ảnh Việt. Không chỉ chiếu các bộ phim bom tấn quốc tế, Cinestar còn đồng hành cùng các nhà làm phim Việt Nam, đưa những tác phẩm điện ảnh đặc sắc của Việt Nam đến gần hơn với khán giả. .</p>
                         </div>
                     </div>
 
@@ -74,8 +65,8 @@ export function About(props){
                         <div className="stats_left">
                             <div className="counter_grid">
                                 <div className="icon_info">
-                                    <p className="counter">65</p>
-                                    <h4>Movies</h4>
+                                    <p className="counter">365</p>
+                                    <h4>Bộ phim</h4>
 
                                 </div>
                             </div>
@@ -84,7 +75,7 @@ export function About(props){
                             <div className="counter_grid">
                                 <div className="icon_info">
                                     <p className="counter">165</p>
-                                    <h4>Shows</h4>
+                                    <h4>Chương trình</h4>
 
                                 </div>
                             </div>
@@ -93,7 +84,7 @@ export function About(props){
                             <div className="counter_grid">
                                 <div className="icon_info">
                                     <p className="counter">463</p>
-                                    <h4>Staff Members</h4>
+                                    <h4>Nhân viên</h4>
 
                                 </div>
                             </div>
@@ -101,8 +92,8 @@ export function About(props){
                         <div className="stats_left">
                             <div className="counter_grid">
                                 <div className="icon_info">
-                                    <p className="counter">5063</p>
-                                    <h4>No. of Users</h4>
+                                    <p className="counter">5963</p>
+                                    <h4>Khách hàng</h4>
 
                                 </div>
                             </div>
@@ -111,139 +102,6 @@ export function About(props){
 
                 </div>
             </div>
-            <section className="w3l-clients" id="clients">
-
-                <div className="container py-lg-4">
-
-                    <div className="testimonial-width">
-                        <div className="owl-clients owl-carousel owl-theme mb-lg-5">
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team1.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Johnson smith</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team2.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Alexander leo</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team3.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Roy Linderson</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team4.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Mike Thyson</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team2.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Laura gill</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="testimonial-content">
-                                    <div className="testimonial">
-                                        <blockquote>
-                                            <q>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae
-                                                laudantium
-                                                voluptate rem ullam dolore!.</q>
-                                        </blockquote>
-                                        <div className="testi-des">
-                                            <div className="test-img"><img src="assets/images/team3.jpg"
-                                                                           className="img-fluid" alt="/"/>
-                                            </div>
-                                            <div className="peopl align-self">
-                                                <h3>Smith Johnson</h3>
-                                                <p className="indentity">Washington</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-
             <Footer></Footer>
             {/* Nhúng các tệp script vào đây */}
             {/*<script src="assets/js/jquery.waypoints.min.js"></script>*/}

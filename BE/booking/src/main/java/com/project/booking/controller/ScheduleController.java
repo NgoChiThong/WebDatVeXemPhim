@@ -32,4 +32,16 @@ public class ScheduleController {
     public ResponseEntity<?> getScheduleCinema(@PathVariable Integer movie_id, @PathVariable String schedule_date){
         return ResponseEntity.ok(scheduleService.getScheduleCinema(movie_id, schedule_date));
     }
+    
+    
+    
+    //viet lai
+    @GetMapping("/movie/{movie_id}")
+    public ResponseEntity<?> getSchedule(@PathVariable Integer movie_id){
+        return ResponseEntity.ok(scheduleService.getAllMovie(movie_id));
+    }
+    @GetMapping("/movieschedule/{movie_id}")
+    public ResponseEntity<?> getAllSchedule(@PathVariable Integer movie_id){
+        return ResponseEntity.ok(scheduleService.getAllByMovie(movie_id));
+    }
 }

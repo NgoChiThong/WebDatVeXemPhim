@@ -76,28 +76,28 @@ export function Header() {
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
                                     <NavLink exact to="/" activeClassName="active" className="nav-link">
-                                        Home
+                                        Trang chủ
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/movies" activeClassName="active" className="nav-link">
-                                        Movies
+                                        Phim
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/about" activeClassName="active" className="nav-link">
-                                        About
+                                        Giới thiệu
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/contact" activeClassName="active" className="nav-link">
-                                        Contact
+                                        Liên hệ
                                     </NavLink>
                                 </li>
                             </ul>
                             <div className="search-right">
                                 <a href="#search" className="btn search-hny mr-lg-3 mt-lg-0 mt-4"
-                                   title="search">Search <span
+                                   title="search">Tìm kiếm <span
                                     className="fa fa-search ml-3" aria-hidden="true"></span></a>
                                 <div id="search" className="pop-overlay">
                                     <div className="popup">

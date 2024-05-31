@@ -5,9 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.booking.entity.Movie;
+import com.project.booking.model.ResponseData;
 import com.project.booking.service.MovieSevice;
 
 @RestController
@@ -33,5 +36,10 @@ public class MovieController {
     @GetMapping("/future")
     public ResponseEntity<?> getMoviesFuture(){
         return ResponseEntity.ok(movieSevice.getMoviesFuture());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMovieById(@PathVariable Integer id) {
+        ResponseData<Movie> responseData = movieSevice.getMovieById(id);
+        return new ResponseEntity<>(responseData, responseData.getStatus());
     }
 }

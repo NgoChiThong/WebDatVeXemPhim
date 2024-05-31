@@ -41,52 +41,55 @@ const WatchTrailer = () => {
             <div className="owl-mid owl-carousel owl-theme">
                 <div className="item">
                     <li>
-                        <div className="slider-info mid-view bg bg2">
-                            <div className="container">
-                                <div className="mid-info">
-                                    <span className="sub-text">Comedy</span>
-                                    <h3>Jumanji: The Next Level</h3>
-                                    <p>2019 ‧ Comedy/Action ‧ 2h 3m</p>
-                                    <a className="watch" href="movies.html"><span className="fa fa-play"
-                                                                                  aria-hidden="true"></span>
-                                        Watch Trailer</a>
-                                </div>
-                            </div>
+                        <div className="slider-info mid-view bg bg2" style={{
+                            backgroundImage: `url(https://cinestar.com.vn/_next/image/?url=https%3A%2F%2Fapi-website.cinestar.com.vn%2Fmedia%2FMageINIC%2Fbannerslider%2FBanner_web_2_.png&w=1920&q=75)`,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            // minHeight: '400px',
+                            position: 'relative',
+                            zIndex: 0,
+                            display: 'grid',
+                            alignItems: 'center',
+                        }}>
                         </div>
                     </li>
                 </div>
+
                 <div className="item">
                     <li>
-                        <div className="slider-info mid-view mid-top1 bg bg2">
-                            <div className="container">
-                                <div className="mid-info">
-                                    <span className="sub-text">Adventure</span>
-                                    <h3>Dolittle</h3>
-                                    <p>2020 ‧ Family/Adventure ‧ 1h 41m</p>
-                                    <a className="watch" href="movies.html"><span className="fa fa-play"
-                                                                                  aria-hidden="true"></span>
-                                        Watch Trailer</a>
-                                </div>
-                            </div>
+                        <div className="slider-info mid-view bg bg2" style={{
+                            backgroundImage: `url(https://cinestar.com.vn/_next/image/?url=https%3A%2F%2Fapi-website.cinestar.com.vn%2Fmedia%2FMageINIC%2Fbannerslider%2F1215x560.jpg&w=1920&q=75)`,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            // minHeight: '400px',
+                            position: 'relative',
+                            zIndex: 0,
+                            display: 'grid',
+                            alignItems: 'center',
+                        }}>
                         </div>
                     </li>
                 </div>
+
                 <div className="item">
                     <li>
-                        <div className="slider-info mid-view mid-top2 bg bg2">
-                            <div className="container">
-                                <div className="mid-info">
-                                    <span className="sub-text">Action</span>
-                                    <h3>Bad Boys for Life</h3>
-                                    <p>2020 ‧ Comedy/Action ‧ 2h 4m</p>
-                                    <a className="watch" href="movies.html"><span className="fa fa-play"
-                                                                                  aria-hidden="true"></span>
-                                        Watch Trailer</a>
-                                </div>
-                            </div>
+                        <div className="slider-info mid-view bg bg2" style={{
+                            backgroundImage: `url(https://cinestar.com.vn/_next/image/?url=https%3A%2F%2Fapi-website.cinestar.com.vn%2Fmedia%2FMageINIC%2Fbannerslider%2F1215x365_1_.jpg&w=1920&q=75)`,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            // minHeight: '400px',
+                            position: 'relative',
+                            zIndex: 0,
+                            display: 'grid',
+                            alignItems: 'center',
+                        }}>
                         </div>
                     </li>
                 </div>
+
             </div>
         </div>
     </div>
