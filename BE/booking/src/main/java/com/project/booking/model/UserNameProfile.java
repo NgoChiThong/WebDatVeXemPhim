@@ -107,4 +107,20 @@ public class UserNameProfile {
     public void setUserPoint(int userPoint) {
         this.userPoint = userPoint;
     }
+    
+    @Override
+    public String toString() {
+        return "UserNameProfile{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", userAvatar='" + userAvatar + '\'' +
+                ", userFullname='" + userFullname + '\'' +
+                ", userBirthday='" + userBirthday + '\'' +
+                ", userGender=" + userGender +
+                ", userEmail='" + userEmail + '\'' +
+                ", userCity='" + userCity + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userPoint=" + userPoint +
+                '}';
+    }
 }

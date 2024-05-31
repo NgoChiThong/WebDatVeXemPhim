@@ -1,15 +1,20 @@
+import React, { useEffect, useState } from "react";
+import {Link, useHistory, useNavigate} from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 export function User(){
     const [activeTab, setActiveTab] = useState('profile');
+    const navigate = useNavigate();  // Using useNavigate hook for navigation
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
+    const userInfoString = sessionStorage.getItem('userInfo');
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+    console.log("userInfo", userInfo);
+
     useEffect(() => {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -34,6 +39,17 @@ export function User(){
             document.head.removeChild(link2);
         };
     }, []);
+    //nút đăng xuất
+    const handleLogout = () => {
+        // Clear session storage
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userInfo');
+
+        // Redirect to login page
+        // Redirect to login page
+        navigate('/signin');
+    };
+
     return(
         <div>
             <title>Thông tin tài khoản</title>
@@ -93,7 +109,7 @@ export function User(){
                                                     </div>
                                                     <div className="user-fav">
                                                         <ul>
-                                                            <li><a href="#"><i className="fa fa-sign-out"></i> Đăng xuất</a>
+                                                            <li><a href="#" onClick={handleLogout}><i className="fa fa-sign-out"></i> Đăng xuất</a>
                                                             </li>
                                                         </ul>
                                                     </div>

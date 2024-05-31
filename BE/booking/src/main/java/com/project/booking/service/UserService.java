@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.booking.config.JwtToken;
 import com.project.booking.entity.User;
@@ -17,65 +17,77 @@ import com.project.booking.model.ResponseData;
 import com.project.booking.model.UserNameProfile;
 import com.project.booking.repository.UserRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-
 @Service
 public class UserService {
-    @Autowired
-    UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtToken token;
+	@Autowired
+	private JwtToken token;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    public ResponseData<String> updateUser(Authentication authentication, UserNameProfile user){
-        Integer userId = userRepository.findIdByUsername(authentication.getName());
-        Integer rs = userRepository.updateUser(user.getUsername(), user.getUserFullname(), user.getUserBirthday(), user.getUserGender(), user.getUserEmail(), user.getUserCity(), user.getUserPhone(), userId);
-        return new ResponseData(HttpStatus.OK, "success", rs);
+	public ResponseData<String> updateUser(Authentication authentication, UserNameProfile user) {
+		Integer userId = userRepository.findIdByUsername(authentication.getName());
+		if (userId == null) {
+			return new ResponseData<>(HttpStatus.NOT_FOUND, "User not found", null);
+		}
+		Integer rs = userRepository.updateUser(user.getUsername(), user.getUserFullname(), user.getUserBirthday(),
+				user.getUserGender(), user.getUserEmail(), user.getUserCity(), user.getUserPhone(), userId);
+		return new ResponseData(HttpStatus.OK, "Success", rs);
+	}
+
+	public ResponseData<Integer> registerUser(User user) {
+//	    if (user.getUsername() == null || user.getUserEmail() == null || user.getUserPhone() == null) {
+//	        return new ResponseData<>(HttpStatus.BAD_REQUEST, "Username, email, and phone must not be null", null);
+//	    }
+
+//	    if (userRepository.findByUsername(user.getUsername()) != null) {
+//	        return new ResponseData<>(HttpStatus.CONFLICT, "Username exists", 0);
+//	    }
+//	    if (userRepository.findByEmail(user.getUserEmail()) != null) {
+//	        return new ResponseData<>(HttpStatus.CONFLICT, "Email exists", 0);
+//	    }
+//	    if (userRepository.findByPhone(user.getUserPhone()) != null) {
+//	        return new ResponseData<>(HttpStatus.CONFLICT, "Phone exists", 0);
+//	    }
+
+	    String avatar = user.getUserGender() == 1 ? "http://lathanhhanh.tk/src/beta/img/trai.jpg"
+	            : "http://lathanhhanh.tk/src/beta/img/gai.jpg";
+
+	    try {
+	        Integer userId = userRepository.registerUser(user.getUsername(), passwordEncoder.encode(user.getPassword()), avatar,
+	                user.getUserFullname(), user.getUserBirthday(), user.getUserGender(), user.getUserEmail(),
+	                user.getUserCity(), user.getUserPhone());
+	        return new ResponseData<>(HttpStatus.OK, "Success", userId);
+	    } catch (Exception e) {
+	        return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR, "Error registering user", null);
+	    }
+	}
+
+
+	public ResponseData<String> loginUser(String username, String password) {
+       try {
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = token.generateToken((UserDetails) authentication.getPrincipal());
+		return new ResponseData<>(HttpStatus.OK, "Success", jwt);
+	}
+        catch (Exception e) {
+            return new ResponseData<>(HttpStatus.UNAUTHORIZED, "An error occurred during sign-in.", null);
+        }
     }
 
-    public ResponseData<Integer> registerUser(User user){
-        if(userRepository.findByUsername(user.getUsername()) != null){
-            return new ResponseData(HttpStatus.OK, "username exist", 0);
-        }
-        if(userRepository.findByEmail(user.getUserEmail()) != null){
-            return new ResponseData(HttpStatus.OK, "email exist", 0);
-        }
-        if(userRepository.findByPhone(user.getUserPhone()) != null){
-            return new ResponseData(HttpStatus.OK, "phone exist", 0);
-        }
-
-        String avt;
-        if(user.getUserGender() == 1){
-            avt = "http://lathanhhanh.tk/src/beta/img/trai.jpg";
-        }else{
-            avt = "http://lathanhhanh.tk/src/beta/img/gai.jpg";
-        }
-        return new ResponseData(HttpStatus.OK, "success", userRepository.registerUser(user.getUsername(), passwordEncoder.encode(user.getPassword()), avt, user.getUserFullname(), user.getUserBirthday(), user.getUserGender(), user.getUserEmail(), user.getUserCity(), user.getUserPhone()));
-    }
-
-    public ResponseData<String> loginUser(String username, String password){
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        username, password
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = token.generateToken((UserDetails) authentication.getPrincipal());
-        return new ResponseData(HttpStatus.OK, "success", jwt);
-    }
-
-    public ResponseData<User> getInfo(Authentication authentication){
-        return new ResponseData(HttpStatus.OK, "success", userRepository.findByUsername(authentication.getName()));
-    }
+	public ResponseData<User> getInfo(Authentication authentication) {
+		User user = userRepository.findByUsername(authentication.getName());
+		if (user == null) {
+			return new ResponseData<>(HttpStatus.NOT_FOUND, "User not found", null);
+		}
+		return new ResponseData<>(HttpStatus.OK, "Success", user);
+	}
 }
