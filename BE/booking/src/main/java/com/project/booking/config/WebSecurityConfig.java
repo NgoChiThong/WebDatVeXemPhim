@@ -74,7 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/movies",
                         "/cinema/{schedule_id}",
                         "/seat/s/{schedule_id}",
-                        "/seat/sbooked/{schedule_id}"
+                        "/seat/sbooked/{schedule_id}",
+                        "/book/create"
 
                 ).permitAll()
                 //swagger

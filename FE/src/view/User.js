@@ -15,6 +15,9 @@ export function User(){
     const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
     console.log("userInfo", userInfo);
 
+    const token = sessionStorage.getItem('token');
+    console.log(token);
+
     useEffect(() => {
         const link = document.createElement("link");
         link.rel = "stylesheet";

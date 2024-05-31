@@ -8,6 +8,7 @@ import PayPalButton from './PayPalButton';
 
 export function Booking() {
     const {id} = useParams();
+    const token = sessionStorage.getItem('token');
     //thanh toan
     const [checkout, setCheckOut] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
@@ -587,7 +588,42 @@ export function Booking() {
         // Nếu không tìm thấy, trả về null hoặc một giá trị mặc định phù hợp
         return null;
     };
+    // dat ve:
+    const bookTicket = async () => {
+        const bookingData = {
+            scheduleId: scheduleId,
+            seatId: formatSelectedSeats[0],
+            price: price,
+            seatStatus: 1,
+        };
 
+        try {
+            const response = await fetch('http://localhost:80/book/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(bookingData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Booking successful:', data);
+                // Bạn có thể thêm các hành động khác ở đây, ví dụ: chuyển hướng trang, hiển thị thông báo cho người dùng, v.v.
+            } else {
+                console.error('Booking failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error occurred while booking:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (paymentSuccessful) {
+            bookTicket();
+        }
+    }, [paymentSuccessful]);
     return (<div>
         <title>Đặt vé</title>
         <Helmet></Helmet>
