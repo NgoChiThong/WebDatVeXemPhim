@@ -84,7 +84,7 @@ form {
 
 input {
 	background-color: var(--theme-bg);
-	color: var(--theme-text);
+
 	/* #eee; */
 	border: none;
 	padding: 12px 15px;
@@ -94,7 +94,7 @@ input {
 
 .container_signup_signin {
 	background: var(--theme-bg);
-	color: var(--theme-text);
+
 	border-radius: 10px;
 	box-shadow: 0 14px 28px var(--theme-border),
 		0 10px 10px var(--theme-border);

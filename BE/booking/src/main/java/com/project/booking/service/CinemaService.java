@@ -1,0 +1,19 @@
+package com.project.booking.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import com.project.booking.entity.Cinema;
+import com.project.booking.model.ResponseData;
+import com.project.booking.repository.CinemaRepository;
+
+@Service
+public class CinemaService {
+    @Autowired
+    CinemaRepository cinemaRepository;
+
+    public ResponseData<Cinema> getCinemaByScheduleId(Integer schedule_id){
+        return new ResponseData(HttpStatus.OK, "success", cinemaRepository.getCinemasByIdSchedule(schedule_id));
+    }
+}

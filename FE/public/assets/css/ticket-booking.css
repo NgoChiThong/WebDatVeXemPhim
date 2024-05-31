@@ -224,3 +224,8 @@ h2 {
 #form .home-page-btn:focus { 
 	background-color: #c70050;
 }
+.selected {
+	background: #df0e62;
+}
+
+

@@ -3939,7 +3939,7 @@ ul {
 }
 .tabs ul.tabs-mv li.active a,
 .tabs ul.tabs-mv li:hover a {
-  border-bottom: 3px solid #dcf836;
+  border-bottom: 3px solid #ff0000;
 }
 .tabs ul.tabs-series li {
   margin-right: 40px;
@@ -4753,12 +4753,12 @@ ul {
   content: '';
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.25);
 }
 /*movie single hero*/
 .mv-single-hero {
   background: url('../images/bga1.jpg') no-repeat;
-  height: 598px;
+  height: 450px;
 }
 /*series single hero*/
 .sr-single-hero {
@@ -5452,7 +5452,7 @@ ul {
 .movie-single .sb-it h6 {
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
-  color: #abb7c4;
+  color: #000000;
   font-weight: bold;
   text-transform: capitalize;
   margin-bottom: 10px;
@@ -5507,8 +5507,8 @@ ul {
 .form-style-1 input,
 .form-style-1 select {
   font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  color: #abb7c4;
+  /*font-size: 12px;*/
+  color: #000000;
   font-weight: 300;
   text-transform: none;
   background-color: #233a50;
@@ -6706,7 +6706,7 @@ p.ceb-single {
 /*  color: #020d18;*/
 /*}*/
 .buster-light .movie-single .sb-it p {
-  color: #9ca9b7;
+  color: #000000;
 }
 .buster-light .tabs ul.tabs-mv li.active a,
 .buster-light .tabs ul.tabs-mv li:hover a {
@@ -6922,4 +6922,8 @@ p.ceb-single {
   margin-bottom: 10px;
   padding: 8px;
   box-sizing: border-box;
+}
+.newre .owl-carousel .owl-three .owl-carousel .owl-theme .owl-loaded .owl-drag .owl-stage-outer .owl-stage .owl-item.cloned {
+  /* Thêm các thuộc tính CSS bạn muốn áp dụng cho lớp .owl-item cloned */
+width : 80px !important;
 }
