@@ -590,12 +590,20 @@ export function Booking() {
     };
     // dat ve:
     const bookTicket = async () => {
+        // const bookingData = {
+        //     scheduleId: scheduleId,
+        //     seatId: formatSelectedSeats,
+        //     price: price,
+        //     seatStatus: 1,
+        // };
+
         const bookingData = {
-            scheduleId: scheduleId,
-            seatId: formatSelectedSeats[0],
-            price: price,
-            seatStatus: 1,
+            "scheduleId": scheduleId,
+            "seatIds": formatSelectedSeats,
+            "price": price,
+            "seatStatus": 1
         };
+
 
         try {
             const response = await fetch('http://localhost:80/book/create', {
