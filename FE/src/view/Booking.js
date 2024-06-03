@@ -9,6 +9,13 @@ import PayPalButton from './PayPalButton';
 export function Booking() {
     const {id} = useParams();
     const token = sessionStorage.getItem('token');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/signin'); // Điều hướng đến trang đăng nhập nếu không có token
+        }
+    }, [token, navigate]);
     //thanh toan
     const [checkout, setCheckOut] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
@@ -56,7 +63,7 @@ export function Booking() {
     // console.log("Thong tin don hang la:", orderDetails);
     const paymentAmount = (price / 24000).toFixed(0); // Giá trị thanh toán
     const paymentCurrency = "USD"; // Loại tiền tệ
-    const paymentDescription = scheduleId + ' ' + formatSelectedSeats; // Mô tả đơn hàng
+    const paymentDescription = scheduleId + ' ' +"Thanh toan ve xem phim" ; // Mô tả đơn hàng
 
 
     useEffect(() => {
@@ -500,7 +507,7 @@ export function Booking() {
         marginLeft: "auto",
         marginRight: "auto"
     };
-    const navigate = useNavigate();
+
 
     const handleCancelPayment = () => {
         navigate('/home'); // Navigate to the '/home' route
@@ -601,7 +608,9 @@ export function Booking() {
             "scheduleId": scheduleId,
             "seatIds": formatSelectedSeats,
             "price": price,
-            "seatStatus": 1
+            "seatStatus": 1,
+            "movieId": id,
+            "status": 0
         };
 
 

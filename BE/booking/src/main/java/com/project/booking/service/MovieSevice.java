@@ -53,4 +53,13 @@ public class MovieSevice {
         }
         return new ResponseData<>(HttpStatus.OK, "success", movie);
     }
+    //tim kiem phim
+    public ResponseData<Movie> searchMovieByName(String keyword) {
+        List<Movie> rs = movieRepository.searchByMovieName(keyword);
+        if (CollectionUtils.isEmpty(rs)) {
+            return new ResponseData(HttpStatus.NOT_FOUND, "No movies found with the given keyword", null);
+        } else {
+            return new ResponseData(HttpStatus.OK, "success", rs);
+        }
+    }
 }

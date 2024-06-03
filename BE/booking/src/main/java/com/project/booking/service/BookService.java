@@ -1,6 +1,11 @@
 package com.project.booking.service;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.project.booking.entity.Book;
 import com.project.booking.entity.Order;
 import com.project.booking.entity.OrderDetail;
+import com.project.booking.model.OrderDTO;
 import com.project.booking.model.ResponseData;
 import com.project.booking.repository.BookRepository;
 import com.project.booking.repository.OrderDetailRepository;
@@ -49,12 +55,15 @@ public class BookService {
 	public Order bookTicket(Authentication authentication, BookingRequest bookRequest) {
 		int userId = userRepository.findIdByUsername(authentication.getName());
 
-		double totalPrice = bookRequest.getPrice() * bookRequest.getSeatIds().size();
+		double totalPrice = bookRequest.getPrice();
 
 		Order order = new Order();
 		order.setUserId(userId);
 		order.setOrderDate(LocalDateTime.now());
 		order.setTotalPrice(totalPrice);
+		order.setMovieId(bookRequest.getMovieId());
+		order.setScheduleId(bookRequest.getScheduleId());
+		order.setStatus(bookRequest.getStatus());
 		order = orderRepository.save(order);
 
 		Order finalOrder = order; // Dùng holder object để lưu trữ giá trị của order
@@ -70,14 +79,41 @@ public class BookService {
 
 		orderDetailRepository.saveAll(orderDetails);
 
+		// Update the status and add points to the user
+		updateStatus(authentication, order.getId(), totalPrice);
+
 		return order;
 	}
 
-	public ResponseData<Integer> updateStatus(Authentication authentication, Integer book_id) {
+	public ResponseData<Integer> updateStatus(Authentication authentication, Integer book_id, double total) {
 		Integer userId = userRepository.findIdByUsername(authentication.getName());
 		Double point = userRepository.getPoint(userId);
-		userRepository.addPoint(point + 10, userId);
+		userRepository.addPoint(point + (total * 0.0002), userId);
 		return new ResponseData(HttpStatus.OK, "book running", bookRepository.updateStatus(userId, book_id));
+	}
+
+	// lay danh sach ve
+	public List<OrderDTO> getOrdersByUserId(Authentication authentication) {
+		Integer userId = userRepository.findIdByUsername(authentication.getName());
+		List<Object[]> results = bookRepository.findOrdersByUserId(userId);
+		List<OrderDTO> orders = new ArrayList<>();
+
+		for (Object[] result : results) {
+			Integer orderId = (Integer) result[0];
+			String movieName = (String) result[1];
+			String movie_poster = (String) result[2];
+			Date scheduleDate = (Date) result[3];
+			Time scheduleStart = (Time) result[4];
+			String cinemaName = (String) result[5];
+			String roomName = (String) result[6];
+			String seats = (String) result[7];
+
+			OrderDTO orderDTO = new OrderDTO(orderId, movieName, movie_poster, scheduleDate, scheduleStart, cinemaName,
+					roomName, seats);
+			orders.add(orderDTO);
+		}
+
+		return orders;
 	}
 
 }

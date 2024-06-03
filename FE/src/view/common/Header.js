@@ -5,6 +5,10 @@ export function Header() {
     const userInfoString = sessionStorage.getItem('userInfo');
     const destination = userInfoString === null ? '/signin' : '/user';
 
+    //tim kiem
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
     const loginStyle = {
         fontSize: '2rem',
         display: 'inline-block',
@@ -60,6 +64,43 @@ export function Header() {
         };
     }, []);
 
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:80/movies/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ keyword: searchKeyword })
+            });
+            const data = await response.json();
+            setSearchResults(data.data);
+        } catch (error) {
+            console.error('Error searching for movies:', error);
+            setSearchResults([]);
+        }
+    };
+    const handleSearchChange = async (e) => {
+        const keyword = e.target.value;
+        setSearchKeyword(keyword); // Cập nhật keyword vào state
+
+        try {
+            const response = await fetch('http://localhost:80/movies/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ keyword: keyword })
+            });
+            const data = await response.json();
+            setSearchResults(data.data);
+        } catch (error) {
+            console.error('Error searching for movies:', error);
+            setSearchResults([]);
+        }
+    };
+
     return (
         <div>
             <header id="site-header" className="w3l-header fixed-top">
@@ -99,38 +140,54 @@ export function Header() {
                                 </li>
                             </ul>
                             <div className="search-right">
-                                <a href="#search" className="btn search-hny mr-lg-3 mt-lg-0 mt-4"
-                                   title="search">Tìm kiếm <span
-                                    className="fa fa-search ml-3" aria-hidden="true"></span></a>
+                                <a href="#search" className="btn search-hny mr-lg-3 mt-lg-0 mt-4" title="search">Tìm
+                                    kiếm <span
+                                        className="fa fa-search ml-3" aria-hidden="true"></span></a>
                                 <div id="search" className="pop-overlay">
                                     <div className="popup">
-                                        <form action="#" method="post" className="search-box">
-                                            <input type="search" placeholder="Search your Keyword" name="search"
+                                        <form onSubmit={handleSearchSubmit} className="search-box">
+                                            <input type="search" placeholder="Nhập tên phim hoặc từ khoá cần tìm"
+                                                   name="search"
+                                                   value={searchKeyword}
+                                                   onChange={handleSearchChange}
                                                    required="required" autoFocus=""/>
                                             <button type="submit" className="btn"><span className="fa fa-search"
                                                                                         aria-hidden="true"></span>
                                             </button>
                                         </form>
                                         <div className="browse-items">
-                                            <h3 className="hny-title two mt-md-5 mt-4">Browse all:</h3>
-                                            <ul className="search-items">
-                                                <li><a href="movies.html">Action</a></li>
-                                                <li><a href="movies.html">Drama</a></li>
-                                                <li><a href="movies.html">Family</a></li>
-                                                <li><a href="movies.html">Thriller</a></li>
-                                                <li><a href="movies.html">Commedy</a></li>
-                                                <li><a href="movies.html">Romantic</a></li>
-                                                <li><a href="movies.html">Tv-Series</a></li>
-                                                <li><a href="movies.html">Horror</a></li>
-                                                <li><a href="movies.html">Action</a></li>
-                                                <li><a href="movies.html">Drama</a></li>
-                                                <li><a href="movies.html">Family</a></li>
-                                                <li><a href="movies.html">Thriller</a></li>
-                                                <li><a href="movies.html">Commedy</a></li>
-                                                <li><a href="movies.html">Romantic</a></li>
-                                                <li><a href="movies.html">Tv-Series</a></li>
-                                                <li><a href="movies.html">Horror</a></li>
-                                            </ul>
+                                            <h3 className="hny-title two mt-md-5 mt-4" style={{textDecoration: 'none'}}>Kết quả tìm kiếm:</h3>
+                                            <div className="search-results" style={{
+                                                color: "white", display: 'flex',
+                                                flexWrap: 'wrap',
+                                                marginTop: '20px', maxHeight:"500px", overflowY: 'auto',
+                                            }}>
+                                                {searchResults === null ? (
+                                                    <p>Không tìm thấy nội dung.</p>
+                                                ) : (
+                                                searchResults.map(movie => (
+                                                    <div key={movie.movieId} className="movie-item" style={{
+                                                        width: 'calc(33.333% - 20px)',
+                                                        margin: '10px',
+                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                                                        borderRadius: '8px',
+                                                        overflow: 'hidden',
+                                                        transition: 'transform 0.3s',
+                                                    }}>
+                                                        <img src={movie.moviePoster} alt="Movie Thumbnail"
+                                                             className="movie-thumbnail" style={{
+                                                            width: '200px',
+                                                            height: '300px',
+                                                        }}/>
+                                                        <Link to={`/detail/${movie.movieId}`}>
+                                                        <div className="movie-info" style={{color:"white"}}>
+                                                            <h4 className="movie-title">{movie.movieName}</h4>
+                                                            <p className="movie-description">{movie.movieDescription}</p>
+                                                        </div>
+                                                        </Link>
+                                                    </div>
+                                                )))}
+                                            </div>
                                         </div>
                                     </div>
                                     <a className="close" href="#close">×</a>

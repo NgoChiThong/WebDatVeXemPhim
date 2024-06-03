@@ -5,46 +5,71 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 public class BookingRequest {
-	@NotNull(message = "Thiếu id suất chiếu")
-	private int scheduleId;
-	@NotNull(message = "Thiếu id ghế")
-	private List<Integer> seatIds;
-	@NotNull(message = "Thiếu giá")
-	private Double price;
-	@NotNull(message = "Thiếu trạng thái ghế")
-	private String seatStatus;
+    @NotNull(message = "Thiếu id suất chiếu")
+    private int scheduleId;
 
-	// Getters and setters
+    @NotNull(message = "Thiếu id ghế")
+    private List<Integer> seatIds;
 
-	public int getScheduleId() {
-		return scheduleId;
-	}
+    @NotNull(message = "Thiếu giá")
+    private Double price;
 
-	public void setScheduleId(int scheduleId) {
-		this.scheduleId = scheduleId;
-	}
+    @NotNull(message = "Thiếu trạng thái ghế")
+    private int seatStatus;
 
-	public List<Integer> getSeatIds() {
-		return seatIds;
-	}
+    @NotNull(message = "Thiếu id phim")
+    private int movieId;
 
-	public void setSeatIds(List<Integer> seatIds) {
-		this.seatIds = seatIds;
-	}
+    @NotNull(message = "Thiếu trạng thái đơn hàng")
+    private int status;
 
-	public Double getPrice() {
-		return price;
-	}
+    // Getters and setters
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public int getScheduleId() {
+        return scheduleId;
+    }
 
-	public String getSeatStatus() {
-		return seatStatus;
-	}
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
 
-	public void setSeatStatus(String seatStatus) {
-		this.seatStatus = seatStatus;
-	}
+    public List<Integer> getSeatIds() {
+        return seatIds;
+    }
+
+    public void setSeatIds(List<Integer> seatIds) {
+        this.seatIds = seatIds;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public int getSeatStatus() {
+        return seatStatus;
+    }
+
+    public void setSeatStatus(int seatStatus) {
+        this.seatStatus = seatStatus;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

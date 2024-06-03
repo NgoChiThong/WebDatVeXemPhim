@@ -29,15 +29,30 @@ public class Order {
 	@Column(nullable = false)
 	private Double totalPrice;
 
+	@Column(nullable = false)
+	private int movieId;
+
+	@Column(nullable = false)
+	private int scheduleId;
+
+	@Column(nullable = false)
+	private int status;
+
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetails;
 
-	public Order(int id, int userId, LocalDateTime orderDate, Double totalPrice, Set<OrderDetail> orderDetails) {
+	
+
+	public Order(int id, int userId, LocalDateTime orderDate, Double totalPrice, int movieId, int scheduleId,
+			int status, Set<OrderDetail> orderDetails) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.totalPrice = totalPrice;
+		this.movieId = movieId;
+		this.scheduleId = scheduleId;
+		this.status = status;
 		this.orderDetails = orderDetails;
 	}
 
@@ -83,6 +98,30 @@ public class Order {
 
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+
+	public int getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
+
+	public int getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(int scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	// Getters and setters

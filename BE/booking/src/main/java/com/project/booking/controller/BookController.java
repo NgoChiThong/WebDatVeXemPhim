@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.booking.model.OrderDTO;
 import com.project.booking.request.BookingRequest;
 import com.project.booking.service.BookService;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @Api(description = "Api booking")
@@ -27,7 +29,7 @@ public class BookController {
 	@ApiOperation(value = "Thay đổi trang thái ghế theo vé")
 	@PostMapping(value = "/confirm")
 	public ResponseEntity<?> confirmTick(Authentication authentication, @RequestBody HashMap<String, Integer> request) {
-		return ResponseEntity.ok(bookService.updateStatus(authentication, request.get("bookId")));
+		return ResponseEntity.ok(bookService.updateStatus(authentication, request.get("bookId"), 0));
 	}
 
 	@ApiOperation(value = "Book vé xem phim")
@@ -35,4 +37,11 @@ public class BookController {
 	public ResponseEntity<?> bookTicket(Authentication authentication, @RequestBody BookingRequest bookRequest) {
 		return ResponseEntity.ok(bookService.bookTicket(authentication, bookRequest));
 	}
+
+	@GetMapping("/user")
+	public ResponseEntity<List<OrderDTO>> getOrdersByUserId(Authentication authentication) {
+		List<OrderDTO> orders = bookService.getOrdersByUserId(authentication);
+		return ResponseEntity.ok(orders);
+	}
+
 }

@@ -25,4 +25,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     //lay toan bo phim
     @Query(value = "SELECT `movie_id`,`movie_name`,`movie_description`,`movie_trailer`,`movie_cens`,`movie_genres`,DATE_FORMAT(`movie_release`, \"%d/%m/%Y\") as `movie_release`,`movie_lenght`,`movie_format`,`movie_poster` FROM `movies` ORDER BY movie_id DESC", nativeQuery = true)
     List<Movie> getAllMovies();
+    //tim kiem phim
+    @Query(value = "SELECT * FROM movies WHERE movie_name LIKE %:keyword%", nativeQuery = true)
+    List<Movie> searchByMovieName(@Param("keyword") String keyword);
 }

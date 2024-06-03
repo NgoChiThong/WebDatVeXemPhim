@@ -30,9 +30,9 @@ public class OrderDetail {
 	private Double price;
 
 	@Column(nullable = false)
-	private String seatStatus;
+	private int seatStatus;
 
-	public OrderDetail(int id, Order order, int scheduleId, int seatId, Double price, String seatStatus) {
+	public OrderDetail(int id, Order order, int scheduleId, int seatId, Double price, int seatStatus) {
 		super();
 		this.id = id;
 		this.order = order;
@@ -86,12 +86,12 @@ public class OrderDetail {
 		this.price = price;
 	}
 
-	public String getSeatStatus() {
+	public int getSeatStatus() {
 		return seatStatus;
 	}
 
-	public void setSeatStatus(String seatStatus) {
-		this.seatStatus = seatStatus;
+	public void setSeatStatus(int i) {
+		this.seatStatus = i;
 	}
 
 }
