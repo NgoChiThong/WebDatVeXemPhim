@@ -107,9 +107,9 @@ public class BookService {
 			String cinemaName = (String) result[5];
 			String roomName = (String) result[6];
 			String seats = (String) result[7];
-
+			double total_price = (Double) result[8];
 			OrderDTO orderDTO = new OrderDTO(orderId, movieName, movie_poster, scheduleDate, scheduleStart, cinemaName,
-					roomName, seats);
+					roomName, seats, total_price );
 			orders.add(orderDTO);
 		}
 

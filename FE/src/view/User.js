@@ -84,6 +84,16 @@ export function User(){
         // Trả về chuỗi đã định dạng lại
         return `${day}-${month}-${year}`;
     }
+    function formatCurrencyVND(amount) {
+        let priceCopy = amount; // Tạo một bản sao của amount
+        if (typeof amount !== 'number') {
+            priceCopy = parseFloat(amount);
+            if (isNaN(priceCopy)) {
+                return null; // Trả về null nếu giá trị không thể chuyển đổi thành số
+            }
+        }
+        return priceCopy.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    }
 
 
     return(
@@ -238,12 +248,12 @@ export function User(){
                                                                         </h6>
                                                                         <p>Mã đặt vé: {ticket.orderId}</p>
                                                                         <p className="run-time">
-                                                                            Thời
-                                                                            gian: {ticket.scheduleStart} {formatDate(ticket.scheduleDate)}
+                                                                            Thời gian: {ticket.scheduleStart} {formatDate(ticket.scheduleDate)}
                                                                         </p>
                                                                         <p>Số ghế: {ticket.seats}</p>
                                                                         <p>Phòng chiếu: {ticket.roomName}</p>
                                                                         <p>Rạp: {ticket.cinemaName}</p>
+                                                                        <p>Tổng tiền: {formatCurrencyVND(ticket.total_price)}</p>
                                                                     </div>
                                                                 </div>
                                                             ))

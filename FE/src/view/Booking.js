@@ -16,6 +16,10 @@ export function Booking() {
             navigate('/signin'); // Điều hướng đến trang đăng nhập nếu không có token
         }
     }, [token, navigate]);
+    const userInfoString = sessionStorage.getItem('userInfo');
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+    console.log("userInfo", userInfo);
+
     //thanh toan
     const [checkout, setCheckOut] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
@@ -60,7 +64,7 @@ export function Booking() {
         // Xử lý logic khác sau khi thanh toán thành công
     };
     // console.log("Thanh toan thanh cong la:", paymentSuccessful);
-    // console.log("Thong tin don hang la:", orderDetails);
+    console.log("Thong tin don hang la:", orderDetails);
     const paymentAmount = (price / 24000).toFixed(0); // Giá trị thanh toán
     const paymentCurrency = "USD"; // Loại tiền tệ
     const paymentDescription = scheduleId + ' ' +"Thanh toan ve xem phim" ; // Mô tả đơn hàng
@@ -572,7 +576,7 @@ export function Booking() {
     function convertSeat(seat) {
         const [row, number] = seat.split('_');
         const seatRow = String.fromCharCode(64 + parseInt(row)); // Chuyển đổi từ số sang chữ cái (1 -> A, 2 -> B, ...)
-        return ` ${seatRow}_${number}`;
+        return ` ${seatRow}${number}`;
     }
 
 // Chuyển đổi danh sách ghế
@@ -595,6 +599,22 @@ export function Booking() {
         // Nếu không tìm thấy, trả về null hoặc một giá trị mặc định phù hợp
         return null;
     };
+    function getCurrentDateTime() {
+        const currentDate = new Date();
+
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        const dateTimeString = `${hours}:${minutes}:${seconds}, ${day}-${month}-${year}`;
+
+        return dateTimeString;
+    }
+
     // dat ve:
     const bookTicket = async () => {
         // const bookingData = {
@@ -628,6 +648,30 @@ export function Booking() {
                 const data = await response.json();
                 console.log('Booking successful:', data);
                 // Bạn có thể thêm các hành động khác ở đây, ví dụ: chuyển hướng trang, hiển thị thông báo cho người dùng, v.v.
+
+                // Sau khi đặt vé thành công, gửi email xác nhận
+                const emailData = {
+                    recipient: userInfo.data.userEmail,
+                    msgBody: `LuxCine xin chào bạn ${userInfo.data.userFullname},\n\nXin cảm ơn bạn ${userInfo.data.userFullname} đã sử dụng dịch vụ của chúng tôi! LuxCine xác nhận bạn đã đặt vé xem phim thành công lúc ${getCurrentDateTime()}.\n\nChi tiết vé của bạn như sau: \n\nMã đặt vé: ${orderDetails.id} \n\nPhim: ${movie.movieName}. \n\nPhòng Chiếu: ${selectedSchedule.roomId} \n\nSố Ghế: ${convertedSeats}.\n\nSố tiền: ${price} VNĐ\n\nHãy truy cập Website để xem thêm thông tin chi tiết về vé.\n\nChúc quý khách có những khoảnh khắc tuyệt vời cùng bộ phim nhé!`,
+                    subject:  `Xác nhận đặt vé LuxCine thành công - Mã giao dịch ${orderDetails.id}`
+                };
+
+                const emailResponse = await fetch('http://localhost:80/sendMail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(emailData),
+                });
+
+                if (emailResponse.ok) {
+                    console.log('Email sent successfully');
+                } else {
+                    console.error('Failed to send email:', emailResponse.statusText);
+                }
+
+
             } else {
                 console.error('Booking failed:', response.statusText);
             }

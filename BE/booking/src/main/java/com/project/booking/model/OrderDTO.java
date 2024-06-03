@@ -14,8 +14,9 @@ public class OrderDTO {
 	private String cinemaName;
 	private String roomName;
 	private String seats;
+	private double total_price;
 	public OrderDTO(Integer orderId, String movieName, String moviePoster, Date scheduleDate, Time scheduleStart,
-			String cinemaName, String roomName, String seats) {
+			String cinemaName, String roomName, String seats, double total_price) {
 		super();
 		this.orderId = orderId;
 		this.movieName = movieName;
@@ -25,6 +26,7 @@ public class OrderDTO {
 		this.cinemaName = cinemaName;
 		this.roomName = roomName;
 		this.seats = seats;
+		this.total_price = total_price;
 	}
 	public Integer getOrderId() {
 		return orderId;
@@ -74,6 +76,14 @@ public class OrderDTO {
 	public void setSeats(String seats) {
 		this.seats = seats;
 	}
+	public double getTotal_price() {
+		return total_price;
+	}
+	public void setTotal_price(double total_price) {
+		this.total_price = total_price;
+	}
+
+	
 	
 
 }
