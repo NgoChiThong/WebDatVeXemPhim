@@ -1,6 +1,7 @@
 package com.project.booking.service;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -64,6 +65,7 @@ public class BookService {
 		order.setMovieId(bookRequest.getMovieId());
 		order.setScheduleId(bookRequest.getScheduleId());
 		order.setStatus(bookRequest.getStatus());
+		order.setOrder_code(bookRequest.getOrder_code());
 		order = orderRepository.save(order);
 
 		Order finalOrder = order; // Dùng holder object để lưu trữ giá trị của order
@@ -100,15 +102,17 @@ public class BookService {
 
 		for (Object[] result : results) {
 			Integer orderId = (Integer) result[0];
-			String movieName = (String) result[1];
-			String movie_poster = (String) result[2];
-			Date scheduleDate = (Date) result[3];
-			Time scheduleStart = (Time) result[4];
-			String cinemaName = (String) result[5];
-			String roomName = (String) result[6];
-			String seats = (String) result[7];
-			double total_price = (Double) result[8];
-			OrderDTO orderDTO = new OrderDTO(orderId, movieName, movie_poster, scheduleDate, scheduleStart, cinemaName,
+			String order_code = (String) result[1];
+			Timestamp order_date = (Timestamp) result[2];
+			String movieName = (String) result[3];
+			String movie_poster = (String) result[4];
+			Date scheduleDate = (Date) result[5];
+			Time scheduleStart = (Time) result[6];
+			String cinemaName = (String) result[7];
+			String roomName = (String) result[8];
+			String seats = (String) result[9];
+			double total_price = (Double) result[10];
+			OrderDTO orderDTO = new OrderDTO(orderId, order_code, order_date, movieName, movie_poster, scheduleDate, scheduleStart, cinemaName,
 					roomName, seats, total_price );
 			orders.add(orderDTO);
 		}

@@ -37,14 +37,19 @@ public class Order {
 
 	@Column(nullable = false)
 	private int status;
+	
+	@Column(nullable = false)
+	private String order_code;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetails;
 
 	
 
+	
+
 	public Order(int id, int userId, LocalDateTime orderDate, Double totalPrice, int movieId, int scheduleId,
-			int status, Set<OrderDetail> orderDetails) {
+			int status, String order_code, Set<OrderDetail> orderDetails) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -53,6 +58,7 @@ public class Order {
 		this.movieId = movieId;
 		this.scheduleId = scheduleId;
 		this.status = status;
+		this.order_code = order_code;
 		this.orderDetails = orderDetails;
 	}
 
@@ -123,6 +129,15 @@ public class Order {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public String getOrder_code() {
+		return order_code;
+	}
+
+	public void setOrder_code(String order_code) {
+		this.order_code = order_code;
+	}
+	
 
 	// Getters and setters
 

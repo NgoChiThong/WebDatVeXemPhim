@@ -94,6 +94,29 @@ export function User(){
         }
         return priceCopy.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
     }
+    function convertToTimeZone(dateString) {
+        // Bước 1: Tạo đối tượng Date từ chuỗi ISO
+        const date = new Date(dateString);
+
+        // Bước 2: Chuyển đổi múi giờ +7
+        // Lấy thời gian Unix timestamp và cộng thêm 7 giờ (25200 giây)
+        const timeZoneOffset = 7 * 60 * 60 * 1000;
+        const localDate = new Date(date.getTime() + timeZoneOffset);
+
+        // Bước 3: Định dạng lại ngày giờ
+        const hours = String(localDate.getUTCHours()).padStart(2, '0');
+        const minutes = String(localDate.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(localDate.getUTCSeconds()).padStart(2, '0');
+        const day = String(localDate.getUTCDate()).padStart(2, '0');
+        const month = String(localDate.getUTCMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        const year = localDate.getUTCFullYear();
+
+        // Kết quả cuối cùng
+        const formattedDate = `${hours}:${minutes}:${seconds}  ${day}-${month}-${year}`;
+        return formattedDate;
+    }
+
+
 
 
     return(
@@ -246,9 +269,10 @@ export function User(){
                                                                     <div className="mv-item-infor">
                                                                         <h6><a href="#">{ticket.movieName}</a>
                                                                         </h6>
-                                                                        <p>Mã đặt vé: {ticket.orderId}</p>
+                                                                        <p>Mã đặt vé: {ticket.order_code}</p>
+                                                                        <p>Thời gian đặt vé: {convertToTimeZone(ticket.order_date)}</p>
                                                                         <p className="run-time">
-                                                                            Thời gian: {ticket.scheduleStart} {formatDate(ticket.scheduleDate)}
+                                                                            Thời gian chiếu: {ticket.scheduleStart} {formatDate(ticket.scheduleDate)}
                                                                         </p>
                                                                         <p>Số ghế: {ticket.seats}</p>
                                                                         <p>Phòng chiếu: {ticket.roomName}</p>

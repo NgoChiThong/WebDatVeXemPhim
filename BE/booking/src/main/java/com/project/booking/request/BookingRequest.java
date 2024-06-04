@@ -22,6 +22,9 @@ public class BookingRequest {
 
     @NotNull(message = "Thiếu trạng thái đơn hàng")
     private int status;
+    
+    @NotNull(message = "Thiếu mã đặt vé")
+    private String order_code;
 
     // Getters and setters
 
@@ -72,4 +75,13 @@ public class BookingRequest {
     public void setStatus(int status) {
         this.status = status;
     }
+
+	public String getOrder_code() {
+		return order_code;
+	}
+
+	public void setOrder_code(String order_code) {
+		this.order_code = order_code;
+	}
+    
 }

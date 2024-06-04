@@ -630,7 +630,8 @@ export function Booking() {
             "price": price,
             "seatStatus": 1,
             "movieId": id,
-            "status": 0
+            "status": 0,
+            "order_code": orderDetails.id
         };
 
 
