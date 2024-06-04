@@ -686,6 +686,57 @@ export function Booking() {
             bookTicket();
         }
     }, [paymentSuccessful]);
+
+    const isPastDate = (dateString) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt thời gian của ngày hiện tại về 00:00:00
+
+        const date = new Date(dateString);
+        date.setHours(0, 0, 0, 0); // Đặt thời gian của ngày so sánh về 00:00:00
+        //
+        // console.log("Today: ", today);
+        // console.log("Date: ", date);
+
+        return date < today;
+    };
+
+    const handleDateClick = (date) => {
+        if (isPastDate(date)) {
+            alert("Không thể chọn ngày trước ngày hiện tại");
+            return false;
+        } else {
+            handleButtonClick(date);
+            return true;
+        }
+    };
+    const isTimeValid = (selectedDate, timeString) => {
+        const today = new Date();
+        const currentDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+
+        // Trường hợp ngày chọn khác ngày hiện tại
+        if (selectedDate !== currentDate) {
+            return true; // Không cần kiểm tra giờ nếu ngày khác
+        }
+
+        // Trường hợp ngày chọn bằng ngày hiện tại
+        const selectedTime = new Date(`${selectedDate} ${timeString}`);
+        const currentTime = new Date();
+
+        return selectedTime >= currentTime;
+    }
+    const handleTimeButtonClick = (scheduleId, time) => {
+        if (!isTimeValid(selectedDate, time)) {
+            alert("Không thể chọn giờ chiếu đã qua");
+            return false;
+        } else {
+            timeFunction(scheduleId);
+            return true;
+        }
+    };
+    console.log("Ngay chon:" ,selectedDate);
+    console.log("Kiem tra ngay chọn: ", isTimeValid(selectedDate, "12:40"));
+
+    // console.log("kiem tra:",isPastDate("04-06-2024"))
     return (<div>
         <title>Đặt vé</title>
         <Helmet></Helmet>
@@ -715,10 +766,10 @@ export function Booking() {
                                             <div className="carousel carousel-nav">
                                                 {schedules.map(schedule => (
                                                     <div
-                                                        className="carousel-cell"
+                                                        className="carousel-cell"className={`carousel-cell ${isPastDate(schedule.scheduleDate) ? 'hidden' : ''}`}
                                                         id={schedule.scheduleDate}
                                                         key={schedule.scheduleId}
-                                                        onClick={() => handleButtonClick(schedule.scheduleDate)}
+                                                        onClick={() => handleDateClick(schedule.scheduleDate)}
                                                         value={selectedDate || ''}
                                                     >
                                                         <div
@@ -743,7 +794,8 @@ export function Booking() {
                                                         <button
                                                             key={schedule.schedule_id}
                                                             className="screen-time"
-                                                            onClick={() => timeFunction(schedule.schedule_id)}
+                                                            onClick={() => handleTimeButtonClick(schedule.schedule_id, schedule.schedule_start)}
+                                                            // disabled={!isTimeValid(selectedDate, schedule.schedule_start)}
                                                         >
                                                             {schedule.schedule_start}
                                                             <div>Còn {schedule.seat_empty} ghế</div>
