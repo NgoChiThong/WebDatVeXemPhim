@@ -67,7 +67,7 @@ export function Header() {
                     <div className="container">
                         <h1><Link to={'/'}><a className="navbar-brand"><span className="fa fa-play icon-log"
                                                                              aria-hidden="true"></span>
-                            MyShowz</a></Link></h1>
+                            LuxCinema.vn</a></Link></h1>
                         <button className="navbar-toggler collapsed" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false"

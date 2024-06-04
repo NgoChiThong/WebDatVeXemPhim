@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import {Link, useHistory, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
 
 export function User(){
-
     const [activeTab, setActiveTab] = useState('profile');
-    const navigate = useNavigate();  // Using useNavigate hook for navigation
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
-    const userInfoString = sessionStorage.getItem('userInfo');
-    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
-    console.log("userInfo", userInfo);
-
-    const token = sessionStorage.getItem('token');
-    console.log(token);
+    const [username, setUsername] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userFullname, setUserFullname] = useState('');
+    const [userPhone, setUserPhone] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const userInfoString = sessionStorage.getItem('userInfo');
+        const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+        console.log("userInfo", userInfo);
+        if (userInfo) {
+            setUsername(userInfo.data.username);
+            setUserEmail(userInfo.data.userEmail);
+            setUserFullname(userInfo.data.userFullname);
+            setUserPhone(userInfo.data.userPhone);
+        }
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.type = "text/css";
@@ -43,6 +45,48 @@ export function User(){
             document.head.removeChild(link2);
         };
     }, []);
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+    };
+
+    const handleUpdateUserInfo = async (e) => {
+        e.preventDefault();
+
+        const updatedUserInfo = {
+            username: username,
+            userEmail: userEmail,
+            userFullname: userFullname,
+            userPhone: userPhone,
+        };
+
+        try {
+            const response = await fetch('http://localhost:80/user/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(updatedUserInfo),
+            });
+
+            if (response.status === 200) {
+                if (response.headers.get('Content-Type').includes('application/json')) {
+                    const updatedData = await response.json();
+                    sessionStorage.setItem('userInfo', JSON.stringify(updatedData));
+                    alert('Thông tin tài khoản đã được cập nhật');
+                } else {
+                    alert('Đã xảy ra lỗi khi cập nhật thông tin'); // Handle non-JSON response
+                }
+            } else {
+                alert('Cập nhật thông tin thất bại. Kiểm tra lỗi phía máy chủ'); // More specific error message
+            }
+        } catch (error) {
+            console.error('Error updating user info:', error);
+            alert('Đã xảy ra lỗi khi cập nhật thông tin');
+        }
+    };
+
     //nút đăng xuất
     const handleLogout = () => {
         // Clear session storage
@@ -122,40 +166,37 @@ export function User(){
                                             {activeTab === 'profile' && (
                                                 <div className="col-md-9 col-sm-12 col-xs-12">
                                                     <div className="form-style-1 user-pro" action="#">
-                                                        <form action="#" className="user">
+                                                        <form className="user" onSubmit={handleUpdateUserInfo}>
                                                             <h4>Thông tin tài khoản</h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Tên người dùng</label>
-                                                                    <input type="text" placeholder="" value={userInfo.data.username}/>
+                                                                    <input type="text" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} />
                                                                 </div>
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Địa chỉ email</label>
-                                                                    <input type="text"
-                                                                           placeholder="" value={userInfo.data.userEmail}/>
+                                                                    <input type="text" placeholder="" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Tên</label>
-                                                                    <input type="text" placeholder=" " value={userInfo.data.userFullname}/>
+                                                                    <input type="text" placeholder="" value={userFullname} onChange={(e) => setUserFullname(e.target.value)} />
                                                                 </div>
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Họ</label>
-                                                                    <input type="text" placeholder=""/>
+                                                                    <input type="text" placeholder="" value={userFullname} onChange={(e) => setUserFullname(e.target.value)} />
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Số điện thoại</label>
-                                                                    <input type="text" placeholder="" value={userInfo.data.userPhone}/>
+                                                                    <input type="text" placeholder="" value={userPhone} onChange={(e) => setUserPhone(e.target.value)} />
                                                                 </div>
-
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <input className="submit" type="submit"
-                                                                           value="Lưu"/>
+                                                                    <input className="submit" type="submit" value="Lưu" />
                                                                 </div>
                                                             </div>
                                                         </form>
