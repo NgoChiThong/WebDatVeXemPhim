@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import axios from 'axios';
 
 export function User(){
     const [activeTab, setActiveTab] = useState('profile');
@@ -10,12 +11,25 @@ export function User(){
     const [userEmail, setUserEmail] = useState('');
     const [userFullname, setUserFullname] = useState('');
     const [userPhone, setUserPhone] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false    );
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+    };
+
+    const userInfoString = sessionStorage.getItem('userInfo');
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+
+    const token = sessionStorage.getItem('token');
+
+
     useEffect(() => {
-        const userInfoString = sessionStorage.getItem('userInfo');
-        const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
-        console.log("userInfo", userInfo);
         if (userInfo) {
             setUsername(userInfo.data.username);
             setUserEmail(userInfo.data.userEmail);
@@ -46,12 +60,11 @@ export function User(){
         };
     }, []);
 
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
-
     const handleUpdateUserInfo = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setErrorMessage('');
+        setSuccessMessage('');
 
         const updatedUserInfo = {
             username: username,
@@ -62,28 +75,62 @@ export function User(){
 
         try {
             const response = await fetch('http://localhost:80/user/update', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(updatedUserInfo),
             });
 
-            if (response.status === 200) {
-                if (response.headers.get('Content-Type').includes('application/json')) {
-                    const updatedData = await response.json();
-                    sessionStorage.setItem('userInfo', JSON.stringify(updatedData));
-                    alert('Thông tin tài khoản đã được cập nhật');
-                } else {
-                    alert('Đã xảy ra lỗi khi cập nhật thông tin'); // Handle non-JSON response
-                }
+            if (response.ok) {
+                const updatedData = await response.json();
+                sessionStorage.setItem('userInfo', JSON.stringify(updatedData));
+                alert('Thông tin tài khoản đã được cập nhật');
+                // window.location.reload();
             } else {
-                alert('Cập nhật thông tin thất bại. Kiểm tra lỗi phía máy chủ'); // More specific error message
+                alert('Cập nhật thông tin thất bại');
             }
         } catch (error) {
             console.error('Error updating user info:', error);
             alert('Đã xảy ra lỗi khi cập nhật thông tin');
+        }
+    };
+
+    const handleChangePassword = async (e) => {
+        e.preventDefault();
+
+        if (newPassword !== confirmPassword) {
+            alert('Mật khẩu mới và xác nhận mật khẩu không khớp');
+            return;
+        }
+
+        const passwordData = {
+            oldPassword,
+            newPassword,
+        };
+
+        try {
+            const response = await fetch('http://localhost:80/user/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(passwordData),
+            });
+
+            if (response.ok) {
+                alert('Mật khẩu đã được thay đổi thành công');
+                setOldPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+            } else {
+                alert('Đổi mật khẩu thất bại');
+            }
+        } catch (error) {
+            console.error('Error changing password:', error);
+            alert('Đã xảy ra lỗi khi đổi mật khẩu');
         }
     };
 
@@ -196,37 +243,39 @@ export function User(){
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <input className="submit" type="submit" value="Lưu" />
+                                                                    <input className="submit" type="submit" value="Lưu"/>
+                                                                    {/*{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}*/}
+                                                                    {/*{successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}*/}
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                        <form action="#" className="password">
+                                                        <form className="password" onSubmit={handleChangePassword}>
                                                             <h4>Đổi mật khẩu</h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Mật khẩu cũ</label>
-                                                                    <input type="password"/>
+                                                                    <input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Mật khẩu mới </label>
-                                                                    <input type="password" />
+                                                                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6 form-it">
                                                                     <label>Xác nhận mật khẩu</label>
-                                                                    <input type="password" />
+                                                                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                                                 </div>
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <input className="submit" type="submit"
-                                                                           value="Lưu"/>
+                                                                    <input className="submit" type="submit" value="Lưu" />
                                                                 </div>
                                                             </div>
                                                         </form>
+
                                                     </div>
                                                 </div>
                                             )}

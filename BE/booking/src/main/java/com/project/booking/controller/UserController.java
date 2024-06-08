@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "Cập nhật user")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateUser(Authentication authentication, @Valid @RequestBody UserNameProfile user) {
         ResponseData<String> response = userService.updateUser(authentication, user);
         return ResponseEntity.status(response.getStatus()).body(response);
@@ -45,6 +45,8 @@ public class UserController {
         ResponseData<String> response = userService.loginUser(username, password);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
+    
+    
 
     @ApiOperation(value = "Lấy thông tin user")
     @GetMapping("/info")

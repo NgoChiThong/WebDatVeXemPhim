@@ -82,6 +82,12 @@ public class UserService {
             return new ResponseData<>(HttpStatus.UNAUTHORIZED, "An error occurred during sign-in.", null);
         }
     }
+	
+	public void updateUserProfileImage(String username, String profileImagePath) {
+        User user = userRepository.findByUsername(username);
+        user.setUserAvatar(profileImagePath);
+        userRepository.save(user);
+    }
 
 	public ResponseData<User> getInfo(Authentication authentication) {
 		User user = userRepository.findByUsername(authentication.getName());
