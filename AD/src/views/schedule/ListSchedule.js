@@ -13,28 +13,28 @@ const ListSchedule = () => {
       sortable: true,
     },
     {
-      name: 'Movie ID',
-      selector: (row) => row.class,
+      name: 'ID phim',
+      selector: (row) => row.idmovie,
       sortable: true,
     },
     {
-      name: 'Room ID',
-      selector: (row) => row.heading1,
+      name: 'ID phòng chiếu',
+      selector: (row) => row.idroom,
       sortable: true,
     },
     {
-      name: 'Schedule Date',
-      selector: (row) => row.heading2,
+      name: 'Ngày chiếu',
+      selector: (row) => row.scheduledate,
       sortable: true,
     },
     {
-      name: 'Schedule Start',
-      selector: (row) => row.heading3,
+      name: 'Thời gian bắt đầu',
+      selector: (row) => row.schedulestart,
       sortable: true,
     },
     {
-      name: 'Schedule End',
-      selector: (row) => row.heading4,
+      name: 'Thời gian kết thúc',
+      selector: (row) => row.scheduleend,
       sortable: true,
     },
     {
@@ -63,39 +63,28 @@ const ListSchedule = () => {
   ]
 
   const data = [
-    {
-      id: 1,
-      class: 'Mark',
-      heading1: 'Otto',
-      heading2: '@mdo',
-      heading3: '@mdo',
-      heading4: '@mdo',
-    },
-    {
-      id: 2,
-      class: 'Jacob',
-      heading1: 'Thornton',
-      heading2: '@fat',
-      heading3: '@mdo',
-      heading4: '@mdo',
-    },
-    {
-      id: 3,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-      heading2: '@twitter',
-      heading3: '@mdo',
-      heading4: '@mdo',
-    },
-    {
-      id: 4,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-      heading2: '@twitter',
-      heading3: '@mdo',
-      heading4: '@mdo',
-    },
+    { id: 1, idmovie: 1, idroom: 101, scheduledate: '2023-01-01', schedulestart: '10:00', scheduleend: '12:00' },
+    { id: 2, idmovie: 2, idroom: 102, scheduledate: '2023-01-02', schedulestart: '12:00', scheduleend: '14:20' },
+    { id: 3, idmovie: 3, idroom: 103, scheduledate: '2023-01-03', schedulestart: '14:30', scheduleend: '16:20' },
+    { id: 4, idmovie: 4, idroom: 104, scheduledate: '2023-01-04', schedulestart: '16:30', scheduleend: '18:10' },
+    { id: 5, idmovie: 5, idroom: 105, scheduledate: '2023-01-05', schedulestart: '18:20', scheduleend: '19:55' },
+    { id: 6, idmovie: 6, idroom: 106, scheduledate: '2023-01-06', schedulestart: '20:00', scheduleend: '22:10' },
+    { id: 7, idmovie: 7, idroom: 107, scheduledate: '2023-01-07', schedulestart: '22:15', scheduleend: '00:20' },
+    { id: 8, idmovie: 8, idroom: 108, scheduledate: '2023-01-08', schedulestart: '10:00', scheduleend: '12:30' },
+    { id: 9, idmovie: 9, idroom: 109, scheduledate: '2023-01-09', schedulestart: '12:45', scheduleend: '14:45' },
+    { id: 10, idmovie: 10, idroom: 110, scheduledate: '2023-01-10', schedulestart: '15:00', scheduleend: '16:30' },
+    { id: 11, idmovie: 1, idroom: 101, scheduledate: '2023-01-11', schedulestart: '17:00', scheduleend: '19:00' },
+    { id: 12, idmovie: 2, idroom: 102, scheduledate: '2023-01-12', schedulestart: '19:15', scheduleend: '21:35' },
+    { id: 13, idmovie: 3, idroom: 103, scheduledate: '2023-01-13', schedulestart: '21:45', scheduleend: '23:35' },
+    { id: 14, idmovie: 4, idroom: 104, scheduledate: '2023-01-14', schedulestart: '10:00', scheduleend: '11:40' },
+    { id: 15, idmovie: 5, idroom: 105, scheduledate: '2023-01-15', schedulestart: '12:00', scheduleend: '13:35' },
+    { id: 16, idmovie: 6, idroom: 106, scheduledate: '2023-01-16', schedulestart: '13:45', scheduleend: '15:55' },
+    { id: 17, idmovie: 7, idroom: 107, scheduledate: '2023-01-17', schedulestart: '16:00', scheduleend: '18:00' },
+    { id: 18, idmovie: 8, idroom: 108, scheduledate: '2023-01-18', schedulestart: '18:10', scheduleend: '20:40' },
+    { id: 19, idmovie: 9, idroom: 109, scheduledate: '2023-01-19', schedulestart: '20:50', scheduleend: '22:50' },
+    { id: 20, idmovie: 10, idroom: 110, scheduledate: '2023-01-20', schedulestart: '23:00', scheduleend: '00:30' },
   ]
+
 
   const subHeaderComponent = (
     <CFormInput
@@ -143,7 +132,7 @@ const ListSchedule = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Quản lý phim</strong>
+            <strong>Quản lý lịch chiếu</strong>
           </CCardHeader>
           <CCardBody>
             <CButton color="primary" variant="outline" onClick={() => handleAddNew()}>

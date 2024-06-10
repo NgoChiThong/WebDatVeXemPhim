@@ -3,47 +3,46 @@ import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
 
-const ListRoom = () => {
+const ListOrders = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
   const columns = [
     {
-      name: 'ID phòng chiếu',
+      name: 'Mã đặt vé',
       selector: (row) => row.id,
       sortable: true,
     },
     {
-      name: 'ID rạp',
+      name: 'Mã khách hàng',
       selector: (row) => row.class,
       sortable: true,
     },
     {
-      name: 'Tên phòng chiếu',
+      name: 'Ngày đặt vé',
       selector: (row) => row.heading1,
+      sortable: true,
+    },
+    {
+      name: 'Id lịch chiếu',
+      selector: (row) => row.heading2,
+      sortable: true,
+    },
+    {
+      name: 'Id lịch chiếu',
+      selector: (row) => row.heading3,
+      sortable: true,
+    },
+    {
+      name: 'Tổng tiền',
+      selector: (row) => row.heading4,
       sortable: true,
     },
     {
       name: 'Tác vụ',
       cell: (row) => (
         <div>
-          <CButton color="success" variant="outline" onClick={() => cinemaDetail(row.id)}>
+          <CButton color="success" variant="outline" onClick={() => orderDetail(row.id)}>
             Xem
-          </CButton>
-          <CButton
-            color="warning"
-            variant="outline"
-            onClick={() => cinemaEdit(row.id)}
-            style={{ marginLeft: '10px' }}
-          >
-            Sửa
-          </CButton>
-          <CButton
-            color="danger"
-            variant="outline"
-            onClick={() => handleDelete(row.id)}
-            style={{ marginLeft: '10px' }}
-          >
-            Xóa
           </CButton>
         </div>
       ),
@@ -52,24 +51,44 @@ const ListRoom = () => {
 
   const data = [
     {
-      id: 1,
-      class: 'CineStart Quốc Thanh',
-      heading1: 'Otto',
+      id: 'DV001',
+      class: 'KH001',
+      heading1: '2024-06-01',
+      heading2: 'LC001',
+      heading3: 'LC002',
+      heading4: 500000,
     },
     {
-      id: 2,
-      class: 'Jacob',
-      heading1: 'Thornton',
+      id: 'DV002',
+      class: 'KH002',
+      heading1: '2024-06-02',
+      heading2: 'LC003',
+      heading3: 'LC004',
+      heading4: 600000,
     },
     {
-      id: 3,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
+      id: 'DV003',
+      class: 'KH003',
+      heading1: '2024-06-03',
+      heading2: 'LC005',
+      heading3: 'LC006',
+      heading4: 700000,
     },
     {
-      id: 4,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
+      id: 'DV004',
+      class: 'KH004',
+      heading1: '2024-06-04',
+      heading2: 'LC007',
+      heading3: 'LC008',
+      heading4: 800000,
+    },
+    {
+      id: 'DV005',
+      class: 'KH005',
+      heading1: '2024-06-05',
+      heading2: 'LC009',
+      heading3: 'LC010',
+      heading4: 900000,
     },
   ]
 
@@ -89,16 +108,10 @@ const ListRoom = () => {
       item.heading1.toLowerCase().includes(filterText.toLowerCase()) ||
       item.heading2.toLowerCase().includes(filterText.toLowerCase()),
   )
-  const handleAddNew = () => {
-    navigate('/cinema/add-new-room')
-  }
-  const cinemaDetail = (id) => {
+
+  const orderDetail = (id) => {
     // Thực hiện các thao tác chỉnh sửa tại đây, ví dụ:
- //   navigate(`/cinema/cinema-detail/${id}`)
-  }
-  const cinemaEdit = (id) => {
-    // Thực hiện các thao tác chỉnh sửa tại đây, ví dụ:
- //   navigate(`/cinema/edit-cinema/${id}`)
+    navigate(`/orders/order-detail/${id}`)
   }
 
   return (
@@ -106,7 +119,7 @@ const ListRoom = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Danh sách phòng chiếu</strong>
+            <strong>Danh sách vé đã đặt</strong>
           </CCardHeader>
           <CCardBody>
             <DataTable
@@ -119,20 +132,8 @@ const ListRoom = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Quản lý phòng chiếu</strong>
-          </CCardHeader>
-          <CCardBody>
-            <CButton color="primary" variant="outline" onClick={() => handleAddNew()}>
-              Thêm rạp
-            </CButton>
-          </CCardBody>
-        </CCard>
-      </CCol>
     </CRow>
   )
 }
 
-export default ListRoom
+export default ListOrders

@@ -8,23 +8,23 @@ const ListMovies = () => {
   const navigate = useNavigate()
   const columns = [
     {
-      name: '#',
+      name: 'ID phim',
       selector: (row) => row.id,
       sortable: true,
     },
     {
-      name: 'Class',
-      selector: (row) => row.class,
+      name: 'Tên',
+      selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: 'Heading',
-      selector: (row) => row.heading1,
+      name: 'Ngày phát hành',
+      selector: (row) => row.releaseDate,
       sortable: true,
     },
     {
-      name: 'Heading',
-      selector: (row) => row.heading2,
+      name: 'Danh mục phim',
+      selector: (row) => row.cen,
       sortable: true,
     },
     {
@@ -56,10 +56,16 @@ const ListMovies = () => {
   ]
 
   const data = [
-    { id: 1, class: 'Mark', heading1: 'Otto', heading2: '@mdo' },
-    { id: 2, class: 'Jacob', heading1: 'Thornton', heading2: '@fat' },
-    { id: 3, class: 'Larry the Bird', heading1: 'ColSpan', heading2: '@twitter' },
-    { id: 4, class: 'Larry the Bird', heading1: 'ColSpan', heading2: '@twitter' },
+    { id: 1, name: 'Movie 1', releaseDate: '2023-01-01', cen: 'P' },
+    { id: 2, name: 'Movie 2', releaseDate: '2023-02-01', cen: 'C13' },
+    { id: 3, name: 'Movie 3', releaseDate: '2023-03-01', cen: 'C16' },
+    { id: 4, name: 'Movie 4', releaseDate: '2023-04-01', cen: 'C18' },
+    { id: 5, name: 'Movie 5', releaseDate: '2023-05-01', cen: 'P' },
+    { id: 6, name: 'Movie 6', releaseDate: '2023-06-01', cen: 'C13' },
+    { id: 7, name: 'Movie 7', releaseDate: '2023-07-01', cen: 'C16' },
+    { id: 8, name: 'Movie 8', releaseDate: '2023-08-01', cen: 'C18' },
+    { id: 9, name: 'Movie 9', releaseDate: '2023-09-01', cen: 'P' },
+    { id: 10, name: 'Movie 10', releaseDate: '2023-10-01', cen: 'C13' },
   ]
 
   const handleDelete = (id) => {
