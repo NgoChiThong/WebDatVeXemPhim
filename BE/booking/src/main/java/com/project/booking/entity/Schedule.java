@@ -67,7 +67,7 @@ import com.project.booking.model.ResponseScheduleTime;
 @Table(name = "schedule")
 public class Schedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
     private int scheduleId;
 
