@@ -71,47 +71,47 @@ public class MovieSevice {
         }
     }
     
-    public Movie createMovie(String movieName, String movieDescription, String movieCens, String movieGenres,
-			String movieRelease, String movieLength, String movieFormat, MultipartFile poster, MultipartFile trailer) {
-
-		String formattedMovieLength = formatMovieLength(movieLength);
-		Movie movie = new Movie();
-		movie.setMovieName(movieName);
-		movie.setMovieDescription(movieDescription);
-		movie.setMovieCens(movieCens);
-		movie.setMovieGenres(movieGenres);
-		movie.setMovieRelease(movieRelease);
-		movie.setMovieLength(formattedMovieLength);
-		movie.setMovieFormat(movieFormat);
-
-		// Save poster file
-		if (poster != null && !poster.isEmpty()) {
-			String posterPath;
-			try {
-				posterPath = saveFile(poster);
-				movie.setMoviePoster(posterPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-
-		// Save trailer file
-		if (trailer != null && !trailer.isEmpty()) {
-			String trailerPath;
-			try {
-				trailerPath = saveFile(trailer);
-				movie.setMovieTrailer(trailerPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-
-		return movieRepository.save(movie);
-	}
+//    public Movie createMovie(String movieName, String movieDescription, String movieCens, String movieGenres,
+//			String movieRelease, String movieLength, String movieFormat, MultipartFile poster, MultipartFile trailer) {
+//
+//		String formattedMovieLength = formatMovieLength(movieLength);
+//		Movie movie = new Movie();
+//		movie.setMovieName(movieName);
+//		movie.setMovieDescription(movieDescription);
+//		movie.setMovieCens(movieCens);
+//		movie.setMovieGenres(movieGenres);
+//		movie.setMovieRelease(movieRelease);
+//		movie.setMovieLength(formattedMovieLength);
+//		movie.setMovieFormat(movieFormat);
+//
+//		// Save poster file
+//		if (poster != null && !poster.isEmpty()) {
+//			String posterPath;
+//			try {
+//				posterPath = saveFile(poster);
+//				movie.setMoviePoster(posterPath);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//
+//		// Save trailer file
+//		if (trailer != null && !trailer.isEmpty()) {
+//			String trailerPath;
+//			try {
+//				trailerPath = saveFile(trailer);
+//				movie.setMovieTrailer(trailerPath);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//
+//		return movieRepository.save(movie);
+//	}
 	
 	public static String saveFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
@@ -144,41 +144,62 @@ public class MovieSevice {
 		}
 	}
 
-	public Movie updateMovie(int movieId, MultipartFile poster, MultipartFile trailer, Movie movieDetails) {
-        Movie movie = movieRepository.findById(movieId)
-                                      .orElseThrow(() -> new RuntimeException("Movie not found with id: " + movieId));
+//	public Movie updateMovie(int movieId, MultipartFile poster, MultipartFile trailer, Movie movieDetails) {
+//        Movie movie = movieRepository.findById(movieId)
+//                                      .orElseThrow(() -> new RuntimeException("Movie not found with id: " + movieId));
+//
+//        movie.setMovieName(movieDetails.getMovieName());
+//        movie.setMovieDescription(movieDetails.getMovieDescription());
+//        movie.setMovieCens(movieDetails.getMovieCens());
+//        movie.setMovieGenres(movieDetails.getMovieGenres());
+//        movie.setMovieRelease(movieDetails.getMovieRelease());
+//        movie.setMovieLength(movieDetails.getMovieLength());
+//        movie.setMovieFormat(movieDetails.getMovieFormat());
+//
+//        if (poster != null && !poster.isEmpty()) {
+//			String posterPath;
+//			try {
+//				posterPath = saveFile(poster);
+//				movie.setMoviePoster(posterPath);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//
+//		// Save trailer file
+//		if (trailer != null && !trailer.isEmpty()) {
+//			String trailerPath;
+//			try {
+//				trailerPath = saveFile(trailer);
+//				movie.setMovieTrailer(trailerPath);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//
+//        return movieRepository.save(movie);
+//    }
+	 public Movie updateMovie(int movieId, Movie movieDetails) {
+	        Movie movie = movieRepository.findById(movieId)
+	                                      .orElseThrow(() -> new RuntimeException("Movie not found with id: " + movieId));
 
-        movie.setMovieName(movieDetails.getMovieName());
-        movie.setMovieDescription(movieDetails.getMovieDescription());
-        movie.setMovieCens(movieDetails.getMovieCens());
-        movie.setMovieGenres(movieDetails.getMovieGenres());
-        movie.setMovieRelease(movieDetails.getMovieRelease());
-        movie.setMovieLength(movieDetails.getMovieLength());
-        movie.setMovieFormat(movieDetails.getMovieFormat());
+	        // Check and update fields if provided
+	        if (movieDetails.getMovieName() != null)
+	            movie.setMovieName(movieDetails.getMovieName());
+	        if (movieDetails.getMovieDescription() != null)
+	            movie.setMovieDescription(movieDetails.getMovieDescription());
+	        if (movieDetails.getMovieCens() != null)
+	            movie.setMovieCens(movieDetails.getMovieCens());
+	        // similarly for other fields...
 
-        if (poster != null && !poster.isEmpty()) {
-			String posterPath;
-			try {
-				posterPath = saveFile(poster);
-				movie.setMoviePoster(posterPath);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
+	        return movieRepository.save(movie);
+	    }
 
-		// Save trailer file
-		if (trailer != null && !trailer.isEmpty()) {
-			String trailerPath;
-			try {
-				trailerPath = saveFile(trailer);
-				movie.setMovieTrailer(trailerPath);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-
-        return movieRepository.save(movie);
-    }
+	 
+	 public Movie addMovie(Movie movie) {
+	        // Logic to save the movie to database
+	        return movieRepository.save(movie);
+	    }
 }

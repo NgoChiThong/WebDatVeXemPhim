@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const NowShowing = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
+  const [data, setData] = useState([])
   const columns = [
     {
       name: 'ID phim',
@@ -55,18 +56,26 @@ const NowShowing = () => {
     },
   ]
 
-  const data = [
-    { id: 1, name: 'Movie 1', releaseDate: '2023-01-01', cen: 'P' },
-    { id: 2, name: 'Movie 2', releaseDate: '2023-02-01', cen: 'C13' },
-    { id: 3, name: 'Movie 3', releaseDate: '2023-03-01', cen: 'C16' },
-    { id: 4, name: 'Movie 4', releaseDate: '2023-04-01', cen: 'C18' },
-    { id: 5, name: 'Movie 5', releaseDate: '2023-05-01', cen: 'P' },
-    { id: 6, name: 'Movie 6', releaseDate: '2023-06-01', cen: 'C13' },
-    { id: 7, name: 'Movie 7', releaseDate: '2023-07-01', cen: 'C16' },
-    { id: 8, name: 'Movie 8', releaseDate: '2023-08-01', cen: 'C18' },
-    { id: 9, name: 'Movie 9', releaseDate: '2023-09-01', cen: 'P' },
-    { id: 10, name: 'Movie 10', releaseDate: '2023-10-01', cen: 'C13' },
-  ]
+  useEffect(() => {
+    // Fetch data from API
+    fetch('http://localhost:80/movies/now')
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'OK') {
+          // Map data to the desired structure
+          const mappedData = result.data.map(movie => ({
+            id: movie.movieId,
+            name: movie.movieName,
+            releaseDate: movie.movieRelease,
+            cen: movie.movieCens,
+          }));
+          setData(mappedData);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
 
   const movieDetail = (id) => {
@@ -81,9 +90,28 @@ const NowShowing = () => {
   }
 
   const handleDelete = (id) => {
-    console.log('Delete ID:', id)
-    // Thực hiện các thao tác xóa tại đây, ví dụ:
-    // deleteItem(id).then(() => reloadData())
+    console.log('Delete ID:', id);
+
+    fetch(`http://localhost:80/admin/movies/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Movie deleted successfully');
+          // Thực hiện các thao tác sau khi xóa thành công, ví dụ:
+          // reloadData();
+          alert('Xóa phim thành công');
+          window.location.reload();
+        } else {
+          console.error('Failed to delete movie');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting movie:', error);
+      });
   }
 
 

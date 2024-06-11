@@ -35,15 +35,20 @@ public class MovieControllerAd {
 
 
 //    Thêm phim mới
-	@PostMapping("/add")
-	public ResponseEntity<Movie> addMovie(@RequestParam String movieName, @RequestParam String movieDescription,
-			@RequestParam String movieCens, @RequestParam String movieGenres, @RequestParam String movieRelease,
-			@RequestParam String movieLength, @RequestParam String movieFormat,
-			@RequestParam("poster") MultipartFile poster, @RequestParam("trailer") MultipartFile trailer) throws IOException {
-
-		Movie createMovie = movieSevice.createMovie(movieName, movieDescription, movieCens, movieGenres, movieRelease, movieLength, movieFormat, poster, trailer);
-		return new ResponseEntity<>(createMovie, HttpStatus.OK);
-	}
+//	@PostMapping("/add")
+//	public ResponseEntity<Movie> addMovie(@RequestParam String movieName, @RequestParam String movieDescription,
+//			@RequestParam String movieCens, @RequestParam String movieGenres, @RequestParam String movieRelease,
+//			@RequestParam String movieLength, @RequestParam String movieFormat,
+//			@RequestParam("poster") MultipartFile poster, @RequestParam("trailer") MultipartFile trailer) throws IOException {
+//
+//		Movie createMovie = movieSevice.createMovie(movieName, movieDescription, movieCens, movieGenres, movieRelease, movieLength, movieFormat, poster, trailer);
+//		return new ResponseEntity<>(createMovie, HttpStatus.OK);
+//	}
+	 @PostMapping("/add")
+	    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
+	        Movie newMovie = movieSevice.addMovie(movie);
+	        return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
+	    }
 
 //    Xóa phim
 	@DeleteMapping("/delete/{id}")
@@ -60,9 +65,14 @@ public class MovieControllerAd {
 	}
 
 //    Cập nhật phim
-	@PutMapping("/update/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable("id") int movieId, @RequestParam("poster") MultipartFile poster, @RequestParam("trailer") MultipartFile trailer, @ModelAttribute Movie movieDetails) {
-        Movie updatedMovie = movieSevice.updateMovie(movieId, poster, trailer, movieDetails);
-        return new ResponseEntity<>(updatedMovie, HttpStatus.OK);
-    }
+//	@PutMapping("/update/{id}")
+//    public ResponseEntity<Movie> updateMovie(@PathVariable("id") int movieId, @RequestParam("poster") MultipartFile poster, @RequestParam("trailer") MultipartFile trailer, @ModelAttribute Movie movieDetails) {
+//        Movie updatedMovie = movieSevice.updateMovie(movieId, poster, trailer, movieDetails);
+//        return new ResponseEntity<>(updatedMovie, HttpStatus.OK);
+//    }
+	 @PutMapping("/update/{id}")
+	    public ResponseEntity<Movie> updateMovie(@PathVariable("id") int movieId, @RequestBody Movie movieDetails) {
+	        Movie updatedMovie = movieSevice.updateMovie(movieId, movieDetails);
+	        return new ResponseEntity<>(updatedMovie, HttpStatus.OK);
+	    }
 }
