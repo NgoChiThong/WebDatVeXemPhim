@@ -48,4 +48,25 @@ public class ScheduleService {
 			return new ResponseData(HttpStatus.OK, "success", rs);
 		}
 	}
+	
+	public Schedule addSchedule(Schedule schedule) {
+		return scheduleRepository.save(schedule);
+	}
+
+	public Schedule updateSchedule(int scheduleId, Schedule scheduleDetails) {
+	    Schedule schedule = scheduleRepository.findById(scheduleId)
+	            .orElseThrow(() -> new RuntimeException("Schedule not found with id: " + scheduleId));
+	    schedule.setMovieId(scheduleDetails.getMovieId());
+	    schedule.setRoomId(scheduleDetails.getRoomId());
+	    schedule.setScheduleDate(scheduleDetails.getScheduleDate());
+	    schedule.setScheduleStart(scheduleDetails.getScheduleStart());
+	    schedule.setScheduleEnd(scheduleDetails.getScheduleEnd());
+	    return scheduleRepository.save(schedule);
+	}
+	
+	public void deleteSchedule(int scheduleId) {
+	    Schedule schedule = scheduleRepository.findById(scheduleId)
+	            .orElseThrow(() -> new RuntimeException("Schedule not found with id: " + scheduleId));
+	    scheduleRepository.delete(schedule);
+	}
 }
