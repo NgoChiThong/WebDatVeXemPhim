@@ -94,7 +94,7 @@ const AddNewMovie = () => {
         if (response.ok) {
           console.log('Movie added successfully');
           alert('Thêm phim thành công');
-          // Thực hiện các thao tác sau khi thêm phim thành công
+          window.history.back()
         } else {
           console.error('Failed to add movie');
         }

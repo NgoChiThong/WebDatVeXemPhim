@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const ListSchedule = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
+  const [data, setData] = useState([])
   const columns = [
     {
       name: 'ID',
@@ -14,27 +15,27 @@ const ListSchedule = () => {
     },
     {
       name: 'ID phim',
-      selector: (row) => row.idmovie,
+      selector: (row) => row.idMovie,
       sortable: true,
     },
     {
       name: 'ID phòng chiếu',
-      selector: (row) => row.idroom,
+      selector: (row) => row.idRoom,
       sortable: true,
     },
     {
       name: 'Ngày chiếu',
-      selector: (row) => row.scheduledate,
+      selector: (row) => row.scheduleD,
       sortable: true,
     },
     {
       name: 'Thời gian bắt đầu',
-      selector: (row) => row.schedulestart,
+      selector: (row) => row.scheduleS,
       sortable: true,
     },
     {
       name: 'Thời gian kết thúc',
-      selector: (row) => row.scheduleend,
+      selector: (row) => row.scheduleE,
       sortable: true,
     },
     {
@@ -61,29 +62,52 @@ const ListSchedule = () => {
       ),
     },
   ]
+  useEffect(() => {
+    // Fetch data from API
+    fetch('http://localhost:80/admin/schedule')
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'OK') {
+          // Map data to the desired structure
+          const mappedData = result.data.map(schedule => ({
+            id: schedule.scheduleId,
+            idMovie: schedule.movieId,
+            idRoom: schedule.roomId,
+            scheduleD: schedule.scheduleDate,
+            scheduleS: schedule.scheduleStart,
+            scheduleE: schedule.scheduleEnd,
+          }));
+          setData(mappedData);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+  const handleDelete = (id) => {
+    console.log('Delete ID:', id);
 
-  const data = [
-    { id: 1, idmovie: 1, idroom: 101, scheduledate: '2023-01-01', schedulestart: '10:00', scheduleend: '12:00' },
-    { id: 2, idmovie: 2, idroom: 102, scheduledate: '2023-01-02', schedulestart: '12:00', scheduleend: '14:20' },
-    { id: 3, idmovie: 3, idroom: 103, scheduledate: '2023-01-03', schedulestart: '14:30', scheduleend: '16:20' },
-    { id: 4, idmovie: 4, idroom: 104, scheduledate: '2023-01-04', schedulestart: '16:30', scheduleend: '18:10' },
-    { id: 5, idmovie: 5, idroom: 105, scheduledate: '2023-01-05', schedulestart: '18:20', scheduleend: '19:55' },
-    { id: 6, idmovie: 6, idroom: 106, scheduledate: '2023-01-06', schedulestart: '20:00', scheduleend: '22:10' },
-    { id: 7, idmovie: 7, idroom: 107, scheduledate: '2023-01-07', schedulestart: '22:15', scheduleend: '00:20' },
-    { id: 8, idmovie: 8, idroom: 108, scheduledate: '2023-01-08', schedulestart: '10:00', scheduleend: '12:30' },
-    { id: 9, idmovie: 9, idroom: 109, scheduledate: '2023-01-09', schedulestart: '12:45', scheduleend: '14:45' },
-    { id: 10, idmovie: 10, idroom: 110, scheduledate: '2023-01-10', schedulestart: '15:00', scheduleend: '16:30' },
-    { id: 11, idmovie: 1, idroom: 101, scheduledate: '2023-01-11', schedulestart: '17:00', scheduleend: '19:00' },
-    { id: 12, idmovie: 2, idroom: 102, scheduledate: '2023-01-12', schedulestart: '19:15', scheduleend: '21:35' },
-    { id: 13, idmovie: 3, idroom: 103, scheduledate: '2023-01-13', schedulestart: '21:45', scheduleend: '23:35' },
-    { id: 14, idmovie: 4, idroom: 104, scheduledate: '2023-01-14', schedulestart: '10:00', scheduleend: '11:40' },
-    { id: 15, idmovie: 5, idroom: 105, scheduledate: '2023-01-15', schedulestart: '12:00', scheduleend: '13:35' },
-    { id: 16, idmovie: 6, idroom: 106, scheduledate: '2023-01-16', schedulestart: '13:45', scheduleend: '15:55' },
-    { id: 17, idmovie: 7, idroom: 107, scheduledate: '2023-01-17', schedulestart: '16:00', scheduleend: '18:00' },
-    { id: 18, idmovie: 8, idroom: 108, scheduledate: '2023-01-18', schedulestart: '18:10', scheduleend: '20:40' },
-    { id: 19, idmovie: 9, idroom: 109, scheduledate: '2023-01-19', schedulestart: '20:50', scheduleend: '22:50' },
-    { id: 20, idmovie: 10, idroom: 110, scheduledate: '2023-01-20', schedulestart: '23:00', scheduleend: '00:30' },
-  ]
+    fetch(`http://localhost:80/admin/schedule/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Schedule deleted successfully');
+          alert('Xóa lịch chiếu thành công');
+          window.location.reload();
+        } else {
+          console.error('Failed to delete schedule');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting schedule:', error);
+      });
+  }
+
+
 
 
   const subHeaderComponent = (

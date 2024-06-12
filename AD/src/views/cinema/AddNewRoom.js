@@ -23,13 +23,36 @@ import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 
 const AddNewRoom = () => {
-  const [startDate, setStartDate] = useState(new Date())
-  const [startTime, setStartTime] = useState('10:00')
+  const [cinemaId, setCinemaId] = useState('');
+  const [roomName, setRoomName] = useState('');
 
-  const [endTime, setEndTime] = useState('18:00')
+  const handleAddRoom = () => {
+    const data = {
+      cinemaId,
+      roomName,
+    };
+    console.log(data)
 
-  console.log(startTime)
-  console.log(endTime)
+    fetch('http://localhost:80/admin/room/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Room added successfully');
+          alert('Thêm phòng thành công');
+          window.history.back()
+        } else {
+          console.error('Failed to add room');
+        }
+      })
+      .catch(error => {
+        console.error('Error adding room:', error);
+      });
+  };
   return (
     <CRow>
       <CCol xs={12}>
@@ -40,16 +63,16 @@ const AddNewRoom = () => {
           <CCardBody>
             <CForm className="row g-3">
               <CCol md={6}>
-                <CFormLabel htmlFor="trailer">ID rạp chiếu</CFormLabel>
-                <CFormInput type="text" id="trailer" />
+                <CFormLabel htmlFor="inputId">ID rạp chiếu</CFormLabel>
+                <CFormInput type="text" id="inputId" value={cinemaId} onChange={e => setCinemaId(e.target.value)} />
               </CCol>
               <CCol md={6}>
-                <CFormLabel htmlFor="cens">Tên phòng chiếu</CFormLabel>
-                <CFormInput type="text" id="cens" />
+                <CFormLabel htmlFor="inputName">Tên phòng chiếu</CFormLabel>
+                <CFormInput type="text" id="inputName" value={roomName} onChange={e => setRoomName(e.target.value)} />
               </CCol>
               <CCol xs={12}>
-                <CButton color="primary" type="submit">
-                  Thêm rạp chiếu
+                <CButton color="primary" onClick={handleAddRoom}>
+                  Thêm phòng chiếu
                 </CButton>
               </CCol>
             </CForm>

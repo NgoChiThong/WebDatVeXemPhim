@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const ListRoom = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
+  const [data, setData] = useState([])
   const columns = [
     {
       name: 'ID phòng chiếu',
@@ -14,12 +15,12 @@ const ListRoom = () => {
     },
     {
       name: 'ID rạp',
-      selector: (row) => row.class,
+      selector: (row) => row.idCinema,
       sortable: true,
     },
     {
       name: 'Tên phòng chiếu',
-      selector: (row) => row.heading1,
+      selector: (row) => row.nameRoom,
       sortable: true,
     },
     {
@@ -49,29 +50,50 @@ const ListRoom = () => {
       ),
     },
   ]
+  useEffect(() => {
+    // Fetch data from API
+    fetch('http://localhost:80/admin/room')
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'OK') {
+          // Map data to the desired structure
+          const mappedData = result.data.map(room => ({
+            id: room.roomId,
+            idCinema: room.cinemaId,
+            nameRoom: room.roomName,
+          }));
+          setData(mappedData);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+  const handleDelete = (id) => {
+    console.log('Delete ID:', id);
 
-  const data = [
-    {
-      id: 1,
-      class: 'CineStart Quốc Thanh',
-      heading1: 'Otto',
-    },
-    {
-      id: 2,
-      class: 'Jacob',
-      heading1: 'Thornton',
-    },
-    {
-      id: 3,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-    },
-    {
-      id: 4,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-    },
-  ]
+    fetch(`http://localhost:80/admin/room/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Room deleted successfully');
+          alert('Xóa phòng thành công');
+          window.location.reload();
+        } else {
+          console.error('Failed to delete room');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting room:', error);
+      });
+  }
+
+
+
 
   const subHeaderComponent = (
     <CFormInput
@@ -126,7 +148,7 @@ const ListRoom = () => {
           </CCardHeader>
           <CCardBody>
             <CButton color="primary" variant="outline" onClick={() => handleAddNew()}>
-              Thêm rạp
+              Thêm phòng
             </CButton>
           </CCardBody>
         </CCard>

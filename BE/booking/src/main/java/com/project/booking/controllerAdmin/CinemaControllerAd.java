@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.booking.entity.Cinema;
+import com.project.booking.entity.Movie;
+import com.project.booking.model.ResponseData;
 import com.project.booking.service.CinemaService;
 
 @RestController
@@ -24,6 +26,18 @@ public class CinemaControllerAd {
 
     @Autowired
     CinemaService cinemaService;
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCinemaById(@PathVariable Integer id) {
+        ResponseData<Cinema> responseData = cinemaService.getCinemaById(id);
+        return new ResponseEntity<>(responseData, responseData.getStatus());
+    }
+    
+    @ApiOperation(value = "Lấy danh sách các rạp")
+    @GetMapping("")
+    public ResponseEntity<?> getAllCinema(){
+        return ResponseEntity.ok(cinemaService.getAllCinema());
+    }
     
     @ApiOperation(value = "Thêm rạp chiếu")
     @PostMapping("/add")

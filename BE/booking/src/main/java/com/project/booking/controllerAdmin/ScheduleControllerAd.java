@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.project.booking.entity.Movie;
 import com.project.booking.entity.Schedule;
+import com.project.booking.model.ResponseData;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,19 @@ public class ScheduleControllerAd {
     ScheduleService scheduleService;
     @Autowired
     CinemaService cinemaService;
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getScheduleById(@PathVariable Integer id) {
+        ResponseData<Schedule> responseData = scheduleService.getScheduleById(id);
+        return new ResponseEntity<>(responseData, responseData.getStatus());
+    }
+    
+    @ApiOperation(value = "Lấy danh sách các lịch chiếu")
+    @GetMapping("")
+    public ResponseEntity<?> getAllSchedule(){
+        return ResponseEntity.ok(scheduleService.getAllSchedule());
+    }
+    
 //  Thêm lịch chiếu
   @PostMapping("/add")
   public ResponseEntity<Schedule> addSchedule(@RequestBody Schedule schedule) {

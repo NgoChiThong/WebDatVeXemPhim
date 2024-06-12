@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const ListCinema = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
+  const [data, setData] = useState([])
   const columns = [
     {
       name: 'ID',
@@ -14,12 +15,12 @@ const ListCinema = () => {
     },
     {
       name: 'Tên rạp',
-      selector: (row) => row.class,
+      selector: (row) => row.nameCine,
       sortable: true,
     },
     {
       name: 'Địa chỉ',
-      selector: (row) => row.heading1,
+      selector: (row) => row.addressCine,
       sortable: true,
     },
     {
@@ -49,29 +50,47 @@ const ListCinema = () => {
       ),
     },
   ]
+  useEffect(() => {
+    // Fetch data from API
+    fetch('http://localhost:80/admin/cinema')
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'OK') {
+          // Map data to the desired structure
+          const mappedData = result.data.map(cinema => ({
+            id: cinema.cinemaId,
+            nameCine: cinema.cinemaName,
+            addressCine: cinema.cinemaAddress,
+          }));
+          setData(mappedData);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+  const handleDelete = (id) => {
+    console.log('Delete ID:', id);
+    fetch(`http://localhost:80/admin/cinema/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Cinema deleted successfully');
+          alert('Xóa rạp thành công');
+          window.location.reload();
+        } else {
+          console.error('Failed to delete cinema');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting cinema:', error);
+      });
+  }
 
-  const data = [
-    {
-      id: 1,
-      class: 'CineStart Quốc Thanh',
-      heading1: 'Otto',
-    },
-    {
-      id: 2,
-      class: 'Jacob',
-      heading1: 'Thornton',
-    },
-    {
-      id: 3,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-    },
-    {
-      id: 4,
-      class: 'Larry the Bird',
-      heading1: 'ColSpan',
-    },
-  ]
 
   const subHeaderComponent = (
     <CFormInput

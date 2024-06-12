@@ -1,17 +1,27 @@
 package com.project.booking.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.booking.entity.Movie;
 import com.project.booking.entity.User;
 import com.project.booking.model.UserNameProfile;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+//
+//    // Custom query to get all users with their profiles
+//    @Query("SELECT new com.project.booking.model.UserNameProfile(u.userId, u.username, u.userAvatar, u.userFullname, " +
+//           "u.userBirthday, u.userGender, u.userEmail, u.userCity, u.userPhone, u.userPoint) " +
+//           "FROM User u")
+//    List<UserNameProfile> getAllUserProfiles();
+    
 	// Lấy thông tin user bằng id
 	@Query(name = "User.getUserNameProfile", nativeQuery = true)
 	UserNameProfile getUserById(Integer userId);

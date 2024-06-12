@@ -23,13 +23,37 @@ import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 
 const AddNewCinema = () => {
-  const [startDate, setStartDate] = useState(new Date())
-  const [startTime, setStartTime] = useState('10:00')
+  const [cinemaName, setCinemaName] = useState('');
+  const [cinemaAddress, setCinemaAddress] = useState('');
 
-  const [endTime, setEndTime] = useState('18:00')
+  const handleAddCinema = () => {
+    const data = {
+      cinemaName,
+      cinemaAddress,
+    };
+    console.log(data)
 
-  console.log(startTime)
-  console.log(endTime)
+    fetch('http://localhost:80/admin/cinema/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Cinema added successfully');
+          alert('Thêm rạp thành công');
+          window.history.back()
+        } else {
+          console.error('Failed to add cinema');
+        }
+      })
+      .catch(error => {
+        console.error('Error adding cinema:', error);
+      });
+  };
+
   return (
     <CRow>
       <CCol xs={12}>
@@ -40,15 +64,15 @@ const AddNewCinema = () => {
           <CCardBody>
             <CForm className="row g-3">
               <CCol md={6}>
-                <CFormLabel htmlFor="trailer">Tên rạp</CFormLabel>
-                <CFormInput type="text" id="trailer" />
+                <CFormLabel htmlFor="inputName">Tên rạp</CFormLabel>
+                <CFormInput type="text" id="inputName" value={cinemaName} onChange={e => setCinemaName(e.target.value)} />
               </CCol>
               <CCol md={6}>
-                <CFormLabel htmlFor="cens">Địa chỉ</CFormLabel>
-                <CFormInput type="text" id="cens" />
+                <CFormLabel htmlFor="address">Địa chỉ</CFormLabel>
+                <CFormInput type="text" id="address" value={cinemaAddress} onChange={e => setCinemaAddress(e.target.value)} />
               </CCol>
               <CCol xs={12}>
-                <CButton color="primary" type="submit">
+                <CButton color="primary" onClick={handleAddCinema}>
                   Thêm rạp chiếu
                 </CButton>
               </CCol>
