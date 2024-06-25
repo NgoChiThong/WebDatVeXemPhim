@@ -89,7 +89,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/movies/search",
                         "/sendMail",
                         "/admin/orders",
-                        "/admin/orders/{id}"
+                        "/admin/orders/{id}",
+                        "/admin/user/all",
+                        "/admin/user/{userId}"
 
                 ).permitAll()
                 //swagger

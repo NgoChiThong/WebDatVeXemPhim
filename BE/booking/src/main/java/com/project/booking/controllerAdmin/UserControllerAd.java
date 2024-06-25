@@ -17,6 +17,7 @@ import com.project.booking.service.UserService;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @Api(value = "Api user")
@@ -36,4 +37,19 @@ public class UserControllerAd {
 //    public ResponseEntity<?> getAllUserProfile(){
 //        return ResponseEntity.ok(userService.getAllUser());
 //    }
+    
+    
+    
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+    @GetMapping("/{userId}")
+    public User getUserById(@PathVariable int userId) {
+        return userService.getUserById(userId);
+    }
+    
+    
+    
+    
 }

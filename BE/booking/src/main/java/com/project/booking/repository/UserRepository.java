@@ -64,4 +64,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query(value = "UPDATE users SET user_point = ?1 WHERE user_id = ?2", nativeQuery = true)
 	Integer addPoint(Double point, Integer userId);
+	
+	
+	 User findByUserId(int userId);
 }

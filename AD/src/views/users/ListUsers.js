@@ -1,82 +1,78 @@
-import React, { useState } from 'react'
-import { CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput } from '@coreui/react'
+import React, {useEffect, useState} from 'react'
+import {CRow, CCol, CCard, CCardHeader, CCardBody, CButton, CFormInput, CAlert, CSpinner} from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
 
 const ListUsers = () => {
   const [filterText, setFilterText] = useState('')
   const navigate = useNavigate()
+  const [users, setUsers] = useState([])
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:80/admin/user/all', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImV4cCI6MTcxOTM0Njc2NCwiaWF0IjoxNzE5MzI4NzY0fQ.9Maf8qg95croE66gs_DV07ex0ok3I48cnZVbXrEAE_txD27RQ9109kMjWEV8XFwrZVa8RR0DHRXhacfhoJM0RA' // Giả sử bạn lưu token trong localStorage
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        setUsers(data)
+      } catch (error) {
+        console.error('Lỗi khi lấy danh sách người dùng:', error)
+      }
+    }
+    fetchUsers()
+  }, [])
+
+console.log('Users:', users)
+
   const columns = [
     {
+      name: 'ID',
+      selector: (row) => row.userId,
+      sortable: true,
+    },
+    {
       name: 'Tên người dùng',
-      selector: (row) => row.id,
+      selector: (row) => row.username,
       sortable: true,
     },
     {
       name: 'Họ và tên',
-      selector: (row) => row.name,
+      selector: (row) => row.userFullname,
       sortable: true,
     },
     {
       name: 'Email',
-      selector: (row) => row.email,
+      selector: (row) => row.userEmail,
       sortable: true,
     },
     {
       name: 'Số điện thoại',
-      selector: (row) => row.phone,
+      selector: (row) => row.userPhone,
       sortable: true,
     },
     {
       name: 'Tác vụ',
       cell: (row) => (
         <div>
-          <CButton color="success" variant="outline" onClick={() => userDetail(row.id)}>
+          <CButton color="success" variant="outline" onClick={() => userDetail(row.userId)}>
             Xem
           </CButton>
-          {/*<CButton*/}
-          {/*  color="warning"*/}
-          {/*  variant="outline"*/}
-          {/*  onClick={() => movieEdit(row.id)}*/}
-          {/*  style={{ marginLeft: '10px' }}*/}
-          {/*>*/}
-          {/*  Sửa*/}
-          {/*</CButton>*/}
-          {/*<CButton*/}
-          {/*  color="danger"*/}
-          {/*  variant="outline"*/}
-          {/*  onClick={() => handleDelete(row.id)}*/}
-          {/*  style={{ marginLeft: '10px' }}*/}
-          {/*>*/}
-          {/*  Xóa*/}
-          {/*</CButton>*/}
         </div>
       ),
     },
   ]
 
-  const data = [
-    { id: 1, username: 'user1', name: 'Nguyen Van A', email: 'user1@example.com', phone: '0901234567' },
-    { id: 2, username: 'user2', name: 'Tran Thi B', email: 'user2@example.com', phone: '0901234568' },
-    { id: 3, username: 'user3', name: 'Le Van C', email: 'user3@example.com', phone: '0901234569' },
-    { id: 4, username: 'user4', name: 'Pham Thi D', email: 'user4@example.com', phone: '0901234570' },
-    { id: 5, username: 'user5', name: 'Hoang Van E', email: 'user5@example.com', phone: '0901234571' },
-    { id: 6, username: 'user6', name: 'Ngo Thi F', email: 'user6@example.com', phone: '0901234572' },
-    { id: 7, username: 'user7', name: 'Dang Van G', email: 'user7@example.com', phone: '0901234573' },
-    { id: 8, username: 'user8', name: 'Vo Thi H', email: 'user8@example.com', phone: '0901234574' },
-    { id: 9, username: 'user9', name: 'Bui Van I', email: 'user9@example.com', phone: '0901234575' },
-    { id: 10, username: 'user10', name: 'Vu Thi J', email: 'user10@example.com', phone: '0901234576' },
-    { id: 11, username: 'user11', name: 'Nguyen Van K', email: 'user11@example.com', phone: '0901234577' },
-    { id: 12, username: 'user12', name: 'Tran Thi L', email: 'user12@example.com', phone: '0901234578' },
-    { id: 13, username: 'user13', name: 'Le Van M', email: 'user13@example.com', phone: '0901234579' },
-    { id: 14, username: 'user14', name: 'Pham Thi N', email: 'user14@example.com', phone: '0901234580' },
-    { id: 15, username: 'user15', name: 'Hoang Van O', email: 'user15@example.com', phone: '0901234581' },
-    { id: 16, username: 'user16', name: 'Ngo Thi P', email: 'user16@example.com', phone: '0901234582' },
-    { id: 17, username: 'user17', name: 'Dang Van Q', email: 'user17@example.com', phone: '0901234583' },
-    { id: 18, username: 'user18', name: 'Vo Thi R', email: 'user18@example.com', phone: '0901234584' },
-    { id: 19, username: 'user19', name: 'Bui Van S', email: 'user19@example.com', phone: '0901234585' },
-    { id: 20, username: 'user20', name: 'Vu Thi T', email: 'user20@example.com', phone: '0901234586' },
-  ]
 
   const handleDelete = (id) => {
     console.log('Delete ID:', id)
@@ -93,12 +89,13 @@ const ListUsers = () => {
     />
   )
 
-  const filteredData = data.filter(
+  const filteredData = users.filter(
     (item) =>
-      item.id.toString().includes(filterText) ||
-      item.class.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.heading1.toLowerCase().includes(filterText.toLowerCase()) ||
-      item.heading2.toLowerCase().includes(filterText.toLowerCase()),
+      item.userId.toString().includes(filterText) ||
+      item.username.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.userFullname.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.userEmail.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.userPhone.includes(filterText),
   )
   const handleAddNew = () => {
     navigate('/users/add-new-user')
@@ -122,6 +119,14 @@ const ListUsers = () => {
             <strong>Danh sách người dùng</strong>
           </CCardHeader>
           <CCardBody>
+            {users === null ? (
+              <CAlert color="info">
+                <CSpinner size="sm" className="me-2" />
+                Đang tải dữ liệu, xin chờ...
+              </CAlert>
+            ) : error ? (
+              <CAlert color="danger">{error}</CAlert>
+            ) : (
             <DataTable
               columns={columns}
               data={filteredData}
@@ -129,6 +134,7 @@ const ListUsers = () => {
               subHeader
               subHeaderComponent={subHeaderComponent}
             />
+            )}
           </CCardBody>
         </CCard>
       </CCol>
