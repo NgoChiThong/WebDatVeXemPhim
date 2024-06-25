@@ -9,49 +9,54 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "order_details")
 public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int detail_id;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id", nullable = false)
+	@JsonIgnore
 	private Order order;
 
 	@Column(nullable = false)
-	private int scheduleId;
+	private int schedule_id;
 
 	@Column(nullable = false)
-	private int seatId;
+	private int seat_id;
 
 	@Column(nullable = false)
 	private Double price;
 
 	@Column(nullable = false)
-	private int seatStatus;
+	private int seat_status;
 
-	public OrderDetail(int id, Order order, int scheduleId, int seatId, Double price, int seatStatus) {
+	
+
+	public OrderDetail(int detail_id, Order order, int schedule_id, int seat_id, Double price, int seat_status) {
 		super();
-		this.id = id;
+		this.detail_id = detail_id;
 		this.order = order;
-		this.scheduleId = scheduleId;
-		this.seatId = seatId;
+		this.schedule_id = schedule_id;
+		this.seat_id = seat_id;
 		this.price = price;
-		this.seatStatus = seatStatus;
+		this.seat_status = seat_status;
 	}
 
 	public OrderDetail() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
-		return id;
+	public int getDetail_id() {
+		return detail_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDetail_id(int detail_id) {
+		this.detail_id = detail_id;
 	}
 
 	public Order getOrder() {
@@ -62,20 +67,20 @@ public class OrderDetail {
 		this.order = order;
 	}
 
-	public int getScheduleId() {
-		return scheduleId;
+	public int getSchedule_id() {
+		return schedule_id;
 	}
 
-	public void setScheduleId(int scheduleId) {
-		this.scheduleId = scheduleId;
+	public void setSchedule_id(int schedule_id) {
+		this.schedule_id = schedule_id;
 	}
 
-	public int getSeatId() {
-		return seatId;
+	public int getSeat_id() {
+		return seat_id;
 	}
 
-	public void setSeatId(int seatId) {
-		this.seatId = seatId;
+	public void setSeat_id(int seat_id) {
+		this.seat_id = seat_id;
 	}
 
 	public Double getPrice() {
@@ -86,12 +91,13 @@ public class OrderDetail {
 		this.price = price;
 	}
 
-	public int getSeatStatus() {
-		return seatStatus;
+	public int getSeat_status() {
+		return seat_status;
 	}
 
-	public void setSeatStatus(int i) {
-		this.seatStatus = i;
+	public void setSeat_status(int seat_status) {
+		this.seat_status = seat_status;
 	}
+
 
 }

@@ -36,6 +36,10 @@ public class OrderDTO {
 		this.total_price = total_price;
 	}
 
+	public OrderDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getOrderId() {
 		return orderId;
 	}

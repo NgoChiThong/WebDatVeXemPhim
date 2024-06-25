@@ -18,22 +18,22 @@ import javax.persistence.Table;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int order_id;
 
 	@Column(nullable = false)
-	private int userId;
+	private int user_id;
 
 	@Column(nullable = false)
-	private LocalDateTime orderDate;
+	private LocalDateTime order_date;
 
 	@Column(nullable = false)
-	private Double totalPrice;
+	private Double total_price;
 
 	@Column(nullable = false)
-	private int movieId;
+	private int movie_id;
 
 	@Column(nullable = false)
-	private int scheduleId;
+	private int schedule_id;
 
 	@Column(nullable = false)
 	private int status;
@@ -41,6 +41,7 @@ public class Order {
 	@Column(nullable = false)
 	private String order_code;
 
+//	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetails;
 
@@ -48,15 +49,17 @@ public class Order {
 
 	
 
-	public Order(int id, int userId, LocalDateTime orderDate, Double totalPrice, int movieId, int scheduleId,
+	
+
+	public Order(int order_id, int user_id, LocalDateTime order_date, Double total_price, int movie_id, int schedule_id,
 			int status, String order_code, Set<OrderDetail> orderDetails) {
 		super();
-		this.id = id;
-		this.userId = userId;
-		this.orderDate = orderDate;
-		this.totalPrice = totalPrice;
-		this.movieId = movieId;
-		this.scheduleId = scheduleId;
+		this.order_id = order_id;
+		this.user_id = user_id;
+		this.order_date = order_date;
+		this.total_price = total_price;
+		this.movie_id = movie_id;
+		this.schedule_id = schedule_id;
 		this.status = status;
 		this.order_code = order_code;
 		this.orderDetails = orderDetails;
@@ -66,60 +69,52 @@ public class Order {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
-		return id;
+	public int getOrder_id() {
+		return order_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getUser_id() {
+		return user_id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
-	public LocalDateTime getOrderDate() {
-		return orderDate;
+	public LocalDateTime getOrder_date() {
+		return order_date;
 	}
 
-	public void setOrderDate(LocalDateTime orderDate) {
-		this.orderDate = orderDate;
+	public void setOrder_date(LocalDateTime order_date) {
+		this.order_date = order_date;
 	}
 
-	public Double getTotalPrice() {
-		return totalPrice;
+	public Double getTotal_price() {
+		return total_price;
 	}
 
-	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotal_price(Double total_price) {
+		this.total_price = total_price;
 	}
 
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
+	public int getMovie_id() {
+		return movie_id;
 	}
 
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setMovie_id(int movie_id) {
+		this.movie_id = movie_id;
 	}
 
-	public int getMovieId() {
-		return movieId;
+	public int getSchedule_id() {
+		return schedule_id;
 	}
 
-	public void setMovieId(int movieId) {
-		this.movieId = movieId;
-	}
-
-	public int getScheduleId() {
-		return scheduleId;
-	}
-
-	public void setScheduleId(int scheduleId) {
-		this.scheduleId = scheduleId;
+	public void setSchedule_id(int schedule_id) {
+		this.schedule_id = schedule_id;
 	}
 
 	public int getStatus() {
@@ -137,7 +132,16 @@ public class Order {
 	public void setOrder_code(String order_code) {
 		this.order_code = order_code;
 	}
-	
+
+	public Set<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
+
 
 	// Getters and setters
 

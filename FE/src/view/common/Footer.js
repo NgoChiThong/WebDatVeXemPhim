@@ -88,7 +88,7 @@ export function Footer(){
                         <div className="container">
                             <div className="copyright-footer">
                                 <div className="columns text-lg-left">
-                                    <p>&copy; 2024 MyShowz. All rights reserved.</p>
+                                    <p>&copy; 2024 LuxCinema.vn  All rights reserved.</p>
                                 </div>
 
                                 <ul className="social text-lg-right">

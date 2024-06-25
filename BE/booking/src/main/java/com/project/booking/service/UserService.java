@@ -44,14 +44,14 @@ public class UserService {
        return new ResponseData<>(HttpStatus.OK, "success", user);
    }
     
-    public ResponseData<UserNameProfile > getAllUser(){
-        List<UserNameProfile > rs = userRepository.getAllUserProfiles();
-        if(CollectionUtils.isEmpty(rs)){
-            return new ResponseData(HttpStatus.NOT_FOUND, "failed", null);
-        }else{
-            return new ResponseData(HttpStatus.OK, "success",rs);
-        }
-    }
+//    public ResponseData<UserNameProfile > getAllUser(){
+//        List<UserNameProfile > rs = userRepository.getAllUserProfiles();
+//        if(CollectionUtils.isEmpty(rs)){
+//            return new ResponseData(HttpStatus.NOT_FOUND, "failed", null);
+//        }else{
+//            return new ResponseData(HttpStatus.OK, "success",rs);
+//        }
+//    }
 
 	public ResponseData<String> updateUser(Authentication authentication, UserNameProfile user) {
 		Integer userId = userRepository.findIdByUsername(authentication.getName());

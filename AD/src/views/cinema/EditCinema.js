@@ -14,7 +14,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import { useParams } from 'react-router-dom'
-import {c} from "vite/dist/node/types.d-aGj9QkWt";
 
 const EditCinema = () => {
   const { id } = useParams();

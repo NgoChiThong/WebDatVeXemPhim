@@ -59,11 +59,11 @@ public class BookService {
 		double totalPrice = bookRequest.getPrice();
 
 		Order order = new Order();
-		order.setUserId(userId);
-		order.setOrderDate(LocalDateTime.now());
-		order.setTotalPrice(totalPrice);
-		order.setMovieId(bookRequest.getMovieId());
-		order.setScheduleId(bookRequest.getScheduleId());
+		order.setUser_id(userId);
+		order.setOrder_date(LocalDateTime.now());
+		order.setTotal_price(totalPrice);
+		order.setMovie_id(bookRequest.getMovieId());
+		order.setSchedule_id(bookRequest.getScheduleId());
 		order.setStatus(bookRequest.getStatus());
 		order.setOrder_code(bookRequest.getOrder_code());
 		order = orderRepository.save(order);
@@ -72,17 +72,17 @@ public class BookService {
 		List<OrderDetail> orderDetails = bookRequest.getSeatIds().stream().map(seatId -> {
 			OrderDetail detail = new OrderDetail();
 			detail.setOrder(finalOrder);
-			detail.setScheduleId(bookRequest.getScheduleId());
-			detail.setSeatId(seatId);
+			detail.setSchedule_id(bookRequest.getScheduleId());
+			detail.setSeat_id(seatId);
 			detail.setPrice(bookRequest.getPrice());
-			detail.setSeatStatus(bookRequest.getSeatStatus());
+			detail.setSeat_status(bookRequest.getSeatStatus());
 			return detail;
 		}).collect(Collectors.toList());
 
 		orderDetailRepository.saveAll(orderDetails);
 
 		// Update the status and add points to the user
-		updateStatus(authentication, order.getId(), totalPrice);
+		updateStatus(authentication, order.getUser_id(), totalPrice);
 
 		return order;
 	}
@@ -112,12 +112,41 @@ public class BookService {
 			String roomName = (String) result[8];
 			String seats = (String) result[9];
 			double total_price = (Double) result[10];
-			OrderDTO orderDTO = new OrderDTO(orderId, order_code, order_date, movieName, movie_poster, scheduleDate, scheduleStart, cinemaName,
-					roomName, seats, total_price );
+			OrderDTO orderDTO = new OrderDTO(orderId, order_code, order_date, movieName, movie_poster, scheduleDate,
+					scheduleStart, cinemaName, roomName, seats, total_price);
 			orders.add(orderDTO);
 		}
 
 		return orders;
+	}
+
+	public List<Order> getAllOrders() {
+		return orderRepository.findAll();
+	}
+
+	// lay thong tin ve
+	public OrderDTO getOrdersById(Integer id) {
+		List<Object[]> results = bookRepository.findOrdersById(id);
+		OrderDTO orderDTO = new OrderDTO();
+
+		for (Object[] result : results) {
+			Integer orderId = (Integer) result[0];
+			String order_code = (String) result[1];
+			Timestamp order_date = (Timestamp) result[2];
+			String movieName = (String) result[3];
+			String movie_poster = (String) result[4];
+			Date scheduleDate = (Date) result[5];
+			Time scheduleStart = (Time) result[6];
+			String cinemaName = (String) result[7];
+			String roomName = (String) result[8];
+			String seats = (String) result[9];
+			double total_price = (Double) result[10];
+			orderDTO = new OrderDTO(orderId, order_code, order_date, movieName, movie_poster, scheduleDate,
+					scheduleStart, cinemaName, roomName, seats, total_price);
+			
+		}
+
+		return orderDTO;
 	}
 
 }

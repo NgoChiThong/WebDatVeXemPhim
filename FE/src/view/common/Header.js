@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 export function Header() {
@@ -64,42 +64,51 @@ export function Header() {
         };
     }, []);
 
+
+    const fetchSearchResults = async (keyword) => {
+        const response = await fetch('http://localhost:80/movies/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ keyword })
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data.data;
+    };
+
     const handleSearchSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:80/movies/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ keyword: searchKeyword })
-            });
-            const data = await response.json();
-            setSearchResults(data.data);
+            const results = await fetchSearchResults(searchKeyword);
+            setSearchResults(results);
         } catch (error) {
             console.error('Error searching for movies:', error);
             setSearchResults([]);
         }
     };
-    const handleSearchChange = async (e) => {
-        const keyword = e.target.value;
-        setSearchKeyword(keyword); // Cập nhật keyword vào state
 
-        try {
-            const response = await fetch('http://localhost:80/movies/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ keyword: keyword })
-            });
-            const data = await response.json();
-            setSearchResults(data.data);
-        } catch (error) {
-            console.error('Error searching for movies:', error);
-            setSearchResults([]);
-        }
+    const handleSearchChange = (e) => {
+        const keyword = e.target.value;
+        setSearchKeyword(keyword);
+        debounceSearch(keyword);
     };
+
+    const debounceSearch = useCallback((keyword) => {
+        clearTimeout(debounceSearch.timeoutId);
+        debounceSearch.timeoutId = setTimeout(async () => {
+            try {
+                const results = await fetchSearchResults(keyword);
+                setSearchResults(results);
+            } catch (error) {
+                console.error('Error searching for movies:', error);
+                setSearchResults([]);
+            }
+        }, 300); // 300ms
+    }, []);
 
     return (
         <div>
@@ -108,7 +117,7 @@ export function Header() {
                     <div className="container">
                         <h1><Link to={'/'}><a className="navbar-brand"><span className="fa fa-play icon-log"
                                                                              aria-hidden="true"></span>
-                            MyShowz</a></Link></h1>
+                            LuxCinema.vn</a></Link></h1>
                         <button className="navbar-toggler collapsed" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false"
