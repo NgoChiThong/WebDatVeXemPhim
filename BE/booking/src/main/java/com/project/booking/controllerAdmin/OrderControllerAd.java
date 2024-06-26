@@ -1,6 +1,9 @@
 package com.project.booking.controllerAdmin;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.booking.entity.Order;
@@ -42,6 +46,19 @@ public class OrderControllerAd {
 		
 	}
 	
+	 @GetMapping("/monthly-revenue/{year}")
+	    public Map<String, Object> getMonthlyRevenue(@PathVariable Integer year) {
+	        List<BigDecimal> revenues = bookService.getMonthlyRevenue(year);
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("datasets", List.of(Map.of(
+	                "data", revenues
+	        )));
+	        return response;
+	    }
 	
+	 @GetMapping("/today")
+	    public List<Order> getTodayOrders() {
+	        return bookService.getOrdersForToday();
+	    }
 	
 }

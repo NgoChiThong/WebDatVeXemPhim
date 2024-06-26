@@ -1,14 +1,17 @@
 package com.project.booking.service;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.transaction.Transactional;
 
@@ -42,6 +45,9 @@ public class BookService {
 
 	@Autowired
 	private OrderDetailRepository orderDetailRepository;
+	
+	
+
 
 //    public ResponseData<Book> bookTicket(Authentication authentication, BookRequest bookRequest){
 //        Integer userId = userRepository.findIdByUsername(authentication.getName());
@@ -148,5 +154,20 @@ public class BookService {
 
 		return orderDTO;
 	}
+
+	public List<BigDecimal> getMonthlyRevenue(int year) {
+        return IntStream.rangeClosed(1, 12)
+                .mapToObj(month -> {
+                    LocalDateTime startDate = YearMonth.of(year, month).atDay(1).atStartOfDay();
+                    LocalDateTime endDate = YearMonth.of(year, month).atEndOfMonth().atTime(23, 59, 59);
+                    return orderRepository.findTotalPriceByOrderDateBetween(startDate, endDate)
+                            .orElse(BigDecimal.ZERO);
+                })
+                .collect(Collectors.toList());
+    }
+
+	 public List<Order> getOrdersForToday() {
+	        return orderRepository.findOrdersForToday();
+	    }
 
 }

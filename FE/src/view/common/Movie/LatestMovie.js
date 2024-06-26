@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
 
 const LatestMovie = () => {
     const [movies, setMovies] = useState([]);
@@ -49,7 +48,7 @@ const LatestMovie = () => {
                 if (isMounted) {
                     if (data.status === 'OK') {
                         setMovies(data.data);
-                        console.log('Movies:', data.data);
+                        // console.log('Movies:', data.data);
                     } else {
                         console.error('Error fetching movies:', data.msg);
                     }
@@ -131,12 +130,6 @@ const LatestMovie = () => {
                                                 <h4 style={{fontSize: "medium"}}>Phân loại phim: </h4>
                                                 <p>{movie.movieCens}</p>
                                             </div>
-                                            <Link to={`/detail/${movie.movieId}`}>
-                                            <div className="bookbtn">
-                                                <button type="button" className="btn btn-success">Đặt vé ngay
-                                                </button>
-                                            </div>
-                                            </Link>
                                         </div>
                                     </div>
                                 </div>

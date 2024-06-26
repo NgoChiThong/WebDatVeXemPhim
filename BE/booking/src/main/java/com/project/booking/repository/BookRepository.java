@@ -45,5 +45,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 			+ "JOIN seats seat ON od.seat_id = seat.seat_id " + "WHERE o.order_id = :idOrder "
 			+ "GROUP BY o.order_id, o.order_code, o.order_date, m.movie_name, m.movie_poster, s.schedule_date, s.schedule_start, c.cinema_name, r.room_name, o.total_price ORDER BY  o.order_id DESC", nativeQuery = true)
 	List<Object[]> findOrdersById(@Param("idOrder") Integer idOrder);
+	
+	
 
 }
