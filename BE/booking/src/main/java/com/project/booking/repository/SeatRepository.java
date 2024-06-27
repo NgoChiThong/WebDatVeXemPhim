@@ -28,7 +28,7 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
     
     @Query(value ="SELECT se.seat_id,	se.seat_type,	se.room_id,	se.seat_row, se.seat_number "
     		+ "FROM schedule s "
-    		+ "INNER JOIN booking b ON s.schedule_id = b.schedule_id "
+    		+ "INNER JOIN order_details b ON s.schedule_id = b.schedule_id "
     		+ "INNER JOIN seats se ON b.seat_id = se.seat_id "
     		+ "WHERE s.schedule_id = :scheduleId", nativeQuery = true )
      List<Seat> findSeatsBookedByScheduleId(Integer scheduleId);

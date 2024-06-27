@@ -8,7 +8,7 @@ export function User(){
 
     const [activeTab, setActiveTab] = useState('profile');
     const navigate = useNavigate();  // Using useNavigate hook for navigation
-
+    const [tickets, setTickets] = useState([]);
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
@@ -53,6 +53,71 @@ export function User(){
         // Redirect to login page
         navigate('/signin');
     };
+    useEffect(() => {
+        const fetchTickets = async () => {
+            try {
+                const response = await fetch('http://localhost:80/book/user', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setTickets(data);
+                    console.log(data);
+                } else {
+                    console.error('Error fetching tickets:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching tickets:', error);
+            }
+        };
+
+        fetchTickets();
+    }, []);
+
+    function formatDate(dateString) {
+        // Tách ngày, tháng và năm từ chuỗi ngày đầu vào
+        const [year, month, day] = dateString.split('-');
+
+        // Trả về chuỗi đã định dạng lại
+        return `${day}-${month}-${year}`;
+    }
+    function formatCurrencyVND(amount) {
+        let priceCopy = amount; // Tạo một bản sao của amount
+        if (typeof amount !== 'number') {
+            priceCopy = parseFloat(amount);
+            if (isNaN(priceCopy)) {
+                return null; // Trả về null nếu giá trị không thể chuyển đổi thành số
+            }
+        }
+        return priceCopy.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    }
+    function convertToTimeZone(dateString) {
+        // Bước 1: Tạo đối tượng Date từ chuỗi ISO
+        const date = new Date(dateString);
+
+        // Bước 2: Chuyển đổi múi giờ +7
+        // Lấy thời gian Unix timestamp và cộng thêm 7 giờ (25200 giây)
+        const timeZoneOffset = 7 * 60 * 60 * 1000;
+        const localDate = new Date(date.getTime() + timeZoneOffset);
+
+        // Bước 3: Định dạng lại ngày giờ
+        const hours = String(localDate.getUTCHours()).padStart(2, '0');
+        const minutes = String(localDate.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(localDate.getUTCSeconds()).padStart(2, '0');
+        const day = String(localDate.getUTCDate()).padStart(2, '0');
+        const month = String(localDate.getUTCMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        const year = localDate.getUTCFullYear();
+
+        // Kết quả cuối cùng
+        const formattedDate = `${hours}:${minutes}:${seconds}  ${day}-${month}-${year}`;
+        return formattedDate;
+    }
+
+
+
 
     return(
         <div>
@@ -193,27 +258,30 @@ export function User(){
                                             {activeTab === 'favorite' && (
                                                 <div className="col-md-9 col-sm-12 col-xs-12">
                                                     <div className="flex-wrap-movielist user-fav-list">
-                                                        <div className="movie-item-style-2">
-                                                            <img src="/assets/images/n5.jpg" alt=""/>
-                                                            <div className="mv-item-infor">
-                                                                <h6><a href="#">oblivion <span>(2012)</span></a></h6>
-                                                                <p className="rate"><i
-                                                                    className="ion-android-star"></i><span>8.1</span> /10
-                                                                </p>
-                                                                <p className="describe">Earth's mightiest heroes must
-                                                                    come
-                                                                    together and learn to fight as a team if they are to
-                                                                    stop the mischievous Loki and his alien army from
-                                                                    enslaving humanity...</p>
-                                                                <p className="run-time"> Run Time: 2h21’
-                                                                    . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
-                                                                </p>
-                                                                <p>Director: <a href="#">Joss Whedon</a></p>
-                                                                <p>Stars: <a href="#">Robert Downey Jr.,</a> <a
-                                                                    href="#">Chris
-                                                                    Evans,</a> <a href="#"> Chris Hemsworth</a></p>
-                                                            </div>
-                                                        </div>
+                                                        {tickets.length === 0 ? (
+                                                            <p>No tickets found.</p>
+                                                        ) : (
+                                                            tickets.map(ticket => (
+                                                                <div className="movie-item-style-2"
+                                                                     key={ticket.orderId}>
+                                                                    <img src={ticket.moviePoster} style={{width: "200px", height: "300px"}}
+                                                                         alt={ticket.movieName}/>
+                                                                    <div className="mv-item-infor">
+                                                                        <h6><a href="#">{ticket.movieName}</a>
+                                                                        </h6>
+                                                                        <p>Mã đặt vé: {ticket.order_code}</p>
+                                                                        <p>Thời gian đặt vé: {convertToTimeZone(ticket.order_date)}</p>
+                                                                        <p className="run-time">
+                                                                            Thời gian chiếu: {ticket.scheduleStart} {formatDate(ticket.scheduleDate)}
+                                                                        </p>
+                                                                        <p>Số ghế: {ticket.seats}</p>
+                                                                        <p>Phòng chiếu: {ticket.roomName}</p>
+                                                                        <p>Rạp: {ticket.cinemaName}</p>
+                                                                        <p>Tổng tiền: {formatCurrencyVND(ticket.total_price)}</p>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        )}
                                                     </div>
                                                 </div>
                                             )}

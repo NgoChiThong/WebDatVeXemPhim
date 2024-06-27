@@ -61,21 +61,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
 
                 .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers(
                         "/authenticate",
                         "/seat/{schedule_id}/seat-empty",
                         "/movies/now",
                         "/movies/future",
+                        "/admin/schedule/**",
                         "/schedule/**",
                         "/user/register",
                         "/user/login",
                         "/user/info",
+                        "/user/update",
                         "/movies/**",
+                        "/movies/**",
+                        "/admin/movies/**",
                         "/movies",
+                        "/cinema",
+                        "/admin/cinema/**",
+                        "/cinema/**",
                         "/cinema/{schedule_id}",
                         "/seat/s/{schedule_id}",
                         "/seat/sbooked/{schedule_id}",
-                        "/book/create"
+                        "/room/**",
+                        "/admin/room/**",
+                        "/book/create",
+                        "/book/user",
+                        "/movies/search",
+                        "/sendMail",
+                        "/admin/orders",
+                        "/admin/orders/{id}",
+                        "/admin/user/all",
+                        "/admin/user/{userId}",
+                        "/admin/orders/monthly-revenue/{year}"
 
                 ).permitAll()
                 //swagger

@@ -48,4 +48,41 @@ public class ScheduleService {
 			return new ResponseData(HttpStatus.OK, "success", rs);
 		}
 	}
+	public ResponseData<Schedule> getScheduleById(Integer scheduleId) {
+   	 Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
+       if (schedule == null) {
+           return new ResponseData<>(HttpStatus.NOT_FOUND, "Schedule not found", null);
+       }
+       return new ResponseData<>(HttpStatus.OK, "success", schedule);
+   }
+	
+	public ResponseData<Schedule> getAllSchedule(){
+        List<Schedule> rs = scheduleRepository.getAllSchedules();
+        if(CollectionUtils.isEmpty(rs)){
+            return new ResponseData(HttpStatus.NOT_FOUND, "failed", null);
+        }else{
+            return new ResponseData(HttpStatus.OK, "success",rs);
+        }
+    }
+
+	public Schedule addSchedule(Schedule schedule) {
+		return scheduleRepository.save(schedule);
+	}
+
+	public Schedule updateSchedule(int scheduleId, Schedule scheduleDetails) {
+	    Schedule schedule = scheduleRepository.findById(scheduleId)
+	            .orElseThrow(() -> new RuntimeException("Schedule not found with id: " + scheduleId));
+	    schedule.setMovieId(scheduleDetails.getMovieId());
+	    schedule.setRoomId(scheduleDetails.getRoomId());
+	    schedule.setScheduleDate(scheduleDetails.getScheduleDate());
+	    schedule.setScheduleStart(scheduleDetails.getScheduleStart());
+	    schedule.setScheduleEnd(scheduleDetails.getScheduleEnd());
+	    return scheduleRepository.save(schedule);
+	}
+	
+	public void deleteSchedule(int scheduleId) {
+	    Schedule schedule = scheduleRepository.findById(scheduleId)
+	            .orElseThrow(() -> new RuntimeException("Schedule not found with id: " + scheduleId));
+	    scheduleRepository.delete(schedule);
+	}
 }
